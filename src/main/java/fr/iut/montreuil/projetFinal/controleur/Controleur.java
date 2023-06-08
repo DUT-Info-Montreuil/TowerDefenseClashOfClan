@@ -45,16 +45,21 @@ public class Controleur implements Initializable {
     private Button ajouter;
     //private ListObsEnnemi listObsEnnemi;
 
+    private int dd = (int)(Math.random()*10 );
+    private CaseDebut caseDebut;
+
     @FXML
     ListChangeListener<Ennemi> listObs;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         this.environnement = new Environnement(75, 50);
-        this.bfs = new Bfs(environnement);
-        Case d = new Case(bfs.getDebut().get(3).getY(),bfs.getDebut().get(3).getX());
-        bfs.setC(d);
+        this.bfs = new Bfs(environnement,21,2);
+        caseDebut = new CaseDebut(environnement);
+//        Case d = new Case(bfs.getDebut().get(3).getY(),bfs.getDebut().get(3).getX());
+//        bfs.setC(d);
 
         environnement.unTour();
         ennemi = new Ennemi(0,0,environnement);
@@ -73,11 +78,14 @@ public class Controleur implements Initializable {
     }
 
 
+    public int getDd() {
+        return dd;
+    }
 
     @FXML
     void ajouter(ActionEvent event) {
-       Ennemi ennemi = new Ennemi(50,50,environnement) ;
-       environnement.ajouterEnnemi(ennemi);
+        Ennemi ennemi = new Ennemi(50,50,environnement) ;
+        environnement.ajouterEnnemi(ennemi);
     }
 
     @FXML
@@ -132,7 +140,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(2),
+                Duration.seconds(0.2),
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
@@ -143,10 +151,7 @@ public class Controleur implements Initializable {
                         System.out.println("fini");
                         gameLoop.stop();
                     }
-//                    if (environnement.getTour() %20 == 0){
-//                        Ennemi e = new Ennemi(50,50,environnement);
-//                        environnement.ajouterEnnemi(e);
-//                    }
+
                     //environnement.unTour();
 
 //                    else if (!ennemi.estArriver()){

@@ -19,14 +19,13 @@ public class Bfs {
     Case debutCase;
     private static int index;
 
-    public Bfs(Environnement t) {
+    public Bfs(Environnement t,int x, int y) {
         index = (int)(Math.random()*10 );
         this.terrain = t;
         this.BFS = new int[terrain.getHeight()][terrain.getWidth()];
         debut = new ArrayList<>();
 //        BFS[x][y] =0;
-//        this.c = new Case(x,y);
-        this.c= new Case(2,21);
+        this.c = new Case(y,x);
         for (int i = 0; i < BFS.length; i++) {
             for (int j = 0; j < BFS[i].length; j++) {
 
@@ -40,22 +39,24 @@ public class Bfs {
                     BFS[i][j] = -5;
                 }
 
-                if (terrain.getTerrain()[i][j] == 197 ) {
-                    if (3 == index) {
-                        BFS[i][j] = 0;
-                        this.c = new Case(i, j);
-                    }
-                    else {
-                        index++;
-                        System.out.println("index : " + index);
-                        break;
-                    }
-                    break;
-                }
+//                if (terrain.getTerrain()[i][j] == 197 ) {
+//                    if (9 == index) {
+//                        System.out.println("oui dans 3 == index  i : " + i + " j: " + j);
+//                        BFS[i][j] = 0;
+//                        this.c = new Case(i, j);
+//                    }
+//                    else {
+//                        index++;
+//                        System.out.println("index : " + index);
+//                        break;
+//                    }
+//                    break;
+//                }
 
 
             }
         }
+        this.c = new Case(y,x);
         System.out.println("taille de debut : " + debut);
 //        int dd = (int)(Math.random()*debut.size() );
 //        BFS[debut.get(dd).getX()][debut.get(dd).getY()] = 0;
@@ -297,4 +298,3 @@ public class Bfs {
         return debut;
     }
 }
-
