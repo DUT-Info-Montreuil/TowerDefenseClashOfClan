@@ -2,8 +2,6 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.Lancement;
-import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
-import fr.iut.montreuil.projetFinal.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -116,21 +114,35 @@ public class Controleur implements Initializable {
         imageView.setTranslateX(tour.getX()-24);
         imageView.setTranslateY(tour.getY()-24);
         Pane.getChildren().add(imageView);
-
-//        Rectangle t = new Rectangle(50, 50);
-//        t.setFill(Color.BURLYWOOD);
-//        t.setTranslateX(tour.getX() - 25);
-//        t.setTranslateY(tour.getY() -25);
-//        Pane.getChildren().add(t);
     }
 
     public void placerTour(MouseEvent event) {
-        if (ajouterTour.isSelected()) {
-            Tour tour = new Tour("Tour d'archer", event.getX(), event.getY(), environnement);
-            environnement.ajouterTour(tour);
-            creerTour(tour);
-            //tour.tir();
+        double xC = event.getX();
+        double yC = event.getY();
+//        if (ajouterTour.isSelected()) {
+//            if (placementTourCorrect(xC, yC)){
+//                Tour tour = new Tour("Tour d'archer", xC, yC, environnement);
+//                environnement.ajouterTour(tour);
+//                creerTour(tour);
+//            }
+//        }
+        System.out.println(xC + " " + yC + " " + environnement.getCase((int) xC, (int) yC));
+    }
+
+    public boolean placementTourCorrect(double x, double y){
+        int mapX = (int) (x /8);
+        int mapY = (int) (y /8);
+
+        if ( environnement.getCase(mapX, mapY) == 213){
+//            for (Tour t : environnement.getListeTour()){
+//                if (((int) (t.getX() / 8) == mapX) && ((int) (t.getY() / 8) == mapY)){
+//                    System.out.println("impossible de poser la tour ici");
+//                    return false;
+//                }
+//            }
+            return true;
         }
+        return false;
     }
 
     private void initAnimation() {

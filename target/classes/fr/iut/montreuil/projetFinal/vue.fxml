@@ -17,10 +17,7 @@
         <Pane fx:id="Pane" onMouseClicked="#placerTour">
             <TilePane fx:id="tilePane" maxHeight="800.0" maxWidth="1200.0" prefColumns="75">
             </TilePane>
-
         </Pane>
-
-
     </center>
    <bottom>
       <Button mnemonicParsing="false" onAction="#fairTour" text="tour" BorderPane.alignment="CENTER" />

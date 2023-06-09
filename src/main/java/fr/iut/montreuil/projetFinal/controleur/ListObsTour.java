@@ -49,9 +49,4 @@ public class ListObsTour implements ListChangeListener<Tour> {
         pane.getChildren().add(t);
     }
 
-    public void placerTour(MouseEvent event) {
-        Tour tour = new Tour("Tour d'archer", event.getX(), event.getY(), env);
-        env.ajouterTour(tour);
-        creerTour(tour);
-    }
 }

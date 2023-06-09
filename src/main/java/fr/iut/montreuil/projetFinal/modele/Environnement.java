@@ -76,6 +76,7 @@ public class Environnement {
     public int getNbToursProperty() {
         return nbToursProperty.get();
     }
+
     public void setNbToursProperty(int nbToursProperty) {
         this.nbToursProperty.set(nbToursProperty);
     }
@@ -86,6 +87,14 @@ public class Environnement {
 
     public ObservableList<Ennemi> getEnnemis() {
         return ennemi;
+    }
+
+    public ObservableList<Tour> getListeTour() {
+        return listeTour;
+    }
+
+    public ObservableList<Projectile> getListeProjectile() {
+        return listeProjectile;
     }
 
     public Ennemi getEnnemi(String id){
@@ -122,21 +131,29 @@ public class Environnement {
 
     this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
     }
+
     public int[][] getTerrain() {
         return terrain;
     }
+
+    public int getCase(int i, int j){return terrain[i][j];}
+
     public int getHeight() {
         return height;
     }
+
     public int getWidth() {
         return width;
     }
+
     public boolean dansLeTerrain(int y, int x){
         return (0 <= x && x<this.width && 0<=y && y< this.height);
     }
+
     public void ajouterProjectile (Projectile p){
         listeProjectile.add(p);
     }
+
     public void ajouterTour(Tour t){
         listeTour.add(t);
     }
