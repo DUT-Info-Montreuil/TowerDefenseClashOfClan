@@ -159,6 +159,8 @@ public class Environnement {
         listeProjectile.add(p);
     }
 
+    public void enleverProjectile(Projectile p){listeProjectile.remove(p);}
+
     public void ajouterTour(Tour t){
         listeTour.add(t);
     }

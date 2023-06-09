@@ -44,8 +44,12 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
     public void creerProjectile(Projectile p){
         Circle boulet = new Circle(3);
         boulet.setFill(Color.BLACK);
-        boulet.setTranslateX(p.getX());
-        boulet.setTranslateY(p.getY());
+//        boulet.setTranslateX(p.getX());
+//        boulet.setTranslateY(p.getY());
+
+        boulet.translateXProperty().bind(p.getxProperty());
+        boulet.translateYProperty().bind(p.getyProperty());
         pane.getChildren().add(boulet);
+
     }
 }
