@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,14 +35,23 @@ public class Controleur implements Initializable {
     //private Barbare barbare;
     private Timeline gameLoop;
     private int temps;
-
+    @FXML
+    private Circle troupe;
     private Bfs bfs;
     private Ennemi ennemi ;
     @FXML
-    private RadioButton ajouterTour;
+    private RadioButton ajouterTourArchers;
+    @FXML
+    private Label compteurOr;
+    @FXML
+    private Label messageJoueur;
 
     @FXML
     private Button ajouter;
+    //private ListObsEnnemi listObsEnnemi;
+
+    private int dd = (int)(Math.random()*10 );
+    private CaseDebut caseDebut;
 
     @FXML
     ListChangeListener<Ennemi> listObs;
@@ -52,7 +62,12 @@ public class Controleur implements Initializable {
 
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement,21,2);
+        caseDebut = new CaseDebut(environnement);
+//        Case d = new Case(bfs.getDebut().get(3).getY(),bfs.getDebut().get(3).getX());
+//        bfs.setC(d);
+
         environnement.unTour();
+        ennemi = new Barbare(0,0,environnement);
 
         URL ImageTile = Lancement.class.getResource("tiles_12.png");
         Image imTile = new Image(String.valueOf(ImageTile));
@@ -63,22 +78,21 @@ public class Controleur implements Initializable {
         }
         listObs = new ListObsEnnemi(Pane, environnement);
         environnement.getEnnemis().addListener(listObs);
+        compteurOr.textProperty().bind(environnement.orProperty().asString());
+        messageJoueur.textProperty().bind(environnement.messageProperty());
         initAnimation();
         gameLoop.play();
     }
 
 
+    public int getDd() {
+        return dd;
+    }
+
     @FXML
     void ajouter(ActionEvent event) {
-        if (environnement.getNbToursProperty() % 2 == 0){
-            Ennemi archer = new Archer(45,45,environnement);
-            environnement.ajouterEnnemi(archer);
-        }
-        else {
-            Ennemi barbare = new Barbare(50,50,environnement);
-            environnement.ajouterEnnemi(barbare);
-        }
-
+        Barbare ennemi = new Barbare(50,50,environnement) ;
+        environnement.ajouterEnnemi(ennemi);
     }
 
     @FXML
@@ -102,7 +116,7 @@ public class Controleur implements Initializable {
     }
 
     @FXML
-    void creerTour(Tour tour){
+    void creerTourArchers(Tour tour){
         URL url = Lancement.class.getResource("tda_Coc.png");
         Image image = new Image(String.valueOf(url));
         ImageView imageView = new ImageView(image);
@@ -118,11 +132,18 @@ public class Controleur implements Initializable {
     }
 
     public void placerTour(MouseEvent event) {
-        if (ajouterTour.isSelected()) {
-            Tour tour = new Tour("Tour d'archer", event.getX(), event.getY(), environnement);
-            environnement.ajouterTour(tour);
-            creerTour(tour);
-            //tour.tir();
+        if (ajouterTourArchers.isSelected()) {
+            TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
+            if ((environnement.getorProperty() - tour.getPrix()) >= 0) {
+                environnement.setorProperty((environnement.getorProperty() - tour.getPrix()));
+                environnement.ajouterTour(tour);
+                creerTourArchers(tour);
+                environnement.setmessageProperty("Tour d'archers placée");
+                //tour.tir();
+            }
+            else {
+                environnement.setmessageProperty("Vous n'avez pas assez d'argent !");
+            }
         }
     }
 

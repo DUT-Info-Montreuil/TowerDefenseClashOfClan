@@ -9,7 +9,7 @@ public class Ennemi {
 
     protected Environnement env;
     private String id;
-    private int vitesse;
+    //private int v;
     private IntegerProperty xProperty, yProperty;
 
     private IntegerProperty pv;
@@ -20,33 +20,43 @@ public class Ennemi {
     private int dd = (int)(Math.random()*10 );
 
 
-    public Ennemi(int y, int x,Environnement env, int pv, int v){
-        this.vitesse = v;
+    public Ennemi(int y, int x,Environnement env){
         this.id = "A"+compteur;
         compteur++;
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.env = env;
-        this.pv = new SimpleIntegerProperty(pv);
+        this.pv = new SimpleIntegerProperty(100);
         this.bfs = new Bfs(this.env,21,2);
         caseDebut = new CaseDebut(env);
         this.suivant = 0;
     }
 
     public  void seDeplacer(){
+        System.out.println("dd : " + dd);
         this.bfs = new Bfs(env, caseDebut.getcaseDebut().get(dd).getY(),caseDebut.getcaseDebut().get(dd).getX());
+        System.out.println("caseDebut : " + caseDebut.getcaseDebut() + " get 3 : " + caseDebut.getcaseDebut().get(3).getY());
+        //Case c = new Case(caseDebut.getcaseDebut().get(3).getY(),caseDebut.getcaseDebut().get(3).getX());
+
+
+        //this.bfs = new Bfs(this.env, bfs.getDebut().get(controleur.getDd()).getX(), bfs.getDebut().get(controleur.getDd()).getY());
+        //Case c = new Case(bfs.getDebut().get(controleur.getDd()).getX(), bfs.getDebut().get(controleur.getDd()).getY());
+        //bfs.setC(c);
+        //Case d = new Case(bfs.getDebut().get(5).getY(),bfs.getDebut().get(5).getX());
+        //bfs.setC(d);
+
+        System.out.println("ennemi : " + getId() + " e.setY : " + bfs.vraiChemin.get(getSuivant()).getY()*16 + " e.setX : " + bfs.vraiChemin.get(getSuivant()).getX()*16 + " suivant : " + getSuivant());
 
 
         if (suivant< bfs.vraiChemin.size()-1){
-            suivant = suivant+this.vitesse;
+            suivant++;
             setY(bfs.vraiChemin.get(getSuivant()).getY()*16);
             setX(bfs.vraiChemin.get(getSuivant()).getX()*16);
         }
-
-
-        if (suivant == bfs.vraiChemin.size()-1 || suivant+1 == bfs.vraiChemin.size()-1){
+        if (suivant == bfs.vraiChemin.size()-1){
             this.setPv(0);
         }
+        System.out.println("--------------------------------------------------------------------------------");
 
     }
 
@@ -108,17 +118,4 @@ public class Ennemi {
     public int getBfs() {
         return bfs.vraiChemin.size()-1;
     }
-
-    public int getVitesse() {
-        return vitesse;
-    }
-
-    @Override
-    public String toString() {
-        return "Ennemi{" +
-                "id='" + id + '\'' +
-                '}';
-    }
-
-
 }
