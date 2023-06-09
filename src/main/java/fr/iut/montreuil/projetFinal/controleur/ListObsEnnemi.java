@@ -13,9 +13,9 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 
 public class ListObsEnnemi implements ListChangeListener<Ennemi> {
+
     @FXML
     private Pane paneMap;
-
     private Environnement env;
 
 
@@ -23,6 +23,7 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
         this.paneMap = paneMap;
         this.env = env;
     }
+
     @Override
     public void onChanged(Change<?extends Ennemi> change) {
         while (change.next()) {

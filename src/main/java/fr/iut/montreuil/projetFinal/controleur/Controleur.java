@@ -2,8 +2,6 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.Lancement;
-import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
-import fr.iut.montreuil.projetFinal.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -11,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,30 +23,22 @@ import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
 
-    private Environnement environnement;
     @FXML
     private TilePane tilePane;
     @FXML
-    private Pane Pane;
-    //private Barbare barbare;
-    private Timeline gameLoop;
-    private int temps;
-    @FXML
-    private Circle troupe;
-    private Bfs bfs;
-    private Ennemi ennemi ;
+    private Pane pane;
     @FXML
     private RadioButton ajouterTour;
-
-    @FXML
-    private Button ajouter;
-    //private ListObsEnnemi listObsEnnemi;
-
+    private Environnement environnement;
+    private Timeline gameLoop;
+    private int temps;
+    private Bfs bfs;
+    private Ennemi ennemi ;
     private int dd = (int)(Math.random()*10 );
     private CaseDebut caseDebut;
-
-    @FXML
-    ListChangeListener<Ennemi> listObs;
+    private ListChangeListener<Ennemi> listObsE;
+    private ListChangeListener<Tour> listObsTour;
+    private ListChangeListener<Projectile> listObsProjectile;
 
 
     @Override
@@ -71,12 +60,18 @@ public class Controleur implements Initializable {
                 trouverTile(environnement.getTerrain()[i][j], imTile);
             }
         }
-        listObs = new ListObsEnnemi(Pane, environnement);
-        environnement.getEnnemis().addListener(listObs);
+        listObsE = new ListObsEnnemi(pane, environnement);
+        environnement.getEnnemis().addListener(listObsE);
+
+        listObsTour = new ListObsTour(pane, environnement);
+        environnement.getListeTour().addListener(listObsTour);
+
+        listObsProjectile = new ListObsProjectile(pane, environnement);
+        environnement.getListeProjectile().addListener(listObsProjectile);
+
         initAnimation();
         gameLoop.play();
     }
-
 
     public int getDd() {
         return dd;
@@ -92,7 +87,6 @@ public class Controleur implements Initializable {
     void fairTour(ActionEvent event) {
         environnement.unTour();
     }
-
 
     @FXML
     private void trouverTile(int id, Image im){
@@ -115,13 +109,7 @@ public class Controleur implements Initializable {
         ImageView imageView = new ImageView(image);
         imageView.setTranslateX(tour.getX()-24);
         imageView.setTranslateY(tour.getY()-24);
-        Pane.getChildren().add(imageView);
-
-//        Rectangle t = new Rectangle(50, 50);
-//        t.setFill(Color.BURLYWOOD);
-//        t.setTranslateX(tour.getX() - 25);
-//        t.setTranslateY(tour.getY() -25);
-//        Pane.getChildren().add(t);
+        pane.getChildren().add(imageView);
     }
 
     public void placerTour(MouseEvent event) {
@@ -129,7 +117,6 @@ public class Controleur implements Initializable {
             Tour tour = new Tour("Tour d'archer", event.getX(), event.getY(), environnement);
             environnement.ajouterTour(tour);
             creerTour(tour);
-            //tour.tir();
         }
     }
 

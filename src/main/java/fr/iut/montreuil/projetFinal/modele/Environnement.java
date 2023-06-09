@@ -12,6 +12,7 @@ public class Environnement {
     private IntegerProperty nbToursProperty;
     private ObservableList<Projectile> listeProjectile;
     private ObservableList<Tour> listeTour;
+
     public Environnement(int width, int height){
         this.width = width;
         this.height = height;
@@ -67,7 +68,7 @@ public class Environnement {
                 {168,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,36,37,38,39,40,41,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,209,36,37,38,39,40,41,209,209,209,209,209,209,209,209,200},
                 {216,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,60,61,62,63,64,65,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,217,60,61,62,63,64,65,217,217,217,217,217,217,217,217,224}
         };
-        ennemi = FXCollections.observableArrayList();
+        this.ennemi = FXCollections.observableArrayList();
         this.nbToursProperty = new SimpleIntegerProperty(0);
         this.listeProjectile = FXCollections.observableArrayList();
         this.listeTour =FXCollections.observableArrayList();
@@ -76,6 +77,7 @@ public class Environnement {
     public int getNbToursProperty() {
         return nbToursProperty.get();
     }
+
     public void setNbToursProperty(int nbToursProperty) {
         this.nbToursProperty.set(nbToursProperty);
     }
@@ -86,6 +88,14 @@ public class Environnement {
 
     public ObservableList<Ennemi> getEnnemis() {
         return ennemi;
+    }
+
+    public ObservableList<Tour> getListeTour() {
+        return listeTour;
+    }
+
+    public ObservableList<Projectile> getListeProjectile() {
+        return listeProjectile;
     }
 
     public Ennemi getEnnemi(String id){
@@ -106,12 +116,13 @@ public class Environnement {
         for (Ennemi e : this.getEnnemis()) {
             e.seDeplacer();
             System.out.println("dans un tour : id : " + e.getId() + " suivant : "+ e.getSuivant());
+            System.out.println("x ennemi : " +e.getX() + ", y ennemi : " + e.getY());
         }
 
         for (int i = ennemi.size()-1; i>=0; i--){
             Ennemi e = ennemi.get(i);
             if (!e.estVivant()){
-                System.out.println("mort de : " + e);
+                System.out.println("mort de : " + e.getId() + "en poisition x : "+ e.getX() + ", y : "+ e.getY());
                 ennemi.remove(i);
             }
         }
@@ -120,26 +131,38 @@ public class Environnement {
             t.tir();
         }
 
+        for (Projectile p : listeProjectile){
+            p.deplacementProjectile();
+            System.out.println("x projectile : "+ p.getX() + " , y projectile : " + p.getY());
+        }
+
     this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
     }
+
     public int[][] getTerrain() {
         return terrain;
     }
+
     public int getHeight() {
         return height;
     }
+
     public int getWidth() {
         return width;
     }
+
     public boolean dansLeTerrain(int y, int x){
         return (0 <= x && x<this.width && 0<=y && y< this.height);
     }
+
     public void ajouterProjectile (Projectile p){
         listeProjectile.add(p);
     }
+
     public void ajouterTour(Tour t){
         listeTour.add(t);
     }
+
     public int getTour() {
         return getNbToursProperty();
     }
