@@ -9,7 +9,7 @@ public class Ennemi {
 
     protected Environnement env;
     private String id;
-    //private int v;
+    private int vitesse;
     private IntegerProperty xProperty, yProperty;
 
     private IntegerProperty pv;
@@ -20,7 +20,8 @@ public class Ennemi {
     private int dd = (int)(Math.random()*10 );
 
 
-    public Ennemi(int y, int x,Environnement env, int pv){
+    public Ennemi(int y, int x,Environnement env, int pv, int v){
+        this.vitesse = v;
         this.id = "A"+compteur;
         compteur++;
         this.xProperty = new SimpleIntegerProperty(x);
@@ -35,12 +36,15 @@ public class Ennemi {
     public  void seDeplacer(){
         this.bfs = new Bfs(env, caseDebut.getcaseDebut().get(dd).getY(),caseDebut.getcaseDebut().get(dd).getX());
 
+
         if (suivant< bfs.vraiChemin.size()-1){
-            suivant++;
+            suivant = suivant+this.vitesse;
             setY(bfs.vraiChemin.get(getSuivant()).getY()*16);
             setX(bfs.vraiChemin.get(getSuivant()).getX()*16);
         }
-        if (suivant == bfs.vraiChemin.size()-1){
+
+
+        if (suivant == bfs.vraiChemin.size()-1 || suivant+1 == bfs.vraiChemin.size()-1){
             this.setPv(0);
         }
 
@@ -105,10 +109,16 @@ public class Ennemi {
         return bfs.vraiChemin.size()-1;
     }
 
+    public int getVitesse() {
+        return vitesse;
+    }
+
     @Override
     public String toString() {
         return "Ennemi{" +
                 "id='" + id + '\'' +
                 '}';
     }
+
+
 }

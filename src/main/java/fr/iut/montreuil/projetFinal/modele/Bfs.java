@@ -218,6 +218,7 @@ public class Bfs {
             vraiChemin.add(chemin.get(i));
         }
         //System.out.println("le chemin : " + vraiChemin);
+        System.out.println(vraiChemin);
         return vraiChemin;
     }
 
