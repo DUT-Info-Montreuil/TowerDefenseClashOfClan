@@ -35,8 +35,7 @@ public class Controleur implements Initializable {
     //private Barbare barbare;
     private Timeline gameLoop;
     private int temps;
-    @FXML
-    private Circle troupe;
+
     private Bfs bfs;
     private Ennemi ennemi ;
     @FXML
@@ -48,10 +47,9 @@ public class Controleur implements Initializable {
 
     @FXML
     private Button ajouter;
-    //private ListObsEnnemi listObsEnnemi;
 
-    private int dd = (int)(Math.random()*10 );
-    private CaseDebut caseDebut;
+    @FXML
+    private Hdv hdv;
 
     @FXML
     ListChangeListener<Ennemi> listObs;
@@ -62,12 +60,8 @@ public class Controleur implements Initializable {
 
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement,21,2);
-        caseDebut = new CaseDebut(environnement);
-//        Case d = new Case(bfs.getDebut().get(3).getY(),bfs.getDebut().get(3).getX());
-//        bfs.setC(d);
-
-        environnement.unTour();
-        ennemi = new Barbare(0,0,environnement);
+        this.hdv = new Hdv(environnement);
+        System.out.println("hdv : " + hdv.getPv());
 
         URL ImageTile = Lancement.class.getResource("tiles_12.png");
         Image imTile = new Image(String.valueOf(ImageTile));
@@ -85,14 +79,18 @@ public class Controleur implements Initializable {
     }
 
 
-    public int getDd() {
-        return dd;
-    }
-
     @FXML
     void ajouter(ActionEvent event) {
-        Barbare ennemi = new Barbare(50,50,environnement) ;
-        environnement.ajouterEnnemi(ennemi);
+
+        if (environnement.getNbToursProperty() % 2 == 0){
+            Ennemi archer = new Archer(45,45,environnement,hdv);
+            environnement.ajouterEnnemi(archer);
+        }
+        else {
+            Ennemi barbare = new Barbare(50,50,environnement,hdv);
+            environnement.ajouterEnnemi(barbare);
+        }
+
     }
 
     @FXML

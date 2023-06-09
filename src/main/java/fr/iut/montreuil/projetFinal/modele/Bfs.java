@@ -15,15 +15,12 @@ public class Bfs {
     private ArrayList<Integer> voisin = new ArrayList<>();
     ArrayList<Case> chemin;
     ArrayList<Case> vraiChemin;
-    ArrayList<Case> debut;
 
 
 
     public Bfs(Environnement t,int x, int y) {
         this.terrain = t;
         this.BFS = new int[terrain.getHeight()][terrain.getWidth()];
-        debut = new ArrayList<>();
-//        BFS[x][y] =0;
         this.c = new Case(y,x);
         for (int i = 0; i < BFS.length; i++) {
             for (int j = 0; j < BFS[i].length; j++) {
@@ -217,8 +214,6 @@ public class Bfs {
         for (int i =chemin.size()-1; i>=0;i--){
             vraiChemin.add(chemin.get(i));
         }
-        //System.out.println("le chemin : " + vraiChemin);
-        System.out.println(vraiChemin);
         return vraiChemin;
     }
 
