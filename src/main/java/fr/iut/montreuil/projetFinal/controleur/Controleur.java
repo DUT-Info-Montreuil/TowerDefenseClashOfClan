@@ -70,8 +70,15 @@ public class Controleur implements Initializable {
 
     @FXML
     void ajouter(ActionEvent event) {
-        Ennemi barbare = new Barbare(50,50,environnement);
-        environnement.ajouterEnnemi(barbare);
+        if (environnement.getNbToursProperty() % 2 == 0){
+            Ennemi archer = new Archer(45,45,environnement);
+            environnement.ajouterEnnemi(archer);
+        }
+        else {
+            Ennemi barbare = new Barbare(50,50,environnement);
+            environnement.ajouterEnnemi(barbare);
+        }
+
     }
 
     @FXML

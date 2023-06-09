@@ -20,13 +20,13 @@ public class Ennemi {
     private int dd = (int)(Math.random()*10 );
 
 
-    public Ennemi(int y, int x,Environnement env){
+    public Ennemi(int y, int x,Environnement env, int pv){
         this.id = "A"+compteur;
         compteur++;
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.env = env;
-        this.pv = new SimpleIntegerProperty(100);
+        this.pv = new SimpleIntegerProperty(pv);
         this.bfs = new Bfs(this.env,21,2);
         caseDebut = new CaseDebut(env);
         this.suivant = 0;
