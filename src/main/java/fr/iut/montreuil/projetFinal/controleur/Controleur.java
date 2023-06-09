@@ -34,8 +34,7 @@ public class Controleur implements Initializable {
     //private Barbare barbare;
     private Timeline gameLoop;
     private int temps;
-    @FXML
-    private Circle troupe;
+
     private Bfs bfs;
     private Ennemi ennemi ;
     @FXML
@@ -43,10 +42,6 @@ public class Controleur implements Initializable {
 
     @FXML
     private Button ajouter;
-    //private ListObsEnnemi listObsEnnemi;
-
-    private int dd = (int)(Math.random()*10 );
-    private CaseDebut caseDebut;
 
     @FXML
     ListChangeListener<Ennemi> listObs;
@@ -57,9 +52,6 @@ public class Controleur implements Initializable {
 
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement,21,2);
-        caseDebut = new CaseDebut(environnement);
-//        Case d = new Case(bfs.getDebut().get(3).getY(),bfs.getDebut().get(3).getX());
-//        bfs.setC(d);
 
         environnement.unTour();
         ennemi = new Ennemi(0,0,environnement);
@@ -77,10 +69,6 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
 
-
-    public int getDd() {
-        return dd;
-    }
 
     @FXML
     void ajouter(ActionEvent event) {

@@ -105,13 +105,12 @@ public class Environnement {
 
         for (Ennemi e : this.getEnnemis()) {
             e.seDeplacer();
-            System.out.println("dans un tour : id : " + e.getId() + " suivant : "+ e.getSuivant());
         }
 
         for (int i = ennemi.size()-1; i>=0; i--){
             Ennemi e = ennemi.get(i);
             if (!e.estVivant()){
-                System.out.println("mort de : " + e);
+                System.out.println("mort de : " + e.toString());
                 ennemi.remove(i);
             }
         }

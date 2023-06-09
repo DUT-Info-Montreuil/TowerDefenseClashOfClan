@@ -16,11 +16,10 @@ public class Bfs {
     ArrayList<Case> chemin;
     ArrayList<Case> vraiChemin;
     ArrayList<Case> debut;
-    Case debutCase;
-    private static int index;
+
+
 
     public Bfs(Environnement t,int x, int y) {
-        index = (int)(Math.random()*10 );
         this.terrain = t;
         this.BFS = new int[terrain.getHeight()][terrain.getWidth()];
         debut = new ArrayList<>();
@@ -28,42 +27,13 @@ public class Bfs {
         this.c = new Case(y,x);
         for (int i = 0; i < BFS.length; i++) {
             for (int j = 0; j < BFS[i].length; j++) {
-
-                BFS[i][j] = -1; //code par défaut pour les tours
-                if (terrain.getTerrain()[i][j]== 197){
-                    debutCase = new Case(i,j);
-                    debut.add(debutCase);
-                }
-
-                else if (terrain.getTerrain()[i][j] == 53) {
+                BFS[i][j] = -1;
+                if (terrain.getTerrain()[i][j] == 53) {
                     BFS[i][j] = -5;
                 }
 
-//                if (terrain.getTerrain()[i][j] == 197 ) {
-//                    if (9 == index) {
-//                        System.out.println("oui dans 3 == index  i : " + i + " j: " + j);
-//                        BFS[i][j] = 0;
-//                        this.c = new Case(i, j);
-//                    }
-//                    else {
-//                        index++;
-//                        System.out.println("index : " + index);
-//                        break;
-//                    }
-//                    break;
-//                }
-
-
             }
         }
-        this.c = new Case(y,x);
-        System.out.println("taille de debut : " + debut);
-//        int dd = (int)(Math.random()*debut.size() );
-//        BFS[debut.get(dd).getX()][debut.get(dd).getY()] = 0;
-//        this.c = new Case(debut.get(dd).getX(), debut.get(dd).getY());
-//        System.out.println(dd);
-//        System.out.println("x:" + debut.get(dd).getX() + " y : " + debut.get(dd).getY());
-
         this.aFaire = new ArrayList<>();
 
         remplirGrilleBFS();
@@ -294,7 +264,4 @@ public class Bfs {
         return cible;
     }
 
-    public ArrayList<Case> getDebut() {
-        return debut;
-    }
 }

@@ -33,20 +33,7 @@ public class Ennemi {
     }
 
     public  void seDeplacer(){
-        System.out.println("dd : " + dd);
         this.bfs = new Bfs(env, caseDebut.getcaseDebut().get(dd).getY(),caseDebut.getcaseDebut().get(dd).getX());
-        System.out.println("caseDebut : " + caseDebut.getcaseDebut() + " get 3 : " + caseDebut.getcaseDebut().get(3).getY());
-        //Case c = new Case(caseDebut.getcaseDebut().get(3).getY(),caseDebut.getcaseDebut().get(3).getX());
-
-
-        //this.bfs = new Bfs(this.env, bfs.getDebut().get(controleur.getDd()).getX(), bfs.getDebut().get(controleur.getDd()).getY());
-        //Case c = new Case(bfs.getDebut().get(controleur.getDd()).getX(), bfs.getDebut().get(controleur.getDd()).getY());
-        //bfs.setC(c);
-        //Case d = new Case(bfs.getDebut().get(5).getY(),bfs.getDebut().get(5).getX());
-        //bfs.setC(d);
-
-        System.out.println("ennemi : " + getId() + " e.setY : " + bfs.vraiChemin.get(getSuivant()).getY()*16 + " e.setX : " + bfs.vraiChemin.get(getSuivant()).getX()*16 + " suivant : " + getSuivant());
-
 
         if (suivant< bfs.vraiChemin.size()-1){
             suivant++;
@@ -56,7 +43,6 @@ public class Ennemi {
         if (suivant == bfs.vraiChemin.size()-1){
             this.setPv(0);
         }
-        System.out.println("--------------------------------------------------------------------------------");
 
     }
 
@@ -117,5 +103,12 @@ public class Ennemi {
 
     public int getBfs() {
         return bfs.vraiChemin.size()-1;
+    }
+
+    @Override
+    public String toString() {
+        return "Ennemi{" +
+                "id='" + id + '\'' +
+                '}';
     }
 }
