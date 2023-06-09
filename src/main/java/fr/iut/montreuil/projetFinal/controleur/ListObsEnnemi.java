@@ -33,6 +33,7 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
                 Node n = paneMap.lookup("#" + e.getId());
                 paneMap.getChildren().remove(n);
                 if (e.getSuivant() != e.getBfs()){
+                    env.setorProperty(env.getorProperty() + e.getOrTroupe());
                     URL url = Lancement.class.getResource("Clashofclans-tombe-1.png");
                     Image image = new Image(String.valueOf(url));
                     ImageView imageView = new ImageView(image);

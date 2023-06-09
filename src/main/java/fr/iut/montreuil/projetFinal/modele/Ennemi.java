@@ -11,6 +11,7 @@ public class Ennemi {
     private String id;
     //private int v;
     private IntegerProperty xProperty, yProperty;
+    private int orTroupe;
 
     private IntegerProperty pv;
     public static int compteur=0;
@@ -20,7 +21,7 @@ public class Ennemi {
     private int dd = (int)(Math.random()*10 );
 
 
-    public Ennemi(int y, int x,Environnement env){
+    public Ennemi(int y, int x,Environnement env, int orTroupe){
         this.id = "A"+compteur;
         compteur++;
         this.xProperty = new SimpleIntegerProperty(x);
@@ -30,6 +31,7 @@ public class Ennemi {
         this.bfs = new Bfs(this.env,21,2);
         caseDebut = new CaseDebut(env);
         this.suivant = 0;
+        this.orTroupe = orTroupe;
     }
 
     public  void seDeplacer(){
@@ -59,6 +61,8 @@ public class Ennemi {
         System.out.println("--------------------------------------------------------------------------------");
 
     }
+
+    public int getOrTroupe(){return orTroupe;}
 
     public int getSuivant() {
         return suivant;

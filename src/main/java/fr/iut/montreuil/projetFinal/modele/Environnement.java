@@ -2,6 +2,8 @@ package fr.iut.montreuil.projetFinal.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,6 +14,8 @@ public class Environnement {
     private IntegerProperty nbToursProperty;
     private ObservableList<Projectile> listeProjectile;
     private ObservableList<Tour> listeTour;
+    private IntegerProperty orProperty;
+    private StringProperty messageProperty;
     public Environnement(int width, int height){
         this.width = width;
         this.height = height;
@@ -71,6 +75,28 @@ public class Environnement {
         this.nbToursProperty = new SimpleIntegerProperty(0);
         this.listeProjectile = FXCollections.observableArrayList();
         this.listeTour =FXCollections.observableArrayList();
+        this.orProperty = new SimpleIntegerProperty(100);
+        this.messageProperty = new SimpleStringProperty("Bienvenue sur le Tower Defense Clash of Clans");
+    }
+
+    public String getmessageProperty() {
+        return messageProperty.get();
+    }
+    public void setmessageProperty(String messageProperty) {
+        this.messageProperty.set(messageProperty);
+    }
+    public final StringProperty messageProperty(){
+        return messageProperty;
+    }
+
+    public int getorProperty() {
+        return orProperty.get();
+    }
+    public void setorProperty(int orProperty) {
+        this.orProperty.set(orProperty);
+    }
+    public final IntegerProperty orProperty(){
+        return orProperty;
     }
 
     public int getNbToursProperty() {
@@ -79,7 +105,6 @@ public class Environnement {
     public void setNbToursProperty(int nbToursProperty) {
         this.nbToursProperty.set(nbToursProperty);
     }
-
     public final IntegerProperty NbToursProperty(){
         return nbToursProperty;
     }

@@ -14,15 +14,19 @@ public class Tour extends Node {
     private int portee;
     protected Environnement env;
     private Projectile projectile;
+    private int prix;
 
-    public Tour(String nom, double x,double y, Environnement env){
+    public Tour(String nom, double x,double y, Environnement env , int prix){
         this.nom = nom;
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
         this.portee = 100;
         this.degat = 30;
         this.env = env;
+        this.prix = prix;
     }
+
+    public  int getPrix(){return prix;}
 
     public int getDegat() {
         return degat;

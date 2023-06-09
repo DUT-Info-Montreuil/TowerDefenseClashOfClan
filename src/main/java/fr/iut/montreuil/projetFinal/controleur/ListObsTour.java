@@ -1,9 +1,6 @@
 package fr.iut.montreuil.projetFinal.controleur;
 
-import fr.iut.montreuil.projetFinal.modele.Ennemi;
-import fr.iut.montreuil.projetFinal.modele.Environnement;
-import fr.iut.montreuil.projetFinal.modele.Projectile;
-import fr.iut.montreuil.projetFinal.modele.Tour;
+import fr.iut.montreuil.projetFinal.modele.*;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -50,7 +47,7 @@ public class ListObsTour implements ListChangeListener<Tour> {
     }
 
     public void placerTour(MouseEvent event) {
-        Tour tour = new Tour("Tour d'archer", event.getX(), event.getY(), env);
+        TourArchers tour = new TourArchers(event.getX(), event.getY(), env);
         env.ajouterTour(tour);
         creerTour(tour);
     }

@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,7 +40,11 @@ public class Controleur implements Initializable {
     private Bfs bfs;
     private Ennemi ennemi ;
     @FXML
-    private RadioButton ajouterTour;
+    private RadioButton ajouterTourArchers;
+    @FXML
+    private Label compteurOr;
+    @FXML
+    private Label messageJoueur;
 
     @FXML
     private Button ajouter;
@@ -62,7 +67,7 @@ public class Controleur implements Initializable {
 //        bfs.setC(d);
 
         environnement.unTour();
-        ennemi = new Ennemi(0,0,environnement);
+        ennemi = new Barbare(0,0,environnement);
 
         URL ImageTile = Lancement.class.getResource("tiles_12.png");
         Image imTile = new Image(String.valueOf(ImageTile));
@@ -73,6 +78,8 @@ public class Controleur implements Initializable {
         }
         listObs = new ListObsEnnemi(Pane, environnement);
         environnement.getEnnemis().addListener(listObs);
+        compteurOr.textProperty().bind(environnement.orProperty().asString());
+        messageJoueur.textProperty().bind(environnement.messageProperty());
         initAnimation();
         gameLoop.play();
     }
@@ -84,7 +91,7 @@ public class Controleur implements Initializable {
 
     @FXML
     void ajouter(ActionEvent event) {
-        Ennemi ennemi = new Ennemi(50,50,environnement) ;
+        Barbare ennemi = new Barbare(50,50,environnement) ;
         environnement.ajouterEnnemi(ennemi);
     }
 
@@ -109,7 +116,7 @@ public class Controleur implements Initializable {
     }
 
     @FXML
-    void creerTour(Tour tour){
+    void creerTourArchers(Tour tour){
         URL url = Lancement.class.getResource("tda_Coc.png");
         Image image = new Image(String.valueOf(url));
         ImageView imageView = new ImageView(image);
@@ -125,11 +132,18 @@ public class Controleur implements Initializable {
     }
 
     public void placerTour(MouseEvent event) {
-        if (ajouterTour.isSelected()) {
-            Tour tour = new Tour("Tour d'archer", event.getX(), event.getY(), environnement);
-            environnement.ajouterTour(tour);
-            creerTour(tour);
-            //tour.tir();
+        if (ajouterTourArchers.isSelected()) {
+            TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
+            if ((environnement.getorProperty() - tour.getPrix()) >= 0) {
+                environnement.setorProperty((environnement.getorProperty() - tour.getPrix()));
+                environnement.ajouterTour(tour);
+                creerTourArchers(tour);
+                environnement.setmessageProperty("Tour d'archers placée");
+                //tour.tir();
+            }
+            else {
+                environnement.setmessageProperty("Vous n'avez pas assez d'argent !");
+            }
         }
     }
 

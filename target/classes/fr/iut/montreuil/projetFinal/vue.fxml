@@ -26,19 +26,26 @@
       <Button mnemonicParsing="false" onAction="#fairTour" text="tour" BorderPane.alignment="CENTER" />
    </bottom>
    <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox prefHeight="56.0" prefWidth="100.0">
-               <children>
-                  <RadioButton fx:id="ajouterTour" mnemonicParsing="false" text="tour d'archer" />
-               </children>
-            </VBox>
-            <VBox prefHeight="89.0" prefWidth="100.0">
-               <children>
-                  <Button onAction="#ajouter" mnemonicParsing="false" text="ajouter" />
-               </children>
-            </VBox>
-         </children>
+      <VBox prefHeight="800.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+
+
+          <children>
+               <Label text="Défenses"/>
+               <RadioButton fx:id="ajouterTourArchers" mnemonicParsing="false" text="tour d'archers" />
+          </children>
+          <children>
+               <Label text="Ajout d'ennemis"/>
+               <Button onAction="#ajouter" mnemonicParsing="false" text="ajouter" />
+          </children>
+          <children>
+              <Label text="Or:"/>
+              <Label fx:id="compteurOr"/>
+          </children>
+          <children>
+              <Label text="Or:"/>
+              <Label fx:id="messageJoueur"/>
+          </children>
+
       </VBox>
    </right>
 
