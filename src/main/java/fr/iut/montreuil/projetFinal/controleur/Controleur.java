@@ -52,9 +52,7 @@ public class Controleur implements Initializable {
 
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement,21,2);
-
         environnement.unTour();
-        ennemi = new Ennemi(0,0,environnement);
 
         URL ImageTile = Lancement.class.getResource("tiles_12.png");
         Image imTile = new Image(String.valueOf(ImageTile));
@@ -72,8 +70,8 @@ public class Controleur implements Initializable {
 
     @FXML
     void ajouter(ActionEvent event) {
-        Ennemi ennemi = new Ennemi(50,50,environnement) ;
-        environnement.ajouterEnnemi(ennemi);
+        Ennemi barbare = new Barbare(50,50,environnement);
+        environnement.ajouterEnnemi(barbare);
     }
 
     @FXML

@@ -1,6 +1,7 @@
 package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.Lancement;
+import fr.iut.montreuil.projetFinal.modele.Barbare;
 import fr.iut.montreuil.projetFinal.modele.Ennemi;
 import fr.iut.montreuil.projetFinal.modele.Environnement;
 import javafx.collections.ListChangeListener;
@@ -46,13 +47,16 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
     }
 
     public void creerSprite(Ennemi ennemie) {
-        URL url = Lancement.class.getResource("barbareV.jpeg");
-        Image image = new Image(String.valueOf(url));
-        ImageView imageView = new ImageView(image);
-        imageView.setId(ennemie.getId());
-        imageView.translateXProperty().bind(ennemie.xProperty());
-        imageView.translateYProperty().bind(ennemie.yProperty());
-        paneMap.getChildren().add(imageView);
+        if (ennemie instanceof Barbare){
+            URL url = Lancement.class.getResource("barbareV.jpeg");
+            Image image = new Image(String.valueOf(url));
+            ImageView imageView = new ImageView(image);
+            imageView.setId(ennemie.getId());
+            imageView.translateXProperty().bind(ennemie.xProperty());
+            imageView.translateYProperty().bind(ennemie.yProperty());
+            paneMap.getChildren().add(imageView);
+        }
+
     }
 
 }
