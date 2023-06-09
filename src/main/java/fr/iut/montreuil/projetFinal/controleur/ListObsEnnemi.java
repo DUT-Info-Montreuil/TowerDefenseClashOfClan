@@ -34,15 +34,18 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
             for (Ennemi e : change.getRemoved()) {
                 Node n = paneMap.lookup("#" + e.getId());
                 paneMap.getChildren().remove(n);
-                if (e.getSuivant()+1 != e.getBfs() || e.getSuivant() == e.getBfs()){
-                    URL url = Lancement.class.getResource("Clashofclans-tombe-1.png");
-                    Image image = new Image(String.valueOf(url));
-                    ImageView imageView = new ImageView(image);
-                    imageView.setX(e.getX());
-                    imageView.setY(e.getY());
-                    paneMap.getChildren().add(imageView);
-                }
+                if (e.getSuivant() + 1 != e.getBfs() && e.getSuivant() != e.getBfs()) {
+                    if (e.getSuivant() != e.getBfs()) {
+                        env.setorProperty(env.getorProperty() + e.getOrTroupe());
+                        URL url = Lancement.class.getResource("Clashofclans-tombe-1.png");
+                        Image image = new Image(String.valueOf(url));
+                        ImageView imageView = new ImageView(image);
+                        imageView.setX(e.getX());
+                        imageView.setY(e.getY());
+                        paneMap.getChildren().add(imageView);
+                    }
 
+                }
             }
         }
     }

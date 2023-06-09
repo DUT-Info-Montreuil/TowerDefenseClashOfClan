@@ -152,19 +152,25 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.2),
+                Duration.seconds(1),
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-//                    if (ennemi.estArriver() || !ennemi.estVivant()){
-//                        suprimerSprite();
-//                    }
                     if(temps==10000){
                         System.out.println("fini");
                         gameLoop.stop();
                     }
 
-                    //environnement.unTour();
+                    if (environnement.getNbToursProperty() % 2 == 0){
+                        Ennemi archer = new Archer(45,45,environnement,hdv);
+                        environnement.ajouterEnnemi(archer);
+                    }
+                    else {
+                        Ennemi barbare = new Barbare(50,50,environnement,hdv);
+                        environnement.ajouterEnnemi(barbare);
+                    }
+
+                    environnement.unTour();
 
 //                    else if (!ennemi.estArriver()){
 //                        System.out.println("un tour");
