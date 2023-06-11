@@ -43,7 +43,6 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
                 Node n = paneMap.lookup("#" + e.getId());
                 paneMap.getChildren().remove(n);
                 if (e.getSuivant() + 1 != e.getBfs() && e.getSuivant() != e.getBfs()) {
-                    if (e.getSuivant() != e.getBfs()) {
                         mort++;
                         NbMort.setText("NbMort : "+mort);
                         env.setorProperty(env.getorProperty() + e.getOrTroupe());
@@ -53,8 +52,6 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
                         imageView.setX(e.getX());
                         imageView.setY(e.getY());
                         paneMap.getChildren().add(imageView);
-                    }
-
                 }
             }
         }
