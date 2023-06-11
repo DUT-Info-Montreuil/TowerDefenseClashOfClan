@@ -59,6 +59,8 @@ public class Controleur implements Initializable {
 
     @FXML
     private Label NbVivant;
+    @FXML
+    private Label PvHdv;
 
 
     @Override
@@ -80,6 +82,7 @@ public class Controleur implements Initializable {
         environnement.getEnnemis().addListener(listObs);
         compteurOr.textProperty().bind(environnement.orProperty().asString());
         messageJoueur.textProperty().bind(environnement.messageProperty());
+        PvHdv.textProperty().bind(hdv.pv().asString());
         initAnimation();
         gameLoop.play();
     }
