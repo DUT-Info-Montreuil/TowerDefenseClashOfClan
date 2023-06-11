@@ -42,6 +42,7 @@
               <Label fx:id="messageJoueur" />
             <Label fx:id="NbVivant" text="NbVivant:" />
             <Label fx:id="NbMort" text="NbMort:" />
+            <Label fx:id="PvHdv" text="PvHdv" />
           </children>
 
       </VBox>
