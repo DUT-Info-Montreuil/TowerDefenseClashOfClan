@@ -54,6 +54,12 @@ public class Controleur implements Initializable {
     @FXML
     ListChangeListener<Ennemi> listObs;
 
+    @FXML
+    private Label NbMort;
+
+    @FXML
+    private Label NbVivant;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -70,7 +76,7 @@ public class Controleur implements Initializable {
                 trouverTile(environnement.getTerrain()[i][j], imTile);
             }
         }
-        listObs = new ListObsEnnemi(Pane, environnement);
+        listObs = new ListObsEnnemi(Pane, environnement,NbVivant,NbMort);
         environnement.getEnnemis().addListener(listObs);
         compteurOr.textProperty().bind(environnement.orProperty().asString());
         messageJoueur.textProperty().bind(environnement.messageProperty());

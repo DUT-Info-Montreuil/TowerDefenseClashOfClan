@@ -8,6 +8,7 @@ import fr.iut.montreuil.projetFinal.modele.Environnement;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -19,15 +20,22 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
     private Pane paneMap;
 
     private Environnement env;
+    private Label NbVivant;
+    private Label NbMort;
+    private static int mort = 0;
 
 
-    public ListObsEnnemi(Pane paneMap, Environnement env) {
+    public ListObsEnnemi(Pane paneMap, Environnement env,Label nbVivant,Label nbMort) {
         this.paneMap = paneMap;
         this.env = env;
+        NbVivant = nbVivant;
+        NbMort = nbMort;
     }
     @Override
     public void onChanged(Change<?extends Ennemi> change) {
         while (change.next()) {
+
+            NbVivant.setText("nbEnnemie : "+env.getEnnemis().size());
             for (Ennemi e: change.getAddedSubList()) {
                 creerSprite(e);
             }
@@ -36,6 +44,8 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
                 paneMap.getChildren().remove(n);
                 if (e.getSuivant() + 1 != e.getBfs() && e.getSuivant() != e.getBfs()) {
                     if (e.getSuivant() != e.getBfs()) {
+                        mort++;
+                        NbMort.setText("NbMort : "+mort);
                         env.setorProperty(env.getorProperty() + e.getOrTroupe());
                         URL url = Lancement.class.getResource("Clashofclans-tombe-1.png");
                         Image image = new Image(String.valueOf(url));
