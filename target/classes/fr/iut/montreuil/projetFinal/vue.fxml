@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.RadioButton?>
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.iut.montreuil.projetFinal.controleur.Controleur">
     <center>
-        <Pane fx:id="Pane" onMouseClicked="#placerTour">
+        <Pane fx:id="Pane" onMouseClicked="#choixTour">
             <TilePane fx:id="tilePane" maxHeight="800.0" maxWidth="1200.0" prefColumns="75">
             </TilePane>
 
@@ -26,16 +32,20 @@
 
 
           <children>
-               <Label text="Défenses" />
-               <RadioButton fx:id="ajouterTourArchers" mnemonicParsing="false" text="tour d'archers" />
+               <Label text="Défenses"/>
+              <fx:define>
+              <ToggleGroup fx:id="selectionDefense" />
+              </fx:define>
+               <RadioButton fx:id="ajouterTourArchers" mnemonicParsing="false" text="Tour d'archers. Prix : 50" toggleGroup="$selectionDefense" />
+              <RadioButton fx:id="ajouterCanon" mnemonicParsing="false" text="Canon. Prix : 75" toggleGroup="$selectionDefense" />
           </children>
           <children>
                <Label text="Ajout d'ennemis" />
                <Button mnemonicParsing="false" onAction="#ajouter" text="ajouter" />
           </children>
           <children>
-              <Label text="Or:" />
-              <Label fx:id="compteurOr" />
+              <Label text="Or disponible:"/>
+              <Label fx:id="compteurOr"/>
           </children>
           <children>
               <Label text="Or:" />

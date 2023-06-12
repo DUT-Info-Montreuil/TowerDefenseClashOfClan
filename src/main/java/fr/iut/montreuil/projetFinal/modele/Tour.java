@@ -16,15 +16,17 @@ public class Tour extends Node {
     private Projectile projectile;
     private int prix;
 
-    public Tour(String nom, double x,double y, Environnement env , int prix){
+    public Tour(String nom, double x,double y, Environnement env , int prix , int portee ,int degat){
         this.nom = nom;
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
-        this.portee = 100;
-        this.degat = 30;
+        this.portee = portee;
+        this.degat = degat;
         this.env = env;
         this.prix = prix;
     }
+
+    public String getNom(){return nom;}
 
     public  int getPrix(){return prix;}
 
@@ -46,7 +48,8 @@ public class Tour extends Node {
 
     public Ennemi essaieTir(){
         for (Ennemi e : this.env.getEnnemis()){
-            while ((this.getX()-portee <= e.getX() && e.getX()<=this.getX()+portee) && (this.getY()-portee <= e.getY() && e.getY()<=this.getY()+portee)){
+            while ((this.getX()-this.portee <= e.getX() && e.getX()<=this.getX()+this.portee) && (this.getY()-this.portee <= e.getY() && e.getY()<=this.getY()+this.portee)){
+                System.out.println("Portée : " + portee);
                 return e;
             }
         }
