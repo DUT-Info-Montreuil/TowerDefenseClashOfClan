@@ -3,6 +3,7 @@ package fr.iut.montreuil.projetFinal.controleur;
 import fr.iut.montreuil.projetFinal.modele.Ennemi;
 import fr.iut.montreuil.projetFinal.modele.Environnement;
 import fr.iut.montreuil.projetFinal.modele.Projectile;
+import fr.iut.montreuil.projetFinal.vue.VueProjectile;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -27,7 +28,8 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
             if (change.wasAdded()) {
                 for (int i = 0; i < change.getAddedSubList().size(); i++) {
                     Projectile projectile = (Projectile) change.getAddedSubList().get(i);
-                    creerProjectile(projectile);
+                    //creerProjectile(projectile);
+                    new VueProjectile(pane, projectile);
                 }
             }
             if (change.wasRemoved()) {
@@ -41,15 +43,4 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
 
     }
 
-    public void creerProjectile(Projectile p){
-        Circle boulet = new Circle(3);
-        boulet.setFill(Color.BLACK);
-//        boulet.setTranslateX(p.getX());
-//        boulet.setTranslateY(p.getY());
-
-        boulet.translateXProperty().bind(p.getxProperty());
-        boulet.translateYProperty().bind(p.getyProperty());
-        pane.getChildren().add(boulet);
-
-    }
 }
