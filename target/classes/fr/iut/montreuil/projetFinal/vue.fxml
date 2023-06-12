@@ -40,8 +40,8 @@
               <RadioButton fx:id="ajouterCanon" mnemonicParsing="false" text="Canon. Prix : 75" toggleGroup="$selectionDefense" />
           </children>
           <children>
-               <Label text="Ajout d'ennemis" />
-               <Button mnemonicParsing="false" onAction="#ajouter" text="ajouter" />
+               <Label text="Ajout d'ennemis"/>
+               <Button onAction="#ajouter" mnemonicParsing="false" text="ajouter" />
           </children>
           <children>
               <Label text="Or disponible:"/>

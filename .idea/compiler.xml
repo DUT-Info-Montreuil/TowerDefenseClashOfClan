@@ -10,7 +10,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ProjetFinal" target="17" />
       <module name="TowerDefenseClashOfClan" target="17" />
     </bytecodeTargetLevel>
   </component>
