@@ -15,8 +15,9 @@ public class VueProjectile {
         boulet.setTranslateX(p.getX());
         boulet.setTranslateY(p.getY());
 
-        pane.getChildren().add(boulet);
         boulet.translateXProperty().bind(p.getxProperty());
         boulet.translateYProperty().bind(p.getyProperty());
+
+        pane.getChildren().add(boulet);
     }
 }

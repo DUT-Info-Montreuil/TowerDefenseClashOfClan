@@ -33,15 +33,12 @@ public class ListObsTour implements ListChangeListener<Tour> {
     public void onChanged(Change<? extends Tour> change) {
         while (change.next()) {
             if (change.wasAdded()) {
-                for (int i = 0; i < change.getAddedSubList().size(); i++) {
-                    Tour tour = (Tour) change.getAddedSubList().get(i);
-                    //creerTour(tour);
+                for (Tour tour : change.getAddedSubList()) {
                     new VueTourArcher(pane, tour);
                 }
             }
             if (change.wasRemoved()) {
-                for (int i = change.getRemoved().size() - 1; i >= 0; i--) {
-                    Tour tour = (Tour) change.getRemoved().get(i);
+                for (Tour tour : change.getRemoved()) {
                     Node n = pane.lookup("#" + tour.getId());
                     pane.getChildren().remove(n);
                 }

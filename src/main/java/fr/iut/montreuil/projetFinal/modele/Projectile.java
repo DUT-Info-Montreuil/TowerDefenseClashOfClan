@@ -11,18 +11,21 @@ public class Projectile  {
 
     private DoubleProperty x,y;
     private DoubleProperty xCible, yCible;
+    private double dx, dy;
     private String id;
     private int vitesse;
     public static int compteur;
     protected Environnement environnement;
 
-    public Projectile(double x, double y, double xCible, double yCible, Environnement env){
+    public Projectile(double x, double y, Ennemi e, Environnement env){
         this.id = "P"+compteur;
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
-        this.xCible = new SimpleDoubleProperty(xCible);
-        this.yCible = new SimpleDoubleProperty(yCible);
-        this.vitesse = 5;
+        this.xCible = new SimpleDoubleProperty(e.getX());
+        this.yCible = new SimpleDoubleProperty(e.getY());
+        this.dx = (e.getX() - this.getX()) / distanceTir();
+        this.dy = (e.getY() - this.getY()) / distanceTir();
+        this.vitesse = 1;
         this.compteur++;
         this.environnement = env;
     }
@@ -60,12 +63,7 @@ public class Projectile  {
     }
 
     public double distanceTir(){
-        return Math.sqrt(((xCible.getValue() - getX())*2) + ((yCible.getValue() - getY())));
-    }
-
-    public void deplacer (double x, double y){
-        this.x.setValue(x);
-        this.y.setValue(y);
+        return Math.sqrt(((xCible.getValue() - getX())) + ((yCible.getValue() - getY())));
     }
 
     public boolean cibleTouchee(){
@@ -75,19 +73,14 @@ public class Projectile  {
         return false;
     }
 
-    public void deplacementProjectile() {
-        if (getX() < getxCible()){
-            x.setValue(getX() + vitesse);
-        }
-        else if (getX() > getxCible()){
-            x.setValue(getY() - vitesse);
-        }
+    public void deplacementProjectile(/*double elapsedTime*/) {
 
-        if (getY() < getyCible()){
-            y.setValue(getY() + vitesse);
-        }
-        else if (getY() > getyCible()){
-            y.setValue(getY() - vitesse);
+        double deltaX = dx * this.vitesse; //* elapsedTime;
+        double deltaY = dy * this.vitesse; //* elapsedTime;
+
+        if (!(getX() == getxCible()) || (getY() == getyCible())){
+            x.setValue(getX() + deltaX);
+            y.setValue(getY() + deltaY);
         }
     }
 }

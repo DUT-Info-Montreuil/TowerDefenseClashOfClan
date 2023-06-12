@@ -2,7 +2,6 @@ package fr.iut.montreuil.projetFinal.modele;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.Node;
 
 public class Tour{
 
@@ -58,16 +57,21 @@ public class Tour{
 
     public void tir(){
         Ennemi e = this.essaieTir();
+        System.out.println("action tir" );
         if (e != null ){
-            Projectile p = new Projectile(this.getX(), this.getY(), e.getX(), e.getY(), env);
-            env.ajouterProjectile(p);
+            System.out.println("ennemi non nul");
+            if (e.estVivant()) {
+                System.out.println("ennemi vivant");
+                Projectile p = new Projectile(getX(), getY(), e, env);
+                env.ajouterProjectile(p);
 
-            System.out.println("ennemi touché");
-            e.recoiDegat(degat);
-            System.out.println("pv ennemi : " + e.getPv());
+                System.out.println("ennemi touché");
+                e.recoitDegat(degat);
+                System.out.println("pv ennemi : " + e.getPv());
 
-            if (p.cibleTouchee()){
-                env.enleverProjectile(p);
+                /*if (p.cibleTouchee()) {
+                    env.enleverProjectile(p);
+                }*/
             }
         }
     }

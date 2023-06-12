@@ -26,17 +26,14 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
     public void onChanged(Change<? extends Projectile> change) {
         while (change.next()) {
             if (change.wasAdded()) {
-                for (int i = 0; i < change.getAddedSubList().size(); i++) {
-                    Projectile projectile = (Projectile) change.getAddedSubList().get(i);
-                    //creerProjectile(projectile);
-                    new VueProjectile(pane, projectile);
+                for (Projectile p : change.getAddedSubList()) {
+                    new VueProjectile(pane, p);
                 }
             }
             if (change.wasRemoved()) {
-                for (int i = change.getRemoved().size() - 1; i >= 0; i--) {
-                    Projectile projectile = (Projectile) change.getRemoved().get(i);
-                    Node n = pane.lookup("#" + projectile.getId());
-                    pane.getChildren().remove(n);
+                for (Projectile p : change.getRemoved()) {
+                    pane.lookup("#" + p.getId());
+                    pane.getChildren().remove(p.getId());
                 }
             }
         }

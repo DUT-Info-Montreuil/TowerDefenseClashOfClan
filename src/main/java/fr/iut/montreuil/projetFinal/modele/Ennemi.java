@@ -1,7 +1,6 @@
 package fr.iut.montreuil.projetFinal.modele;
 
 
-import fr.iut.montreuil.projetFinal.controleur.Controleur;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -104,7 +103,7 @@ public class Ennemi {
         return getPv() > 0;
     }
 
-    public void recoiDegat(int degatInflige){
+    public void recoitDegat(int degatInflige){
         if ((this.pv.getValue() - degatInflige) < 0){
             this.pv.setValue(0);
         }
@@ -117,5 +116,14 @@ public class Ennemi {
 
     public int getBfs() {
         return bfs.vraiChemin.size()-1;
+    }
+
+    public Tour hitBox(){
+        for (Tour t : this.env.getListeTour()){
+            while ((this.getX()-2 <= t.getX() && t.getX()<=this.getX()+2) && (this.getY()-2 <= t.getY() && t.getY()<=this.getY()+2)){
+                return t;
+            }
+        }
+        return null;
     }
 }

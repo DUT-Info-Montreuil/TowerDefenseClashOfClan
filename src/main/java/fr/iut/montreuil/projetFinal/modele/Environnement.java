@@ -134,9 +134,11 @@ public class Environnement {
         for (Projectile p : listeProjectile){
             p.deplacementProjectile();
             System.out.println("x projectile : "+ p.getX() + " , y projectile : " + p.getY());
+            /*if (p.cibleTouchee()){
+                enleverProjectile(p);
+            }*/
         }
-
-    this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
+        this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
     }
 
     public int[][] getTerrain() {
