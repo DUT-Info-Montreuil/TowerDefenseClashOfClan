@@ -1,7 +1,6 @@
 package fr.iut.montreuil.projetFinal.modele;
 
 
-import fr.iut.montreuil.projetFinal.controleur.Controleur;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -20,11 +19,13 @@ public class Ennemi {
     private CaseDebut caseDebut;
     private int dd = (int) (Math.random() * 10);
     private Hdv hdv;
+    private Vague vague;
+    private double degat;
 
 
-    public Ennemi(int y, int x, Environnement env, int pv, int v, int orTroupe, Hdv hdv) {
+    public Ennemi(int y, int x, Environnement env, int pv, int v, int orTroupe, Hdv hdv, Vague vague, double degat) {
         this.vitesse = v;
-
+        this.degat = degat;
         this.id = "A" + compteur;
         compteur++;
         this.xProperty = new SimpleIntegerProperty(x);
@@ -36,6 +37,7 @@ public class Ennemi {
         this.suivant = 0;
         this.orTroupe = orTroupe;
         this.hdv = hdv;
+        this.vague = vague;
     }
 
     public void seDeplacer () {
@@ -49,12 +51,16 @@ public class Ennemi {
         }
 
         if (suivant == bfs.vraiChemin.size() - 1 || suivant + 1 == bfs.vraiChemin.size() - 1) {
-            hdv.setPv(hdv.getPv()-1);
+            hdv.setPv(hdv.getPv()- (int)(degat * vague.getVagueAugmenteDegat() ));
             System.out.println(hdv.getPv());
             this.setPv(0);
         }
         System.out.println("--------------------------------------------------------------------------------");
 
+    }
+
+    public double getDegat() {
+        return degat;
     }
 
     public int getOrTroupe () {

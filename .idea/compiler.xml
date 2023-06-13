@@ -23,7 +23,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ProjetFinal_emre_boubacar7" target="17" />
+      <module name="ProjetFinal" target="17" />
+      <module name="TowerDefenseClashOfClan" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
