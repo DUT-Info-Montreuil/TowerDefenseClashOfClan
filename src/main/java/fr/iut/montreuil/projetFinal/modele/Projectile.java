@@ -1,11 +1,8 @@
 package fr.iut.montreuil.projetFinal.modele;
 
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import fr.iut.montreuil.projetFinal.vue.VueProjectile;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.util.Duration;
 
 public class Projectile  {
 
@@ -16,6 +13,8 @@ public class Projectile  {
     private int vitesse;
     public static int compteur;
     protected Environnement environnement;
+    private Ennemi ennemi;
+    private VueProjectile vueProjectile;
 
     public Projectile(double x, double y, Ennemi e, Environnement env){
         this.id = "P"+compteur;
@@ -25,9 +24,10 @@ public class Projectile  {
         this.yCible = new SimpleDoubleProperty(e.getY());
         this.dx = (e.getX() - this.getX()) / distanceTir();
         this.dy = (e.getY() - this.getY()) / distanceTir();
-        this.vitesse = 5;
+        this.vitesse = 3;
         this.compteur++;
         this.environnement = env;
+        this.ennemi = e;
     }
 
     public String getId(){
@@ -40,6 +40,10 @@ public class Projectile  {
 
     public double getY() {
         return y.getValue();
+    }
+
+    public void setVueProjectile(VueProjectile vueProjectile) {
+        this.vueProjectile = vueProjectile;
     }
 
     public double getxCible() {
@@ -66,15 +70,15 @@ public class Projectile  {
         return Math.sqrt(((xCible.getValue() - getX())) + ((yCible.getValue() - getY())));
     }
 
-    public boolean cibleTouchee(){
-        if (this.getX() == getxCible() && this.getY() == getyCible()){
-            return  true;
+    public boolean cibleTouche() {
+        if (this.getX() >= getxCible() && getX() <= (ennemi.getHitbox().getX() + ennemi.getHitbox().getWidth()) && getY() >= ennemi.getHitbox().getY() && getY() <= (ennemi.getHitbox().getY() + ennemi.getHitbox().getHeight())) {
+            return true; // Le point est à l'intérieur du rectangle
+        } else {
+            return false;
         }
-        return false;
     }
 
     public void deplacementProjectile(/*double elapsedTime*/) {
-
         double deltaX = dx * this.vitesse; //* elapsedTime;
         double deltaY = dy * this.vitesse; //* elapsedTime;
 

@@ -168,9 +168,10 @@ public class Environnement {
             System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
             p.deplacementProjectile();
 
-            /*if (p.cibleTouchee()){
+            if (p.cibleTouche()){
+                System.out.println("cible touche");
                 enleverProjectile(p);
-            }*/
+            }
         }
         this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
     }

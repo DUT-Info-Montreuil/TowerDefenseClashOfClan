@@ -4,6 +4,7 @@ package fr.iut.montreuil.projetFinal.modele;
 import fr.iut.montreuil.projetFinal.controleur.Controleur;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.shape.Rectangle;
 
 public class Ennemi {
 
@@ -20,6 +21,7 @@ public class Ennemi {
     private CaseDebut caseDebut;
     private int dd = (int) (Math.random() * 10);
     private Hdv hdv;
+    private Rectangle hitbox;
 
 
     public Ennemi(int y, int x, Environnement env, int pv, int v, int orTroupe, Hdv hdv) {
@@ -36,6 +38,7 @@ public class Ennemi {
         this.suivant = 0;
         this.orTroupe = orTroupe;
         this.hdv = hdv;
+        this.hitbox = new Rectangle(x,y,16,16);
     }
 
     public void seDeplacer () {
@@ -122,6 +125,10 @@ public class Ennemi {
 
     public int getVitesse () {
         return vitesse;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
     }
 
     @Override

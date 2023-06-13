@@ -79,7 +79,7 @@ public class Controleur implements Initializable {
         listObsTour = new ListObsTour(pane, environnement);
         environnement.getListeTour().addListener(listObsTour);
 
-        listObsProjectile = new ListObsProjectile(pane, environnement);
+        listObsProjectile = new ListObsProjectile(pane);
         environnement.getListeProjectile().addListener(listObsProjectile);
 
         compteurOr.textProperty().bind(environnement.orProperty().asString());
@@ -172,7 +172,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.5),
+                Duration.seconds(0.2),
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
