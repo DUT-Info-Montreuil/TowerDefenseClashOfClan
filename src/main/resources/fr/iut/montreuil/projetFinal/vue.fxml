@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ProgressBar?>
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.iut.montreuil.projetFinal.controleur.Controleur">
     <center>
         <Pane fx:id="Pane" onMouseClicked="#placerTour">
@@ -43,6 +44,7 @@
             <Label fx:id="NbVivant" text="NbVivant:" />
             <Label fx:id="NbMort" text="NbMort:" />
             <Label fx:id="PvHdv" text="PvHdv" />
+              <ProgressBar fx:id="VieEnnemi" prefWidth="200.0" progress="100.0"/>
           </children>
 
       </VBox>

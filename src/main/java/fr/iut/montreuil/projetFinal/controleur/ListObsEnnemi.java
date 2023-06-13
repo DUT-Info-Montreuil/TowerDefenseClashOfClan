@@ -9,6 +9,7 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -18,10 +19,10 @@ import java.net.URL;
 public class ListObsEnnemi implements ListChangeListener<Ennemi> {
     @FXML
     private Pane paneMap;
-
     private Environnement env;
     private Label NbVivant;
     private Label NbMort;
+    private static int pv = 100;
     private static int mort = 0;
 
 
@@ -44,6 +45,7 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
                 paneMap.getChildren().remove(n);
                 if (e.getSuivant() + 1 != e.getBfs() && e.getSuivant() != e.getBfs()) {
                         mort++;
+                        pv--;
                         NbMort.setText("NbMort : "+mort);
                         env.setorProperty(env.getorProperty() + e.getOrTroupe());
                         URL url = Lancement.class.getResource("Clashofclans-tombe-1.png");
