@@ -58,21 +58,18 @@ public class Tour{
     public void tir(){
         Ennemi e = this.essaieTir();
         System.out.println("action tir" );
-        if (e != null ){
+        if (e != null && e.estVivant()){
             System.out.println("ennemi non nul");
-            if (e.estVivant()) {
-                System.out.println("ennemi vivant");
-                Projectile p = new Projectile(getX(), getY(), e, env);
-                env.ajouterProjectile(p);
+            Projectile p = new Projectile(getX(), getY(), e, env);
+            env.ajouterProjectile(p);
 
-                System.out.println("ennemi touché");
-                e.recoitDegat(degat);
-                System.out.println("pv ennemi : " + e.getPv());
+            System.out.println("ennemi touché");
+            e.recoitDegat(degat);
+            System.out.println("pv ennemi : " + e.getPv());
 
-                /*if (p.cibleTouchee()) {
-                    env.enleverProjectile(p);
-                }*/
-            }
+            /*if (p.cibleTouchee()) {
+                   env.enleverProjectile(p);
+               }*/
         }
     }
 
