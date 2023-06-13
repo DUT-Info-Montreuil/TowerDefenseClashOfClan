@@ -2,8 +2,6 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.Lancement;
-import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
-import fr.iut.montreuil.projetFinal.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -19,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -31,11 +28,11 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane tilePane;
     @FXML
-    private Pane Pane;
-    //private Barbare barbare;
+    private Pane pane;
+    @FXML
+    private RadioButton ajouterTour;
     private Timeline gameLoop;
     private int temps;
-
     private Bfs bfs;
     private Ennemi ennemi ;
     @FXML
@@ -44,27 +41,22 @@ public class Controleur implements Initializable {
     private Label compteurOr;
     @FXML
     private Label messageJoueur;
-
     @FXML
     private Button ajouter;
-
     @FXML
     private RadioButton ajouterCanon;
-
     @FXML
     private Hdv hdv;
 
-    @FXML
-    ListChangeListener<Ennemi> listObs;
-
+    private ListChangeListener<Ennemi> listObsEnnemi;
+    private ListChangeListener<Tour> listObsTour;
+    private ListChangeListener<Projectile> listObsProjectile;
     @FXML
     private Label NbMort;
-
     @FXML
     private Label NbVivant;
     @FXML
     private Label PvHdv;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,15 +73,21 @@ public class Controleur implements Initializable {
                 trouverTile(environnement.getTerrain()[i][j], imTile);
             }
         }
-        listObs = new ListObsEnnemi(Pane, environnement,NbVivant,NbMort);
-        environnement.getEnnemis().addListener(listObs);
+        listObsEnnemi = new ListObsEnnemi(pane, environnement,NbVivant,NbMort);
+        environnement.getEnnemis().addListener(listObsEnnemi);
+
+        listObsTour = new ListObsTour(pane, environnement);
+        environnement.getListeTour().addListener(listObsTour);
+
+        listObsProjectile = new ListObsProjectile(pane, environnement);
+        environnement.getListeProjectile().addListener(listObsProjectile);
+
         compteurOr.textProperty().bind(environnement.orProperty().asString());
         messageJoueur.textProperty().bind(environnement.messageProperty());
         PvHdv.textProperty().bind(hdv.pv().asString());
         initAnimation();
         gameLoop.play();
     }
-
 
     @FXML
     void ajouter(ActionEvent event) {
@@ -125,20 +123,13 @@ public class Controleur implements Initializable {
         this.tilePane.getChildren().add(imv);
     }
 
-    // Faut nettoyer ici ya de la redondance pour les tours
     @FXML
     void creerTour(Tour tour, URL url){
         Image image = new Image(String.valueOf(url));
         ImageView imageView = new ImageView(image);
         imageView.setTranslateX(tour.getX()-24);
         imageView.setTranslateY(tour.getY()-24);
-        Pane.getChildren().add(imageView);
-
-//        Rectangle t = new Rectangle(50, 50);
-//        t.setFill(Color.BURLYWOOD);
-//        t.setTranslateX(tour.getX() - 25);
-//        t.setTranslateY(tour.getY() -25);
-//        Pane.getChildren().add(t);
+        pane.getChildren().add(imageView);
     }
 
 
@@ -181,10 +172,13 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(1),
+                Duration.seconds(0.5),
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
+//                    if (ennemi.estArriver() || !ennemi.estVivant()){
+//                        suprimerSprite();
+//                    }
                     if(temps==10000){
                         System.out.println("fini");
                         gameLoop.stop();

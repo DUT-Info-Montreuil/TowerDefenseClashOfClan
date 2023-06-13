@@ -48,12 +48,12 @@ public class Ennemi {
             setX(bfs.vraiChemin.get(getSuivant()).getX() * 16);
         }
 
-
         if (suivant == bfs.vraiChemin.size() - 1 || suivant + 1 == bfs.vraiChemin.size() - 1) {
             hdv.setPv(hdv.getPv()-1);
             System.out.println(hdv.getPv());
             this.setPv(0);
         }
+        System.out.println("--------------------------------------------------------------------------------");
 
     }
 
@@ -105,7 +105,7 @@ public class Ennemi {
         return getPv() > 0;
     }
 
-    public void recoiDegat ( int degatInflige){
+    public void recoitDegat ( int degatInflige){
         if ((this.pv.getValue() - degatInflige) < 0) {
             this.pv.setValue(0);
         }
@@ -130,6 +130,5 @@ public class Ennemi {
                 "id='" + id + '\'' +
                 '}';
     }
-
 
 }

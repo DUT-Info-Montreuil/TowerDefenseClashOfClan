@@ -82,9 +82,11 @@ public class Environnement {
     public String getmessageProperty() {
         return messageProperty.get();
     }
+
     public void setmessageProperty(String messageProperty) {
         this.messageProperty.set(messageProperty);
     }
+
     public final StringProperty messageProperty(){
         return messageProperty;
     }
@@ -92,9 +94,11 @@ public class Environnement {
     public int getorProperty() {
         return orProperty.get();
     }
+
     public void setorProperty(int orProperty) {
         this.orProperty.set(orProperty);
     }
+
     public final IntegerProperty orProperty(){
         return orProperty;
     }
@@ -102,15 +106,25 @@ public class Environnement {
     public int getNbToursProperty() {
         return nbToursProperty.get();
     }
+
     public void setNbToursProperty(int nbToursProperty) {
         this.nbToursProperty.set(nbToursProperty);
     }
+
     public final IntegerProperty NbToursProperty(){
         return nbToursProperty;
     }
 
     public ObservableList<Ennemi> getEnnemis() {
         return ennemi;
+    }
+
+    public ObservableList<Tour> getListeTour() {
+        return listeTour;
+    }
+
+    public ObservableList<Projectile> getListeProjectile() {
+        return listeProjectile;
     }
 
     public Ennemi getEnnemi(String id){
@@ -130,6 +144,8 @@ public class Environnement {
 
         for (Ennemi e : this.getEnnemis()) {
             e.seDeplacer();
+            System.out.println("dans un tour : id : " + e.getId() + " suivant : "+ e.getSuivant());
+            System.out.println("x ennemi : " +e.getX() + ", y ennemi : " + e.getY());
         }
 
         for (int i = ennemi.size()-1; i>=0; i--){
@@ -141,12 +157,24 @@ public class Environnement {
         }
 
         for (Tour t: listeTour) {
-            t.tir();
+            if (t.getX() > 0 && t.getY() > 0){
+                t.tir();
+            } else {
+                System.out.println("MM");
+            }
+
         }
+        for (Projectile p : listeProjectile){
+            System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
+            p.deplacementProjectile();
 
-
-    this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
+            /*if (p.cibleTouchee()){
+                enleverProjectile(p);
+            }*/
+        }
+        this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
     }
+
     public int[][] getTerrain() {
         return terrain;
     }
@@ -162,6 +190,9 @@ public class Environnement {
     public void ajouterProjectile (Projectile p){
         listeProjectile.add(p);
     }
+
+    public void enleverProjectile(Projectile p){listeProjectile.remove(p);}
+
     public void ajouterTour(Tour t){
         listeTour.add(t);
     }

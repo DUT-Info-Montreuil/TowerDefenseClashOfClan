@@ -6,11 +6,24 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ProjetFinal_chemin13" />
+        <module name="ProjetFinal_chemin3" />
+        <module name="ProjetFinal_chemin12" />
+        <module name="ProjetFinal_chemin6" />
         <module name="ProjetFinal" />
+        <module name="ProjetFinal_chemin5" />
+        <module name="ProjetFinal_emre_boubacar" />
+        <module name="ProjetFinal_chemin11" />
+        <module name="ProjetFinal_cheminFinal2" />
+        <module name="ProjetFinal_emre_boubacar6" />
+        <module name="ProjetFinal_chemin" />
+        <module name="ProjetFinal_emre_boubacar3" />
+        <module name="ProjetFinal_chemin9" />
+        <module name="ProjetFinal_emre_boubacar2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="TowerDefenseClashOfClan" target="17" />
+      <module name="ProjetFinal_emre_boubacar7" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
