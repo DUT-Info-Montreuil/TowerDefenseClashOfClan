@@ -25,7 +25,7 @@ public class Projectile  {
         this.yCible = new SimpleDoubleProperty(e.getY());
         this.dx = (e.getX() - this.getX()) / distanceTir();
         this.dy = (e.getY() - this.getY()) / distanceTir();
-        this.vitesse = 1;
+        this.vitesse = 3;
         this.compteur++;
         this.environnement = env;
     }
