@@ -156,14 +156,11 @@ public class Controleur implements Initializable {
                 creerTour(tour,url);
             }
             environnement.setmessageProperty("La défense: " + tour.getNom() + " a été placée");
-            //tour.tir();
         }
         else {
             environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
         }
     }
-
-
 
     private void initAnimation() {
         gameLoop = new Timeline();
@@ -172,19 +169,14 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.2),
-                // on définit ce qui se passe à chaque frame
-                // c'est un eventHandler d'ou le lambda
+                Duration.seconds(1),
                 (ev ->{
-//                    if (ennemi.estArriver() || !ennemi.estVivant()){
-//                        suprimerSprite();
-//                    }
                     if(temps==10000){
                         System.out.println("fini");
                         gameLoop.stop();
                     }
 
-                    if (environnement.getNbToursProperty() % 2 == 0){
+                    if (environnement.getNbToursProperty() % 10 == 0){
                         Ennemi archer = new Archer(45,45,environnement,hdv);
                         environnement.ajouterEnnemi(archer);
                     }
@@ -192,15 +184,7 @@ public class Controleur implements Initializable {
                         Ennemi barbare = new Barbare(50,50,environnement,hdv);
                         environnement.ajouterEnnemi(barbare);
                     }
-
                     environnement.unTour();
-
-//                    else if (!ennemi.estArriver()){
-//                        System.out.println("un tour");
-//                        environnement.unTour();
-//                        System.out.println("nbr de tour : " + environnement.getTour());
-//                        System.out.println(ennemi.estArriver());
-//                    }
                     temps++;
                 })
         );

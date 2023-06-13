@@ -72,9 +72,9 @@ public class Tour{
                 System.out.println("ennemi non nul");
                 Projectile p = new Projectile(this.getX(), this.getY(), e, env);
                 env.ajouterProjectile(p);
-
-                System.out.println("ennemi touché");
-                e.recoitDegat(degat);
+                if (p.cibleTouche()) {
+                    e.recoitDegat(degat);
+                }
                 System.out.println("pv ennemi : " + e.getPv());
             }
 

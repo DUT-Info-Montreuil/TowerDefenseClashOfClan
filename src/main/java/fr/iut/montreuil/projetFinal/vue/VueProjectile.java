@@ -1,6 +1,7 @@
 package fr.iut.montreuil.projetFinal.vue;
 
 import fr.iut.montreuil.projetFinal.modele.Projectile;
+import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -19,13 +20,29 @@ public class VueProjectile {
         this.listeBoulet = new ArrayList<>();
         Circle boulet = new Circle(3);
         boulet.setFill(Color.BLACK);
-        boulet.setTranslateX(p.getX());
-        boulet.setTranslateY(p.getY());
+//        boulet.setTranslateX(p.getX());
+//        boulet.setTranslateY(p.getY());
 
         boulet.translateXProperty().bind(p.getxProperty());
         boulet.translateYProperty().bind(p.getyProperty());
         pane.getChildren().add(boulet);
         listeBoulet.add(boulet);
+
+        AnimationTimer timer = new AnimationTimer() {
+
+            private long lastUpdate = 0;
+
+            @Override
+            public void handle(long l) {
+                if (lastUpdate > 0){
+                    double elapsedTime = (l - lastUpdate) / 1000000000.0;
+
+                    p.deplacementProjectile(elapsedTime);
+                }
+                lastUpdate = l;
+            }
+        };
+        timer.start();
     }
 
     public Projectile getProjectile() {

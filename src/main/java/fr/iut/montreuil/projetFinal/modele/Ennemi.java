@@ -4,13 +4,14 @@ package fr.iut.montreuil.projetFinal.modele;
 import fr.iut.montreuil.projetFinal.controleur.Controleur;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Ennemi {
 
     protected Environnement env;
     private String id;
-    private int vitesse;
+    private double vitesse;
     private IntegerProperty xProperty, yProperty;
     private int orTroupe;
 
@@ -24,7 +25,7 @@ public class Ennemi {
     private Rectangle hitbox;
 
 
-    public Ennemi(int y, int x, Environnement env, int pv, int v, int orTroupe, Hdv hdv) {
+    public Ennemi(int y, int x, Environnement env, int pv, double v, int orTroupe, Hdv hdv) {
         this.vitesse = v;
 
         this.id = "A" + compteur;
@@ -39,6 +40,7 @@ public class Ennemi {
         this.orTroupe = orTroupe;
         this.hdv = hdv;
         this.hitbox = new Rectangle(x,y,16,16);
+        hitbox.setFill(Color.BLACK);
     }
 
     public void seDeplacer () {
@@ -46,7 +48,7 @@ public class Ennemi {
 
 
         if (suivant < bfs.vraiChemin.size() - 1) {
-            suivant = suivant + this.vitesse;
+            suivant = suivant + (int) this.vitesse;
             setY(bfs.vraiChemin.get(getSuivant()).getY() * 16);
             setX(bfs.vraiChemin.get(getSuivant()).getX() * 16);
         }
@@ -123,7 +125,7 @@ public class Ennemi {
         return bfs.vraiChemin.size() - 1;
     }
 
-    public int getVitesse () {
+    public double getVitesse () {
         return vitesse;
     }
 

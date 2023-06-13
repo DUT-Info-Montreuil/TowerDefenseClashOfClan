@@ -157,20 +157,16 @@ public class Environnement {
         }
 
         for (Tour t: listeTour) {
-            if (t.getX() > 0 && t.getY() > 0){
+            if (t.getX() > 0 && t.getY() > 0) {
                 t.tir();
-            } else {
-                System.out.println("MM");
             }
-
         }
+
         for (Projectile p : listeProjectile){
             System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
-            p.deplacementProjectile();
-
             if (p.cibleTouche()){
-                System.out.println("cible touche");
                 enleverProjectile(p);
+                System.out.println("projectile supprimer");
             }
         }
         this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
@@ -179,15 +175,19 @@ public class Environnement {
     public int[][] getTerrain() {
         return terrain;
     }
+
     public int getHeight() {
         return height;
     }
+
     public int getWidth() {
         return width;
     }
+
     public boolean dansLeTerrain(int y, int x){
         return (0 <= x && x<this.width && 0<=y && y< this.height);
     }
+
     public void ajouterProjectile (Projectile p){
         listeProjectile.add(p);
     }
@@ -197,6 +197,7 @@ public class Environnement {
     public void ajouterTour(Tour t){
         listeTour.add(t);
     }
+
     public int getTour() {
         return getNbToursProperty();
     }

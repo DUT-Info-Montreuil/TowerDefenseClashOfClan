@@ -27,34 +27,36 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
     public void onChanged(Change<? extends Projectile> change) {
         while (change.next()) {
             if (change.wasAdded()) {
-                for (Projectile p : change.getAddedSubList()) {
-                    VueProjectile vueProjectile = new VueProjectile(pane, p);
-                    vuesProjectile.add(vueProjectile);
-                    p.setVueProjectile(vueProjectile);                }
+                for (int i = 0; i < change.getAddedSubList().size(); i++) {
+                    Projectile projectile = (Projectile) change.getAddedSubList().get(i);
+                    new VueProjectile(pane, projectile);
+                }
             }
             if (change.wasRemoved()) {
-                for (Projectile p : change.getRemoved()) {
-                    enleverProjectile(p);
+                for (int i = change.getRemoved().size() - 1; i >= 0; i--) {
+                    Projectile projectile = (Projectile) change.getRemoved().get(i);
+                    Node n = pane.lookup("#" + projectile.getId());
+                    pane.getChildren().remove(n);
                 }
             }
         }
 
     }
 
-    private void enleverProjectile (Projectile proj){
+//    private void enleverProjectile (Projectile proj){
 //        this.panneauDeJeu.getChildren().remove(this.panneauDeJeu.lookup("#"+ p.getId()));
-        VueProjectile vueProjectileToRemove = null;
-        for (VueProjectile vueProjectile : vuesProjectile) {
-            if (vueProjectile.getProjectile() == proj) { // Recherche la vue correspondant à l'acteur ennemi supprimé
-                vueProjectileToRemove = vueProjectile; // Stocke la vue à supprimer
-                break;
-            }
-        }
-
-        if (vueProjectileToRemove != null) {
-            vueProjectileToRemove.retirerCercle(proj); // Retire l'image de l'acteur ennemi dans la vue
-            vuesProjectile.remove(vueProjectileToRemove); // Supprime la vue des ennemis
-        }
-    }
+//        VueProjectile vueProjectileToRemove = null;
+//        for (VueProjectile vueProjectile : vuesProjectile) {
+//            if (vueProjectile.getProjectile() == proj) { // Recherche la vue correspondant à l'acteur ennemi supprimé
+//                vueProjectileToRemove = vueProjectile; // Stocke la vue à supprimer
+//                break;
+//            }
+//        }
+//
+//        if (vueProjectileToRemove != null) {
+//            vueProjectileToRemove.retirerCercle(proj); // Retire l'image de l'acteur ennemi dans la vue
+//            vuesProjectile.remove(vueProjectileToRemove); // Supprime la vue des ennemis
+//        }
+//    }
 }
 
