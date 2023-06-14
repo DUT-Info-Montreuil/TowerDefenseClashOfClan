@@ -16,6 +16,7 @@ public class Environnement {
     private ObservableList<Tour> listeTour;
     private IntegerProperty orProperty;
     private StringProperty messageProperty;
+
     public Environnement(int width, int height){
         this.width = width;
         this.height = height;
@@ -178,15 +179,19 @@ public class Environnement {
     public int[][] getTerrain() {
         return terrain;
     }
+
     public int getHeight() {
         return height;
     }
+
     public int getWidth() {
         return width;
     }
+
     public boolean dansLeTerrain(int y, int x){
         return (0 <= x && x<this.width && 0<=y && y< this.height);
     }
+
     public void ajouterProjectile (Projectile p){
         listeProjectile.add(p);
     }
@@ -196,6 +201,7 @@ public class Environnement {
     public void ajouterTour(Tour t){
         listeTour.add(t);
     }
+
     public int getTour() {
         return getNbToursProperty();
     }
