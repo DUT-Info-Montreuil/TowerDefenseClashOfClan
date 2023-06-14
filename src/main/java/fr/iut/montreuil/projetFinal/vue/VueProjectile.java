@@ -12,8 +12,6 @@ public class VueProjectile {
     public VueProjectile(Pane pane, Projectile p){
         Circle boulet = new Circle(3);
         boulet.setFill(Color.BLACK);
-        boulet.setTranslateX(p.getX());
-        boulet.setTranslateY(p.getY());
 
         boulet.translateXProperty().bind(p.getxProperty());
         boulet.translateYProperty().bind(p.getyProperty());

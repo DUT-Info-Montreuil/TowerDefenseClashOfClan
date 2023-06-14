@@ -4,6 +4,9 @@ import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.vue.VueArcher;
 import fr.iut.montreuil.projetFinal.vue.VueBarbare;
+import fr.iut.montreuil.projetFinal.vue.VueGeant;
+import fr.iut.montreuil.projetFinal.vue.VueArcher;
+import fr.iut.montreuil.projetFinal.vue.VueBarbare;
 import fr.iut.montreuil.projetFinal.vue.VueGéant;
 import fr.iut.montreuil.projetFinal.vue.VuePekka;
 import javafx.collections.ListChangeListener;
@@ -37,7 +40,7 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
     public void onChanged(Change<?extends Ennemi> change) {
         while (change.next()) {
 
-            NbVivant.setText("nbEnnemie : "+env.getEnnemis().size());
+            NbVivant.setText("Ennemi restant : " + env.getEnnemis().size());
             for (Ennemi e: change.getAddedSubList()) {
                 if (e instanceof Barbare){
                     new VueBarbare(paneMap,e);
@@ -57,7 +60,7 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
                 if (e.getSuivant() + 1 != e.getBfs() && e.getSuivant() != e.getBfs()) {
                     mort++;
                     pv--;
-                    NbMort.setText("NbMort : "+mort);
+                    NbMort.setText("Mort : " + mort);
                     env.setorProperty(env.getorProperty() + e.getOrTroupe());
                     URL url = Lancement.class.getResource("Clashofclans-tombe-1.png");
                     Image image = new Image(String.valueOf(url));
@@ -70,4 +73,16 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
         }
     }
 
+    public void creerSprite(Ennemi ennemie) {
+        if (ennemie instanceof Barbare){
+            new VueBarbare(paneMap, ennemie);
+        }
+        else if (ennemie instanceof Archer){
+            new VueArcher(paneMap, ennemie);
+        }
+        else if (ennemie instanceof Géant){
+            new VueGeant(paneMap, ennemie);
+        }
+
+    }
 }
