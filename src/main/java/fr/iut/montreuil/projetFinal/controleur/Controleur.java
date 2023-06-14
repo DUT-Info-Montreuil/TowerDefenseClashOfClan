@@ -71,9 +71,13 @@ public class Controleur implements Initializable {
     private Vague vague;
     @FXML
     private ProgressBar VieEnnemi;
+    @FXML
+    private RadioButton vendreTour;
 
     @FXML
     private boolean pause = true;
+
+    private Tour tour;
 
 
     @Override
@@ -140,7 +144,7 @@ public class Controleur implements Initializable {
     }
 
     public void choixTour(MouseEvent event) {
-        if (environnement.getTerrain()[(int) event.getY() / 16][(int) event.getX() / 16] == 63) {
+        if (environnement.getTerrain()[(int) event.getY()/16][(int) event.getX()/16] == 63) {
             if (ajouterTourArchers.isSelected()) {
                 TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
                 environnement.ajouterTour(tour);
@@ -148,11 +152,31 @@ public class Controleur implements Initializable {
                 Canon tour = new Canon(event.getX(), event.getY(), environnement);
                 environnement.ajouterTour(tour);
             }
+            else if (vendreTour.isSelected()) {
+                chercherTour(event.getX(), event.getY());
+                /*environnement.setorProperty(environnement.getorProperty() + indiceTour.getVente());
+                environnement.setmessageProperty("+ " + indiceTour.getVente() + "Or pour vente de " + indiceTour.getNom());*/
+            }
         }
         else {
             environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
         }
     }
+
+    public void chercherTour(double x, double y) {
+        for (Tour t : environnement.getListeTour()) {
+            if (t.getX() <= x && t.getY() <= y && x < t.getX()+48 && y < t.getY()+48){
+                //if ((this.getX()-48 <= t.getX() && t.getX()<=this.getX()+48) && (this.getY()-48 <= t.getY() && t.getY()<=this.getY()+48)){
+                System.out.println("rentré dans tour");
+                environnement.retirerTour(t);
+                System.out.println("Tour supprimée");
+                System.out.println("Id : " + t.getId());
+
+            }
+        }
+    }
+
+
     public void afficherGameOverScene(){
             FXMLLoader fxmlLoader = new FXMLLoader();
             URL resource = getClass().getResource("/fr/iut/montreuil/projetFinal/f.fxml");

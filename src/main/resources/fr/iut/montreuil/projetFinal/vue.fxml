@@ -74,6 +74,16 @@
                         </ImageView>
                      </children>
                   </HBox>
+                  <HBox prefHeight="57.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="vendreTour" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="55.0" text="Vendre une Tour">
+                           <font>
+                              <Font name="Caladea" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <VBox prefHeight="82.0" prefWidth="214.0">
