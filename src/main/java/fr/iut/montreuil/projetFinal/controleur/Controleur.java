@@ -36,6 +36,7 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
     private Bfs bfs;
+    private Ennemi ennemi ;
     private Hdv hdv;
     private ListChangeListener<Ennemi> listObsEnnemi;
     private ListChangeListener<Tour> listObsTour;
@@ -80,9 +81,8 @@ public class Controleur implements Initializable {
         //VieEnnemi.setProgress(56);
         this.vague = new Vague(environnement);
 
-//        URL urlTesla = Lancement.class.getResource("tda_Coc.png");
-//        Image imageTesla = new Image(String.valueOf(urlTesla));
-//        imageTda.setImage(imageTesla);
+
+
 
         URL ImageTile = Lancement.class.getResource("tiles_12.png");
         Image imTile = new Image(String.valueOf(ImageTile));
