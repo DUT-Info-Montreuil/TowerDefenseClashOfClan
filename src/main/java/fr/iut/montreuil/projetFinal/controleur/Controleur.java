@@ -4,6 +4,7 @@ import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
 import fr.iut.montreuil.projetFinal.modele.*;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -25,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -81,6 +83,7 @@ public class Controleur implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement,21,2);
         this.hdv = new Hdv(environnement,VieEnnemi);
@@ -133,6 +136,7 @@ public class Controleur implements Initializable {
         }
 
     }
+
 
     @FXML
     void fairTour(ActionEvent event) {
@@ -208,6 +212,22 @@ public class Controleur implements Initializable {
             primaryStage.setScene(scene);
             primaryStage.show();
     }
+    public void afficherGameOverScene(){
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL resource = getClass().getResource("/fr/iut/montreuil/projetFinal/f.fxml");
+            Parent root = null;
+            try {
+                    root = fxmlLoader.load(resource);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return; // Arrêter la méthode si une exception se produit Lors du chargement, du fichier. FxML
+            }
+            Scene scene = new Scene(root);
+            Stage primaryStage = (Stage) ((Node) Pane).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+    }
+
 
 
     private void initAnimation() {
