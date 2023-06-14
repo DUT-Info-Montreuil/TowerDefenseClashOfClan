@@ -85,6 +85,26 @@ public class Controleur implements Initializable {
     }
 
     @FXML
+    void ajouter(ActionEvent event) {
+
+        if (environnement.getNbToursProperty() % 2 == 0){
+            Ennemi archer = new Archer(45,45,environnement,hdv);
+            environnement.ajouterEnnemi(archer);
+        }
+        else {
+            Ennemi barbare = new Barbare(50,50,environnement,hdv);
+            environnement.ajouterEnnemi(barbare);
+        }
+
+    }
+
+    @FXML
+    void fairTour(ActionEvent event) {
+        environnement.unTour();
+    }
+
+
+    @FXML
     private void trouverTile(int id, Image im){
         ImageView imv = new ImageView(im);
         int x,y;
@@ -98,42 +118,18 @@ public class Controleur implements Initializable {
         this.tilePane.getChildren().add(imv);
     }
 
-    @FXML
-    void creerTour(Tour tour, URL url){
-        Image image = new Image(String.valueOf(url));
-        ImageView imageView = new ImageView(image);
-        imageView.setTranslateX(tour.getX()-24);
-        imageView.setTranslateY(tour.getY()-24);
-        pane.getChildren().add(imageView);
-    }
-
     public void choixTour(MouseEvent event) {
-        if (ajouterTourArchers.isSelected()) {
-            TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
-            placerTour(tour);
-        } else if (ajouterCanon.isSelected()) {
-            Canon tour = new Canon(event.getX(), event.getY(), environnement);
-            placerTour(tour);
-        }
-    }
-
-    public void placerTour (Tour tour){
-        if ((environnement.getorProperty() - tour.getPrix()) >= 0) {
-            environnement.setorProperty((environnement.getorProperty() - tour.getPrix()));
-            environnement.ajouterTour(tour);
-            if (tour instanceof TourArchers) {
-                URL url = Lancement.class.getResource("tda_Coc.png");
-                creerTour(tour,url);
+        if (environnement.getTerrain()[(int) event.getY() / 16][(int) event.getX() / 16] == 63) {
+            if (ajouterTourArchers.isSelected()) {
+                TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
+                environnement.ajouterTour(tour);
+            } else if (ajouterCanon.isSelected()) {
+                Canon tour = new Canon(event.getX(), event.getY(), environnement);
+                environnement.ajouterTour(tour);
             }
-            else if (tour instanceof Canon) {
-                URL url = Lancement.class.getResource("canon_Coc.png");
-                creerTour(tour,url);
-            }
-            environnement.setmessageProperty("La défense: " + tour.getNom() + " a été placée");
-            //tour.tir();
         }
-        else {
-            environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+        else{
+            environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
         }
     }
 
