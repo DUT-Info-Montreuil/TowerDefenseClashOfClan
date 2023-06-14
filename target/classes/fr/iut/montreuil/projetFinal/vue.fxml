@@ -106,7 +106,7 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="34.0" prefWidth="280.0">
                      <children>
                         <ProgressBar fx:id="VieEnnemi" prefWidth="200.0" progress="100.0" />
                         <Label fx:id="PvHdv" prefHeight="19.0" prefWidth="78.0" text="pv Hdv : ">
@@ -122,5 +122,20 @@
          </children>
       </VBox>
    </right>
+   <bottom>
+      <HBox prefHeight="48.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0">
+               <children>
+                  <ImageView fx:id="imagePausereprendre" fitHeight="35.0" fitWidth="39.0" onMouseClicked="#mettrePause" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imgPause.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </bottom>
 
 </BorderPane>
