@@ -134,12 +134,15 @@ public class Controleur implements Initializable {
 
 
     public void choixTour(MouseEvent event) {
-        if (ajouterTourArchers.isSelected()) {
-            TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
-            placerTour(tour);
-        } else if (ajouterCanon.isSelected()) {
-            Canon tour = new Canon(event.getX(), event.getY(), environnement);
-            placerTour(tour);
+        if (environnement.getTerrain()[(int) event.getY() / 16][(int) event.getX() / 16] == 63) {
+            if (ajouterTourArchers.isSelected()) {
+                TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
+                placerTour(tour);
+            } else if (ajouterCanon.isSelected()) {
+                Canon tour = new Canon(event.getX(), event.getY(), environnement);
+                placerTour(tour);
+            }
+            environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
         }
     }
 
