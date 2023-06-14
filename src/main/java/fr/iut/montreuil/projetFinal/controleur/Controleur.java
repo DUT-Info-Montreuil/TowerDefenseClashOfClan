@@ -189,19 +189,22 @@ public class Controleur implements Initializable {
                     }
 
                     if (environnement.getNbToursProperty()%2 == 0 && pause == true ) {
-                        if (pause == true) {
-                            Ennemi barbare = new Barbare(50, 50, environnement, hdv, vague);
-                            environnement.ajouterEnnemi(barbare);
-                        }
-                    }
-                    else if (environnement.getNbToursProperty() % 3 == 0 && pause == true && vague.getVagueProperty() >= 2){
-                        System.out.println("pause dans créer archer = " + pause);
                         Ennemi archer = new Archer(45,45,environnement,hdv,vague);
                         environnement.ajouterEnnemi(archer);
+                    }
+                    else if (environnement.getNbToursProperty() % 3 == 0 && pause == true && vague.getVagueProperty() >= 2){
+                        Ennemi barbare = new Barbare(50, 50, environnement, hdv, vague);
+                        environnement.ajouterEnnemi(barbare);
                     }
                     else if (environnement.getNbToursProperty()%5 == 0 && pause == true && vague.getVagueProperty() >= 3) {
                         Ennemi géant = new Géant(50,50,environnement,hdv,vague);
                         environnement.ajouterEnnemi(géant);
+                    }
+                    else {
+                        if (pause == true && vague.getVagueProperty() >= 4){
+                            Ennemi pekka = new Pekka(50, 50, environnement, hdv, vague);
+                            environnement.ajouterEnnemi(pekka);
+                        }
                     }
 
                     if (environnement.getNbToursProperty()%100 == 0 && environnement.getNbToursProperty()!=0){

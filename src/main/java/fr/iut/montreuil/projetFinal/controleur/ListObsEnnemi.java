@@ -2,6 +2,10 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.modele.*;
+import fr.iut.montreuil.projetFinal.vue.VueArcher;
+import fr.iut.montreuil.projetFinal.vue.VueBarbare;
+import fr.iut.montreuil.projetFinal.vue.VueGéant;
+import fr.iut.montreuil.projetFinal.vue.VuePekka;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -35,7 +39,17 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
 
             NbVivant.setText("nbEnnemie : "+env.getEnnemis().size());
             for (Ennemi e: change.getAddedSubList()) {
-                creerSprite(e);
+                if (e instanceof Barbare){
+                    new VueBarbare(paneMap,e);
+                } else if (e instanceof Archer) {
+                    new VueArcher(paneMap,e);
+                }
+                else if (e instanceof Géant){
+                    new VueGéant(paneMap, e);
+                }
+                else if (e instanceof Pekka){
+                    new VuePekka(paneMap, e);
+                }
             }
             for (Ennemi e : change.getRemoved()) {
                 Node n = paneMap.lookup("#" + e.getId());
@@ -56,34 +70,4 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
         }
     }
 
-    public void creerSprite(Ennemi ennemie) {
-        if (ennemie instanceof Barbare){
-            URL url = Lancement.class.getResource("barbareV.jpeg");
-            Image image = new Image(String.valueOf(url));
-            ImageView imageView = new ImageView(image);
-            imageView.setId(ennemie.getId());
-            imageView.translateXProperty().bind(ennemie.xProperty());
-            imageView.translateYProperty().bind(ennemie.yProperty());
-            paneMap.getChildren().add(imageView);
-        }
-        else if (ennemie instanceof Archer){
-            URL url = Lancement.class.getResource("archerV.png");
-            Image image = new Image(String.valueOf(url));
-            ImageView imageView = new ImageView(image);
-            imageView.setId(ennemie.getId());
-            imageView.translateXProperty().bind(ennemie.xProperty());
-            imageView.translateYProperty().bind(ennemie.yProperty());
-            paneMap.getChildren().add(imageView);
-        }
-        else if (ennemie instanceof Géant){
-            URL url = Lancement.class.getResource("géant.png");
-            Image image = new Image(String.valueOf(url));
-            ImageView imageView = new ImageView(image);
-            imageView.setId(ennemie.getId());
-            imageView.translateXProperty().bind(ennemie.xProperty());
-            imageView.translateYProperty().bind(ennemie.yProperty());
-            paneMap.getChildren().add(imageView);
-        }
-
-    }
 }

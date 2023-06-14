@@ -76,7 +76,7 @@ public class Environnement {
         this.nbToursProperty = new SimpleIntegerProperty(0);
         this.listeProjectile = FXCollections.observableArrayList();
         this.listeTour =FXCollections.observableArrayList();
-        this.orProperty = new SimpleIntegerProperty(150);
+        this.orProperty = new SimpleIntegerProperty(550);
         this.messageProperty = new SimpleStringProperty("Bienvenue sur le Tower Defense Clash of Clans");
     }
 
