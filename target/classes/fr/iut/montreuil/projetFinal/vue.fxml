@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -12,51 +15,118 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ProgressBar?>
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.iut.montreuil.projetFinal.controleur.Controleur">
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.iut.montreuil.projetFinal.controleur.Controleur">
     <center>
         <Pane fx:id="pane" onMouseClicked="#choixTour">
             <TilePane fx:id="tilePane" maxHeight="800.0" maxWidth="1200.0" prefColumns="75">
             </TilePane>
-
         </Pane>
-
-
     </center>
-   <bottom>
-      <Button mnemonicParsing="false" onAction="#fairTour" text="tour" BorderPane.alignment="CENTER" />
-   </bottom>
+
    <right>
-      <VBox prefHeight="800.0" prefWidth="300.0" BorderPane.alignment="CENTER">
-
-
-          <children>
-               <Label text="Défenses"/>
-              <fx:define>
-              <ToggleGroup fx:id="selectionDefense" />
-              </fx:define>
-               <RadioButton fx:id="ajouterTourArchers" mnemonicParsing="false" text="Tour d'archers. Prix : 50" toggleGroup="$selectionDefense" />
-              <RadioButton fx:id="ajouterCanon" mnemonicParsing="false" text="Canon. Prix : 75" toggleGroup="$selectionDefense" />
-          </children>
-          <children>
-               <Label text="Ajout d'ennemis"/>
-               <Button onAction="#ajouter" mnemonicParsing="false" text="ajouter" />
-          </children>
-          <children>
-              <Label text="Or disponible:"/>
-              <Label fx:id="compteurOr"/>
-          </children>
-          <children>
-              <Label text="Or:" />
-              <Label fx:id="messageJoueur" />
-            <Label fx:id="NbVivant" text="NbVivant:" />
-            <Label fx:id="NbMort" text="NbMort:" />
-            <Label fx:id="PvHdv" text="PvHdv" />
-              <ProgressBar fx:id="VieEnnemi" prefWidth="200.0" progress="100.0"/>
-          </children>
-
+      <VBox prefHeight="400.0" prefWidth="280.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="123.0" prefWidth="214.0">
+               <children>
+                  <HBox prefHeight="26.0" prefWidth="143.0">
+                     <children>
+                        <RadioButton fx:id="ajouterTourArchers" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="selectionDefense" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <ImageView fx:id="imageTda" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@tda_Coc.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="50.0" text="50">
+                           <font>
+                              <Font name="Caladea" size="20.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgPiece.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="57.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="ajouterCanon" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense" />
+                        <ImageView fx:id="imageCanon" fitHeight="39.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@canon_Coc.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="55.0" text="75">
+                           <font>
+                              <Font name="Caladea" size="20.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgPiece.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="82.0" prefWidth="214.0">
+               <children>
+                  <VBox prefHeight="70.0" prefWidth="214.0">
+                     <children>
+                        <Label text="or disponible : " />
+                        <HBox prefHeight="25.0" prefWidth="214.0">
+                           <children>
+                              <Label fx:id="compteurOr" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="49.0" text="0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@imgPiece.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="203.0" prefWidth="214.0">
+               <children>
+                  <Label fx:id="messageJoueur" />
+                  <Label fx:id="NbVivant" text="Ennemi restant :">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Label fx:id="NbMort" text="Ennemi mort : ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="PvHdv" prefHeight="19.0" prefWidth="78.0" text="pv Hdv : ">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgCoeur.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
       </VBox>
    </right>
 
