@@ -26,18 +26,18 @@
     </center>
 
    <right>
-      <VBox prefHeight="374.0" prefWidth="214.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="400.0" prefWidth="280.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="123.0" prefWidth="214.0">
                <children>
                   <HBox prefHeight="26.0" prefWidth="143.0">
                      <children>
-                        <RadioButton id="ajouterTourArchers" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0">
+                        <RadioButton fx:id="ajouterTourArchers" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0">
                            <toggleGroup>
                               <ToggleGroup fx:id="selectionDefense" />
                            </toggleGroup>
                         </RadioButton>
-                        <ImageView id="imageTda" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imageTda" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tda_Coc.png" />
                            </image>
@@ -56,8 +56,8 @@
                   </HBox>
                   <HBox prefHeight="57.0" prefWidth="200.0">
                      <children>
-                        <RadioButton id="ajouterCanon" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense" />
-                        <ImageView id="imageCanon" fitHeight="39.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <RadioButton fx:id="ajouterCanon" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense" />
+                        <ImageView fx:id="imageCanon" fitHeight="39.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@canon_Coc.png" />
                            </image>
@@ -83,7 +83,7 @@
                         <Label text="or disponible : " />
                         <HBox prefHeight="25.0" prefWidth="214.0">
                            <children>
-                              <Label id="compteurOr" alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="35.0" text="0">
+                              <Label fx:id="compteurOr" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="49.0" text="0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -101,10 +101,29 @@
             </VBox>
             <VBox prefHeight="203.0" prefWidth="214.0">
                <children>
-                  <Label id="messageJoueur" />
-                  <Label id="NbVivant" text="Ennemi restant :" />
-                  <Label id="NbMort" text="Ennemi mort : " />
-                  <Label id="PvHdv" text="pv Hdv : " />
+                  <Label fx:id="messageJoueur" />
+                  <Label fx:id="NbVivant" text="Ennemi restant :">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Label fx:id="NbMort" text="Ennemi mort : ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="PvHdv" prefHeight="19.0" prefWidth="78.0" text="pv Hdv : ">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgCoeur.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

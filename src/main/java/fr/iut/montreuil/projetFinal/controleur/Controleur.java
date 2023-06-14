@@ -29,8 +29,6 @@ public class Controleur implements Initializable {
     private TilePane tilePane;
     @FXML
     private Pane pane;
-    @FXML
-    private RadioButton ajouterTour;
     private Timeline gameLoop;
     private int temps;
     private Bfs bfs;
@@ -42,12 +40,8 @@ public class Controleur implements Initializable {
     @FXML
     private Label messageJoueur;
     @FXML
-    private Button ajouter;
-    @FXML
     private RadioButton ajouterCanon;
-    @FXML
     private Hdv hdv;
-
     private ListChangeListener<Ennemi> listObsEnnemi;
     private ListChangeListener<Tour> listObsTour;
     private ListChangeListener<Projectile> listObsProjectile;
@@ -85,6 +79,7 @@ public class Controleur implements Initializable {
         compteurOr.textProperty().bind(environnement.orProperty().asString());
         messageJoueur.textProperty().bind(environnement.messageProperty());
         PvHdv.textProperty().bind(hdv.pv().asString());
+
         initAnimation();
         gameLoop.play();
     }
@@ -107,7 +102,6 @@ public class Controleur implements Initializable {
     void fairTour(ActionEvent event) {
         environnement.unTour();
     }
-
 
     @FXML
     private void trouverTile(int id, Image im){
@@ -132,7 +126,6 @@ public class Controleur implements Initializable {
         pane.getChildren().add(imageView);
     }
 
-
     public void choixTour(MouseEvent event) {
         if (ajouterTourArchers.isSelected()) {
             TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
@@ -155,15 +148,12 @@ public class Controleur implements Initializable {
                 URL url = Lancement.class.getResource("canon_Coc.png");
                 creerTour(tour,url);
             }
-            environnement.setmessageProperty("La défense: " + tour.getNom() + " a été placée");
-            //tour.tir();
+            environnement.setmessageProperty("La défense : " + tour.getNom() + " a été placée");
         }
         else {
             environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
         }
     }
-
-
 
     private void initAnimation() {
         gameLoop = new Timeline();
@@ -176,9 +166,6 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-//                    if (ennemi.estArriver() || !ennemi.estVivant()){
-//                        suprimerSprite();
-//                    }
                     if(temps==10000){
                         System.out.println("fini");
                         gameLoop.stop();
