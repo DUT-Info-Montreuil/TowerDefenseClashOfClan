@@ -182,7 +182,6 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-
                     if (hdv.hdvGameOver()){
                         gameLoop.stop();
                         afficherGameOverScene();
