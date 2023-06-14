@@ -88,7 +88,7 @@ public class Tour{
 
             /*if (p.cibleTouchee()) {
                    env.enleverProjectile(p);
-               }*/
+            }*/
         }
     }
 

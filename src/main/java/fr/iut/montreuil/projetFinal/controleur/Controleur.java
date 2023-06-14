@@ -25,14 +25,18 @@ import java.util.ResourceBundle;
 public class Controleur implements Initializable {
 
     private Environnement environnement;
-    @FXML
-    private TilePane tilePane;
-    @FXML
-    private Pane pane;
     private Timeline gameLoop;
     private int temps;
     private Bfs bfs;
     private Ennemi ennemi ;
+    private Hdv hdv;
+    private ListChangeListener<Ennemi> listObsEnnemi;
+    private ListChangeListener<Tour> listObsTour;
+    private ListChangeListener<Projectile> listObsProjectile;
+    @FXML
+    private TilePane tilePane;
+    @FXML
+    private Pane pane;
     @FXML
     private RadioButton ajouterTourArchers;
     @FXML
@@ -41,10 +45,6 @@ public class Controleur implements Initializable {
     private Label messageJoueur;
     @FXML
     private RadioButton ajouterCanon;
-    private Hdv hdv;
-    private ListChangeListener<Ennemi> listObsEnnemi;
-    private ListChangeListener<Tour> listObsTour;
-    private ListChangeListener<Projectile> listObsProjectile;
     @FXML
     private Label NbMort;
     @FXML
@@ -54,7 +54,6 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement,21,2);
         this.hdv = new Hdv(environnement);
@@ -67,6 +66,7 @@ public class Controleur implements Initializable {
                 trouverTile(environnement.getTerrain()[i][j], imTile);
             }
         }
+
         listObsEnnemi = new ListObsEnnemi(pane, environnement,NbVivant,NbMort);
         environnement.getEnnemis().addListener(listObsEnnemi);
 
@@ -83,26 +83,6 @@ public class Controleur implements Initializable {
         initAnimation();
         gameLoop.play();
     }
-
-    @FXML
-    void ajouter(ActionEvent event) {
-
-        if (environnement.getNbToursProperty() % 2 == 0){
-            Ennemi archer = new Archer(45,45,environnement,hdv);
-            environnement.ajouterEnnemi(archer);
-        }
-        else {
-            Ennemi barbare = new Barbare(50,50,environnement,hdv);
-            environnement.ajouterEnnemi(barbare);
-        }
-
-    }
-
-    @FXML
-    void fairTour(ActionEvent event) {
-        environnement.unTour();
-    }
-
 
     @FXML
     private void trouverTile(int id, Image im){
@@ -128,7 +108,7 @@ public class Controleur implements Initializable {
                 environnement.ajouterTour(tour);
             }
         }
-        else{
+        else {
             environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
         }
     }
@@ -144,14 +124,10 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-//                    if (ennemi.estArriver() || !ennemi.estVivant()){
-//                        suprimerSprite();
-//                    }
                     if(temps==10000){
                         System.out.println("fini");
                         gameLoop.stop();
                     }
-
                     if (environnement.getNbToursProperty() % 2 == 0){
                         Ennemi archer = new Archer(45,45,environnement,hdv);
                         environnement.ajouterEnnemi(archer);
@@ -160,19 +136,10 @@ public class Controleur implements Initializable {
                         Ennemi barbare = new Barbare(50,50,environnement,hdv);
                         environnement.ajouterEnnemi(barbare);
                     }
-
                     environnement.unTour();
-
-//                    else if (!ennemi.estArriver()){
-//                        System.out.println("un tour");
-//                        environnement.unTour();
-//                        System.out.println("nbr de tour : " + environnement.getTour());
-//                        System.out.println(ennemi.estArriver());
-//                    }
                     temps++;
                 })
         );
         gameLoop.getKeyFrames().add(kf);
     }
-
 }

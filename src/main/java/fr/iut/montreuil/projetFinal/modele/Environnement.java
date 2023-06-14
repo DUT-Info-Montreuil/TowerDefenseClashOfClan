@@ -205,6 +205,7 @@ public class Environnement {
     public void retirerTour(Tour t){
         listeTour.remove(t);
     }
+
     public int getTour() {
         return getNbToursProperty();
     }
