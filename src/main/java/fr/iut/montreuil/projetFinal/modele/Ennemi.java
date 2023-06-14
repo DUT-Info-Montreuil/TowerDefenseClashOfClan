@@ -43,7 +43,6 @@ public class Ennemi {
     public void seDeplacer () {
         this.bfs = new Bfs(env, caseDebut.getcaseDebut().get(dd).getY(), caseDebut.getcaseDebut().get(dd).getX());
 
-
         if (suivant < bfs.vraiChemin.size() - 1) {
             suivant = suivant + this.vitesse;
             setY(bfs.vraiChemin.get(getSuivant()).getY() * 16);
@@ -55,8 +54,6 @@ public class Ennemi {
             System.out.println(hdv.getPv());
             this.setPv(0);
         }
-        System.out.println("--------------------------------------------------------------------------------");
-
     }
 
     public double getDegat() {

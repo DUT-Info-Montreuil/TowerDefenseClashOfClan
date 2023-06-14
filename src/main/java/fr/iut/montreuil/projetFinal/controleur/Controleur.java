@@ -50,10 +50,7 @@ public class Controleur implements Initializable {
     private Pane pane;
     @FXML
     private RadioButton ajouterTour;
-    private Timeline gameLoop;
-    private int temps;
-    private Bfs bfs;
-    private Ennemi ennemi ;
+
     @FXML
     private RadioButton ajouterTourArchers;
     @FXML
@@ -64,12 +61,6 @@ public class Controleur implements Initializable {
     private Button ajouter;
     @FXML
     private RadioButton ajouterCanon;
-    @FXML
-    private Hdv hdv;
-
-    private ListChangeListener<Ennemi> listObsEnnemi;
-    private ListChangeListener<Tour> listObsTour;
-    private ListChangeListener<Projectile> listObsProjectile;
     @FXML
     private Label NbMort;
     @FXML
@@ -126,19 +117,7 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
 
-    @FXML
-    void ajouter(ActionEvent event) {
 
-        if (environnement.getNbToursProperty() % 2 == 0){
-            Ennemi archer = new Archer(45,45,environnement,hdv);
-            environnement.ajouterEnnemi(archer);
-        }
-        else {
-            Ennemi barbare = new Barbare(50,50,environnement,hdv);
-            environnement.ajouterEnnemi(barbare);
-        }
-
-    }
 
     @FXML
     void fairTour(ActionEvent event) {
@@ -169,12 +148,6 @@ public class Controleur implements Initializable {
                 Canon tour = new Canon(event.getX(), event.getY(), environnement);
                 environnement.ajouterTour(tour);
             }
-            else if (tour instanceof Canon) {
-                URL url = Lancement.class.getResource("canon_Coc.png");
-                creerTour(tour,url);
-            }
-            environnement.setmessageProperty("La défense: " + tour.getNom() + " a été placée");
-            //tour.tir();
         }
         else {
             environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
@@ -191,22 +164,7 @@ public class Controleur implements Initializable {
                 return; // Arrêter la méthode si une exception se produit Lors du chargement, du fichier. FxML
             }
             Scene scene = new Scene(root);
-            Stage primaryStage = (Stage) ((Node) Pane).getScene().getWindow();
-            primaryStage.setScene(scene);
-            primaryStage.show();
-    }
-    public void afficherGameOverScene(){
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            URL resource = getClass().getResource("/fr/iut/montreuil/projetFinal/f.fxml");
-            Parent root = null;
-            try {
-                    root = fxmlLoader.load(resource);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return; // Arrêter la méthode si une exception se produit Lors du chargement, du fichier. FxML
-            }
-            Scene scene = new Scene(root);
-            Stage primaryStage = (Stage) ((Node) Pane).getScene().getWindow();
+            Stage primaryStage = (Stage) ((Node) pane).getScene().getWindow();
             primaryStage.setScene(scene);
             primaryStage.show();
     }

@@ -145,14 +145,11 @@ public class Environnement {
 
         for (Ennemi e : this.getEnnemis()) {
             e.seDeplacer();
-            System.out.println("dans un tour : id : " + e.getId() + " suivant : "+ e.getSuivant());
-            System.out.println("x ennemi : " +e.getX() + ", y ennemi : " + e.getY());
         }
 
         for (int i = ennemi.size()-1; i>=0; i--){
             Ennemi e = ennemi.get(i);
             if (!e.estVivant()){
-                System.out.println("mort de : " + e.toString());
                 ennemi.remove(i);
             }
         }
@@ -166,7 +163,7 @@ public class Environnement {
 
         }
         for (Projectile p : listeProjectile){
-            System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
+            //System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
             p.deplacementProjectile();
 
             /*if (p.cibleTouchee()){

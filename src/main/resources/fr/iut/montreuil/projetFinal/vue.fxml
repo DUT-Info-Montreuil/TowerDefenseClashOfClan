@@ -112,6 +112,7 @@
                      </font></Label>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
+                        <ProgressBar fx:id="VieEnnemi" prefWidth="200.0" progress="100.0"/>
                         <Label fx:id="PvHdv" prefHeight="19.0" prefWidth="78.0" text="pv Hdv : ">
                            <font>
                               <Font size="15.0" />
@@ -122,6 +123,7 @@
                               <Image url="@imgCoeur.png" />
                            </image>
                         </ImageView>
+
                      </children>
                   </HBox>
                </children>

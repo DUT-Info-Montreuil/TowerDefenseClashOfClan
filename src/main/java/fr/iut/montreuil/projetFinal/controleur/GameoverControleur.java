@@ -23,7 +23,7 @@ public class GameoverControleur {
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL resource = getClass().getResource("/fr/iut/montreuil/projetFinal/vue.fxml");
         Parent root = fxmlLoader.load(resource);
-        Scene scene = new Scene(root, 1440, 800);
+        Scene scene = new Scene(root, 1550, 850);
         primaryStage.setResizable(false);
         primaryStage.setTitle("coc gameOver");
         primaryStage.setScene(scene);

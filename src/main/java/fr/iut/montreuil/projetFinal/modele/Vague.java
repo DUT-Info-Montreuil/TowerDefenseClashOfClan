@@ -20,8 +20,6 @@ public class Vague {
         setVagueAugmenteDegat(getVagueAugmenteDegat()+0.5);
         setVagueAugmentePv(getVagueAugmentePv()+0.1);
         setVagueAugmenteOr(getVagueAugmenteOr()+1);
-        System.out.println("vagueAugmenté : " + getVagueAugmenteDegat());
-        System.out.println("vague Sup : " + getVagueProperty());
     }
 
     public double getVagueAugmenteDegat() {
