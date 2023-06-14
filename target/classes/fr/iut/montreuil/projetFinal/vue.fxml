@@ -19,7 +19,7 @@
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.iut.montreuil.projetFinal.controleur.Controleur">
     <center>
-        <Pane fx:id="pane" onMouseClicked="#choixTour">
+        <Pane fx:id="pane" onDragDropped="#choixTour">
             <TilePane fx:id="tilePane" maxHeight="800.0" maxWidth="1200.0" prefColumns="75">
             </TilePane>
         </Pane>
@@ -102,9 +102,28 @@
             <VBox prefHeight="203.0" prefWidth="214.0">
                <children>
                   <Label fx:id="messageJoueur" />
-                  <Label fx:id="NbVivant" text="Ennemi restant :" />
-                  <Label fx:id="NbMort" text="Ennemi mort : " />
-                  <Label fx:id="PvHdv" text="pv Hdv : " />
+                  <Label fx:id="NbVivant" text="Ennemi restant :">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Label fx:id="NbMort" text="Ennemi mort : ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="PvHdv" prefHeight="19.0" prefWidth="78.0" text="pv Hdv : ">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="28.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgCoeur.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

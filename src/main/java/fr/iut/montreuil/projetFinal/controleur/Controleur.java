@@ -85,25 +85,6 @@ public class Controleur implements Initializable {
     }
 
     @FXML
-    void ajouter(ActionEvent event) {
-
-        if (environnement.getNbToursProperty() % 2 == 0){
-            Ennemi archer = new Archer(45,45,environnement,hdv);
-            environnement.ajouterEnnemi(archer);
-        }
-        else {
-            Ennemi barbare = new Barbare(50,50,environnement,hdv);
-            environnement.ajouterEnnemi(barbare);
-        }
-
-    }
-
-    @FXML
-    void fairTour(ActionEvent event) {
-        environnement.unTour();
-    }
-
-    @FXML
     private void trouverTile(int id, Image im){
         ImageView imv = new ImageView(im);
         int x,y;
@@ -148,7 +129,8 @@ public class Controleur implements Initializable {
                 URL url = Lancement.class.getResource("canon_Coc.png");
                 creerTour(tour,url);
             }
-            environnement.setmessageProperty("La défense : " + tour.getNom() + " a été placée");
+            environnement.setmessageProperty("La défense: " + tour.getNom() + " a été placée");
+            //tour.tir();
         }
         else {
             environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
@@ -166,6 +148,9 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
+//                    if (ennemi.estArriver() || !ennemi.estVivant()){
+//                        suprimerSprite();
+//                    }
                     if(temps==10000){
                         System.out.println("fini");
                         gameLoop.stop();
