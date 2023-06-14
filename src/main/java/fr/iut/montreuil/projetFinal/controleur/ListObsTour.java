@@ -3,6 +3,7 @@ package fr.iut.montreuil.projetFinal.controleur;
 import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.vue.VueTourArcher;
+import fr.iut.montreuil.projetFinal.vue.VueTourCanon;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -29,11 +30,23 @@ public class ListObsTour implements ListChangeListener<Tour> {
     @Override
     public void onChanged(Change<? extends Tour> change) {
         while (change.next()) {
-            if (change.wasAdded()) {
-                for (Tour tour : change.getAddedSubList()) {
-                    new VueTourArcher(pane, tour);
+            for (Tour tour : change.getAddedSubList()) {
+                if ((env.getorProperty() - tour.getPrix()) >= 0) {
+                    env.setorProperty((env.getorProperty() - tour.getPrix()));
+                    if (tour instanceof TourArchers) {
+                        new VueTourArcher(pane, tour);
+                    }
+                    else if (tour instanceof Canon) {
+                        new VueTourCanon(pane, tour);
+                    }
+                    env.setmessageProperty("La défense: " + tour.getNom() + " a été placée");
+                }
+                else {
+                    env.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                    env.retirerTour(tour);
                 }
             }
+
             if (change.wasRemoved()) {
                 for (Tour tour : change.getRemoved()) {
                     Node n = pane.lookup("#" + tour.getId());

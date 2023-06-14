@@ -123,50 +123,20 @@ public class Controleur implements Initializable {
         this.tilePane.getChildren().add(imv);
     }
 
-    @FXML
-    void creerTour(Tour tour, URL url){
-        Image image = new Image(String.valueOf(url));
-        ImageView imageView = new ImageView(image);
-        imageView.setTranslateX(tour.getX()-24);
-        imageView.setTranslateY(tour.getY()-24);
-        pane.getChildren().add(imageView);
-    }
-
-
     public void choixTour(MouseEvent event) {
         if (environnement.getTerrain()[(int) event.getY() / 16][(int) event.getX() / 16] == 63) {
             if (ajouterTourArchers.isSelected()) {
                 TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
-                placerTour(tour);
+                environnement.ajouterTour(tour);
             } else if (ajouterCanon.isSelected()) {
                 Canon tour = new Canon(event.getX(), event.getY(), environnement);
-                placerTour(tour);
+                environnement.ajouterTour(tour);
             }
+        }
+        else{
             environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
         }
     }
-
-    public void placerTour (Tour tour){
-        if ((environnement.getorProperty() - tour.getPrix()) >= 0) {
-            environnement.setorProperty((environnement.getorProperty() - tour.getPrix()));
-            environnement.ajouterTour(tour);
-            if (tour instanceof TourArchers) {
-                URL url = Lancement.class.getResource("tda_Coc.png");
-                creerTour(tour,url);
-            }
-            else if (tour instanceof Canon) {
-                URL url = Lancement.class.getResource("canon_Coc.png");
-                creerTour(tour,url);
-            }
-            environnement.setmessageProperty("La défense: " + tour.getNom() + " a été placée");
-            //tour.tir();
-        }
-        else {
-            environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-        }
-    }
-
-
 
     private void initAnimation() {
         gameLoop = new Timeline();

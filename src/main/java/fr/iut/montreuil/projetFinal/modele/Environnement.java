@@ -196,6 +196,9 @@ public class Environnement {
     public void ajouterTour(Tour t){
         listeTour.add(t);
     }
+    public void retirerTour(Tour t){
+        listeTour.remove(t);
+    }
     public int getTour() {
         return getNbToursProperty();
     }
