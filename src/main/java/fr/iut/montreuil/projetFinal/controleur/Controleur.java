@@ -188,28 +188,33 @@ public class Controleur implements Initializable {
                         afficherGameOverScene();
                     }
 
-                    if (environnement.getNbToursProperty() % 2 == 0 && pause == true){
+                    if (environnement.getNbToursProperty()%2 == 0 && pause == true ) {
+                        if (pause == true) {
+                            Ennemi barbare = new Barbare(50, 50, environnement, hdv, vague);
+                            environnement.ajouterEnnemi(barbare);
+                        }
+                    }
+                    else if (environnement.getNbToursProperty() % 3 == 0 && pause == true && vague.getVagueProperty() >= 2){
                         System.out.println("pause dans créer archer = " + pause);
                         Ennemi archer = new Archer(45,45,environnement,hdv,vague);
                         environnement.ajouterEnnemi(archer);
                     }
-                    else {
-                        if (pause== true){
-                            Ennemi barbare = new Barbare(50,50,environnement,hdv,vague);
-                            environnement.ajouterEnnemi(barbare);
-                        }
+                    else if (environnement.getNbToursProperty()%5 == 0 && pause == true && vague.getVagueProperty() >= 3) {
+                        Ennemi géant = new Géant(50,50,environnement,hdv,vague);
+                        environnement.ajouterEnnemi(géant);
                     }
-                    if (environnement.getNbToursProperty()%10 == 0 && environnement.getNbToursProperty()!=0){
+
+                    if (environnement.getNbToursProperty()%100 == 0 && environnement.getNbToursProperty()!=0){
                         System.out.println("getNbTour : " + environnement.getNbToursProperty());
                         System.out.println("dans tours vague");
                         vague.augmenterVague();
                         pause = false;
-                        System.out.println("pause dans vagueeeeeeeeeeeeee" + pause);
+                        System.out.println("pause dans vagueeeeeeeeeeeeee  " + pause);
                     }
                     environnement.unTour();
-                    if (environnement.getNbToursProperty()%25 == 0 && pause == false){
-                        System.out.println("dans la methode  pout changer pause");
+                    if (environnement.getNbToursProperty()%50 == 0 && pause == false){
                         pause = true;
+                        System.out.println("dans la methode  pout changer pause " + pause);
                     }
                     System.out.println("tour");
 

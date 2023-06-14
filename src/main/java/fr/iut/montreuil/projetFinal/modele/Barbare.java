@@ -7,7 +7,7 @@ public class Barbare extends Ennemi {
 
     public Barbare(int y, int x, Environnement env, Hdv hdv,Vague vague) {
 
-        super( y, x,env,(int) (100* vague.getVagueAugmentePv()),1,(int)(1* vague.getVagueAugmenteOr()), hdv,vague,2* vague.getVagueAugmenteDegat());
+        super( y, x,env,(int) (100* vague.getVagueAugmentePv()),2,(int)(1* vague.getVagueAugmenteOr()), hdv,vague,2* vague.getVagueAugmenteDegat());
 
 
     }
