@@ -34,7 +34,6 @@ public class Tour {
         this.env = env;
         this.prix = prix;
         this.vente = vente;
-        this.estVendue = false;
     }
 
 
@@ -75,6 +74,21 @@ public class Tour {
         return y.getValue();
     }
 
+    public final DoubleProperty getYProperty() {
+        return y;
+    }
+
+//    public Tour chercherTour(double x, double y) {
+//        for (Tour t : env.getListeTour()) {
+//            if (t.getX() <= x && t.getY() <= y && x < t.getX()+48 && y < t.getY()+48){
+//            //if ((this.getX()-48 <= t.getX() && t.getX()<=this.getX()+48) && (this.getY()-48 <= t.getY() && t.getY()<=this.getY()+48)){
+//                System.out.println("rentré dans tour");
+//                return t;
+//            }
+//        }
+//        return null;
+//    }
+
     public Ennemi essaieTir(){
         for (Ennemi e : this.env.getEnnemis()){
             while ((this.getX()-this.portee <= e.getX() && e.getX()<=this.getX()+this.portee) && (this.getY()-this.portee <= e.getY() && e.getY()<=this.getY()+this.portee)){
@@ -88,7 +102,7 @@ public class Tour {
         Ennemi e = this.essaieTir();
         if (e != null){
             if (e.estVivant()) {
-                Projectile p = new Projectile(this.getX(), this.getY(), e, env, this.getDegat());
+                Projectile p = new Projectile(this.getX(), this.getY(), e, env,this.getDegat());
                 env.ajouterProjectile(p);
 
                 e.recoitDegat(degat);
