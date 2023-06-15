@@ -21,7 +21,7 @@ public class Projectile  {
     private int portee;
     private int degat;
 
-    public Projectile(double x, double y, Ennemi e, Environnement env, int degat){
+    public Projectile(double x, double y, Ennemi e, Environnement env, int degat, int vitesse){
         this.id = "P"+compteur;
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
@@ -29,7 +29,7 @@ public class Projectile  {
         this.yCible = new SimpleDoubleProperty(e.getY());
         this.dx = (e.getX() - this.getX()) / distanceTir();
         this.dy = (e.getY() - this.getY()) / distanceTir();
-        this.vitesse = 10;
+        this.vitesse = vitesse;
         this.compteur++;
         this.environnement = env;
         this.ennemi = e;

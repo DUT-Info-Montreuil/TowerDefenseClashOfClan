@@ -38,7 +38,7 @@
                               <ToggleGroup fx:id="selectionDefense" />
                            </toggleGroup>
                         </RadioButton>
-                        <ImageView fx:id="imageTda" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imageTda" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"  onMouseEntered="#mouseEnteredTourArcher"  onMouseExited="#mouseExitTourArcher">
                            <image>
                               <Image url="@tda_Coc.png" />
                            </image>
@@ -57,8 +57,8 @@
                   </HBox>
                   <HBox prefHeight="57.0" prefWidth="200.0">
                      <children>
-                        <RadioButton fx:id="ajouterCanon" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense" />
-                        <ImageView fx:id="imageCanon" fitHeight="39.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <RadioButton fx:id="ajouterCanon" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense"  />
+                        <ImageView fx:id="imageCanon" fitHeight="39.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#mouseEnteredCanon"  onMouseExited="#mouseExitCanon">
                            <image>
                               <Image url="@canon_Coc.png" />
                            </image>
