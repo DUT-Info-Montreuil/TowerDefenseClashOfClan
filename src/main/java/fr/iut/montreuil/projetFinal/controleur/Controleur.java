@@ -112,33 +112,30 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
 
-//    @FXML
-//    private void trouverTile(int id, Image im){
-//        ImageView imv = new ImageView(im);
-//        int x,y;
-//        int taille = 16;
-//        int largeurMapX = 384;
-//        int formuleX = taille + (taille * id);
-//        x = formuleX - (largeurMapX * (formuleX/largeurMapX));
-//        y = taille + taille * (formuleX/largeurMapX);
-//        Rectangle2D imviewport = new Rectangle2D(x,y,taille,taille);
-//        imv.setViewport(imviewport);
-//        this.tilePane.getChildren().add(imv);
-//    }
 
     public void choixTour(MouseEvent event) {
         if (environnement.getTerrain()[(int) event.getY()/16][(int) event.getX()/16] == 63) {
             if (ajouterTourArchers.isSelected()) {
                 TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
-                environnement.ajouterTour(tour);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
             } else if (ajouterCanon.isSelected()) {
                 Canon tour = new Canon(event.getX(), event.getY(), environnement);
-                environnement.ajouterTour(tour);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
             }
             else if (vendreTour.isSelected()) {
                 chercherTour(event.getX(), event.getY());
-                /*environnement.setorProperty(environnement.getorProperty() + indiceTour.getVente());
-                environnement.setmessageProperty("+ " + indiceTour.getVente() + "Or pour vente de " + indiceTour.getNom());*/
             }
         }
         else {
@@ -150,9 +147,6 @@ public class Controleur implements Initializable {
     public void chercherTour(double x, double y) {
         for (int i = 0; i < environnement.getListeTour().size(); i++) {
             if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
-                //if ((this.getX()-48 <= t.getX() && t.getX()<=this.getX()+48) && (this.getY()-48 <= t.getY() && t.getY()<=this.getY()+48)){
-           //if ((environnement.getListeTour().get(i).getX()-48 <= environnement.getListeTour().get(i).getX() && environnement.getListeTour().get(i).getX() <= environnement.getListeTour().get(i).getX()+48) && (environnement.getListeTour().get(i).getY()-48 <= environnement.getListeTour().get(i).getY() && environnement.getListeTour().get(i).getY() <= environnement.getListeTour().get(i).getY()+48)){
-            //if (environnement.getTerrain()[(int) x/16][(int) x/16] == 63){
                 System.out.println("Id : " + environnement.getListeTour().get(i).getId());
                 System.out.println("rentré dans tour");
                 environnement.retirerTour(environnement.getListeTour().get(i));

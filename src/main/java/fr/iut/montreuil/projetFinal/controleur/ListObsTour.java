@@ -32,8 +32,6 @@ public class ListObsTour implements ListChangeListener<Tour> {
     public void onChanged(Change<? extends Tour> change) {
         while (change.next()) {
             for (Tour tour : change.getAddedSubList()) {
-                if ((env.getorProperty() - tour.getPrix()) >= 0) {
-                    env.setorProperty((env.getorProperty() - tour.getPrix()));
                     if (tour instanceof TourArchers) {
                         new VueTourArcher(pane, tour);
                     }
@@ -42,18 +40,13 @@ public class ListObsTour implements ListChangeListener<Tour> {
                     }
                     env.setmessageProperty("La défense: " + tour.getNom() + " a été placée");
                 }
-                else {
-                    env.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                    env.retirerTour(tour);
-                }
             }
             for (Tour tour : change.getRemoved()) {
                 System.out.println("les suppressions : " + change.getRemoved());
-                env.setorProperty(env.getorProperty() + tour.getVente());
+                env.vendreLaTour(tour);
                 Node tourSprite = pane.lookup("#" + tour.getId());
                 System.out.println("Id : " + tour.getId());
                 pane.getChildren().remove(tourSprite);
             }
         }
     }
-}
