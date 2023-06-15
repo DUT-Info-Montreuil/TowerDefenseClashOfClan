@@ -85,10 +85,6 @@ public class Tour{
                 e.recoitDegat(degat);
                 System.out.println("pv ennemi : " + e.getPv());
             }
-
-            /*if (p.cibleTouchee()) {
-                   env.enleverProjectile(p);
-            }*/
         }
     }
 
