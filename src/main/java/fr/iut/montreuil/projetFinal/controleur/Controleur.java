@@ -2,13 +2,10 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.Lancement;
-import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
-import fr.iut.montreuil.projetFinal.modele.*;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -44,6 +40,7 @@ public class Controleur implements Initializable {
     private boolean isPaused = false;
     private Vague vague;
     private boolean pause = true;
+    private int compteurClick = 0;
     @FXML
     private TilePane tilePane;
     @FXML
@@ -216,6 +213,38 @@ public class Controleur implements Initializable {
         } else {
             this.gameLoop.pause();
             isPaused = true;
+        }
+    }
+
+    @FXML
+    void accelererJeu() {
+        compteurClick++;
+        if (compteurClick == 1) {
+            double currentRate = gameLoop.getRate();
+            gameLoop.setRate(currentRate * 1.5);
+        }
+        else if (compteurClick == 2) {
+            gameLoop.setRate(2); // double la vitesse
+        }
+        else {
+            gameLoop.setRate(1.0); // Remettre la vitesse initiale
+            compteurClick = 0; // Réinitialiser le compteur
+        }
+    }
+
+    @FXML
+    void ralentirJeu(){
+        compteurClick++;
+        if (compteurClick == 1) {
+            double currentRate = gameLoop.getRate();
+            gameLoop.setRate(currentRate * 0.5);
+        }
+        else if (compteurClick == 2) {
+            gameLoop.setRate(0.25); // double la vitesse
+        }
+        else {
+            gameLoop.setRate(1.0); // Remettre la vitesse initiale
+            compteurClick = 0; // Réinitialiser le compteur
         }
     }
 }
