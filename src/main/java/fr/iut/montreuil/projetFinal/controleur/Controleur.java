@@ -5,6 +5,7 @@ import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
 import fr.iut.montreuil.projetFinal.modele.*;
 
+import fr.iut.montreuil.projetFinal.vue.VueTerrain;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -37,23 +38,28 @@ public class Controleur implements Initializable {
     private int temps;
     private Bfs bfs;
     private Ennemi ennemi ;
-    private Hdv hdv;
+    //private Hdv hdv;
     private ListChangeListener<Ennemi> listObsEnnemi;
     private ListChangeListener<Tour> listObsTour;
     private ListChangeListener<Projectile> listObsProjectile;
     private boolean isPaused = false;
     private Vague vague;
     private boolean pause = true;
+    private int compteurClick = 0;
     @FXML
     private TilePane tilePane;
     @FXML
     private Pane pane;
+    @FXML
+    private RadioButton ajouterTour;
     @FXML
     private RadioButton ajouterTourArchers;
     @FXML
     private Label compteurOr;
     @FXML
     private Label messageJoueur;
+    @FXML
+    private Button ajouter;
     @FXML
     private RadioButton ajouterCanon;
     @FXML
@@ -65,27 +71,25 @@ public class Controleur implements Initializable {
     @FXML
     private ProgressBar VieEnnemi;
     @FXML
+    private RadioButton vendreTour;
+
+    @FXML
     private ToggleGroup selectionDefense;
     @FXML
     private ImageView imagePausereprendre;
+
+
+    private Tour tour;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement, 21, 2);
-        this.hdv = new Hdv(environnement, VieEnnemi);
+        //this.hdv = new Hdv(environnement);
         this.vague = new Vague(environnement);
-        System.out.println("hdv : " + hdv.getPv());
-
-        URL ImageTile = Lancement.class.getResource("tiles_12.png");
-        Image imTile = new Image(String.valueOf(ImageTile));
-        for (int i = 0; i < environnement.getTerrain().length; i++) {
-            for (int j = 0; j < environnement.getTerrain()[i].length; j++) {
-                trouverTile(environnement.getTerrain()[i][j], imTile);
-            }
-        }
-
+        new VueTerrain(tilePane,environnement);
         listObsEnnemi = new ListObsEnnemi(pane, environnement, NbVivant, NbMort);
         environnement.getEnnemis().addListener(listObsEnnemi);
 
@@ -97,32 +101,33 @@ public class Controleur implements Initializable {
 
         compteurOr.textProperty().bind(environnement.orProperty().asString());
         messageJoueur.textProperty().bind(environnement.messageProperty());
-        PvHdv.textProperty().bind(hdv.pv().asString());
+        PvHdv.textProperty().bind(environnement.getHdv().pv().asString());
 
-        hdv.pvProperty().addListener((observableValue, number, t1) -> {
+        this.environnement.getHdv().pvProperty().addListener((observableValue, number, t1) -> {
             double nb = Double.valueOf(t1.toString()) / 100;
             VieEnnemi.setProgress(nb);
+            System.out.println("progresbar: " + VieEnnemi);
         });
         initAnimation();
         gameLoop.play();
     }
 
-    @FXML
-    private void trouverTile(int id, Image im){
-        ImageView imv = new ImageView(im);
-        int x,y;
-        int taille = 16;
-        int largeurMapX = 384;
-        int formuleX = taille + (taille * id);
-        x = formuleX - (largeurMapX * (formuleX/largeurMapX));
-        y = taille + taille * (formuleX/largeurMapX);
-        Rectangle2D imviewport = new Rectangle2D(x,y,taille,taille);
-        imv.setViewport(imviewport);
-        this.tilePane.getChildren().add(imv);
-    }
+//    @FXML
+//    private void trouverTile(int id, Image im){
+//        ImageView imv = new ImageView(im);
+//        int x,y;
+//        int taille = 16;
+//        int largeurMapX = 384;
+//        int formuleX = taille + (taille * id);
+//        x = formuleX - (largeurMapX * (formuleX/largeurMapX));
+//        y = taille + taille * (formuleX/largeurMapX);
+//        Rectangle2D imviewport = new Rectangle2D(x,y,taille,taille);
+//        imv.setViewport(imviewport);
+//        this.tilePane.getChildren().add(imv);
+//    }
 
     public void choixTour(MouseEvent event) {
-        if (environnement.getTerrain()[(int) event.getY() / 16][(int) event.getX() / 16] == 63) {
+        if (environnement.getTerrain()[(int) event.getY()/16][(int) event.getX()/16] == 63) {
             if (ajouterTourArchers.isSelected()) {
                 TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
                 environnement.ajouterTour(tour);
@@ -130,11 +135,32 @@ public class Controleur implements Initializable {
                 Canon tour = new Canon(event.getX(), event.getY(), environnement);
                 environnement.ajouterTour(tour);
             }
+            else if (vendreTour.isSelected()) {
+                chercherTour(event.getX(), event.getY());
+                /*environnement.setorProperty(environnement.getorProperty() + indiceTour.getVente());
+                environnement.setmessageProperty("+ " + indiceTour.getVente() + "Or pour vente de " + indiceTour.getNom());*/
+            }
         }
         else {
             environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
         }
     }
+
+
+    public void chercherTour(double x, double y) {
+        for (int i = 0; i < environnement.getListeTour().size(); i++) {
+            if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
+                //if ((this.getX()-48 <= t.getX() && t.getX()<=this.getX()+48) && (this.getY()-48 <= t.getY() && t.getY()<=this.getY()+48)){
+           //if ((environnement.getListeTour().get(i).getX()-48 <= environnement.getListeTour().get(i).getX() && environnement.getListeTour().get(i).getX() <= environnement.getListeTour().get(i).getX()+48) && (environnement.getListeTour().get(i).getY()-48 <= environnement.getListeTour().get(i).getY() && environnement.getListeTour().get(i).getY() <= environnement.getListeTour().get(i).getY()+48)){
+            //if (environnement.getTerrain()[(int) x/16][(int) x/16] == 63){
+                System.out.println("Id : " + environnement.getListeTour().get(i).getId());
+                System.out.println("rentré dans tour");
+                environnement.retirerTour(environnement.getListeTour().get(i));
+                System.out.println("Tour supprimée");
+            }
+        }
+    }
+
 
     public void afficherGameOverScene(){
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -163,28 +189,9 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    if (hdv.hdvGameOver()){
+                    if (environnement.getHdv().hdvGameOver()){
                         gameLoop.stop();
                         afficherGameOverScene();
-                    }
-
-                    if (environnement.getNbToursProperty()%2 == 0 && pause == true ) {
-                        Ennemi archer = new Archer(45,45,environnement,hdv,vague);
-                        environnement.ajouterEnnemi(archer);
-                    }
-                    else if (environnement.getNbToursProperty() % 3 == 0 && pause == true && vague.getVagueProperty() >= 2){
-                        Ennemi barbare = new Barbare(50, 50, environnement, hdv, vague);
-                        environnement.ajouterEnnemi(barbare);
-                    }
-                    else if (environnement.getNbToursProperty()%5 == 0 && pause == true && vague.getVagueProperty() >= 3) {
-                        Ennemi géant = new Géant(50,50,environnement,hdv,vague);
-                        environnement.ajouterEnnemi(géant);
-                    }
-                    else {
-                        if (pause == true && vague.getVagueProperty() >= 4){
-                            Ennemi pekka = new Pekka(50, 50, environnement, hdv, vague);
-                            environnement.ajouterEnnemi(pekka);
-                        }
                     }
 
                     if (environnement.getNbToursProperty()%100 == 0 && environnement.getNbToursProperty()!=0){
@@ -216,6 +223,38 @@ public class Controleur implements Initializable {
         } else {
             this.gameLoop.pause();
             isPaused = true;
+        }
+    }
+
+    @FXML
+    void accelererJeu() {
+        compteurClick++;
+        if (compteurClick == 1) {
+            double currentRate = gameLoop.getRate();
+            gameLoop.setRate(currentRate * 1.5);
+        }
+        else if (compteurClick == 2) {
+            gameLoop.setRate(2); // double la vitesse
+        }
+        else {
+            gameLoop.setRate(1.0); // Remettre la vitesse initiale
+            compteurClick = 0; // Réinitialiser le compteur
+        }
+    }
+
+    @FXML
+    void ralentirJeu(){
+        compteurClick++;
+        if (compteurClick == 1) {
+            double currentRate = gameLoop.getRate();
+            gameLoop.setRate(currentRate * 0.5);
+        }
+        else if (compteurClick == 2) {
+            gameLoop.setRate(0.25);
+        }
+        else {
+            gameLoop.setRate(1.0);
+            compteurClick = 0;
         }
     }
 }

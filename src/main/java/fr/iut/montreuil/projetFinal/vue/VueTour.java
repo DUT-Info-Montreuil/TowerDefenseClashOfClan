@@ -15,6 +15,7 @@ public class VueTour {
         URL url1 = Lancement.class.getResource(Url);
         Image image = new Image(String.valueOf(url1));
         ImageView imageView = new ImageView(image);
+        imageView.setId(t.getId());
         imageView.setTranslateX(t.getX()-24);
         imageView.setTranslateY(t.getY()-24);
         pane.getChildren().add(imageView);

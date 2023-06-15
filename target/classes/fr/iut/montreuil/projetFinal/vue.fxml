@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
@@ -13,10 +18,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.iut.montreuil.projetFinal.controleur.Controleur">
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.iut.montreuil.projetFinal.controleur.Controleur">
     <center>
-        <Pane fx:id="pane" onMouseClicked="#choixTour">
-            <TilePane fx:id="tilePane" maxHeight="800.0" maxWidth="1200.0" prefColumns="75">
+        <Pane fx:id="pane">
+            <TilePane fx:id="tilePane" maxHeight="800.0" maxWidth="1200.0" prefColumns="75" onMouseClicked="#choixTour">
             </TilePane>
         </Pane>
     </center>
@@ -68,6 +73,16 @@
                               <Image url="@imgPiece.png" />
                            </image>
                         </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="57.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="vendreTour" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="55.0" text="Vendre une Tour">
+                           <font>
+                              <Font name="Caladea" size="20.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
                </children>
@@ -127,9 +142,21 @@
          <children>
             <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0">
                <children>
-                  <ImageView fx:id="imagePausereprendre" fitHeight="35.0" fitWidth="39.0" onMouseClicked="#mettrePause" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="42.0" fitWidth="37.0" onMouseClicked="#ralentirJeu" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@boutonRalentir.png" />
+                     </image>
+                  </ImageView>
+                  <HBox prefHeight="35.0" prefWidth="20.0" />
+                  <ImageView fx:id="imagePausereprendre" fitHeight="35.0" fitWidth="51.0" onMouseClicked="#mettrePause" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imgPause.png" />
+                     </image>
+                  </ImageView>
+                  <HBox prefHeight="35.0" prefWidth="20.0" />
+                  <ImageView fitHeight="42.0" fitWidth="37.0" onMouseClicked="#accelererJeu" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@31085.png" />
                      </image>
                   </ImageView>
                </children>
