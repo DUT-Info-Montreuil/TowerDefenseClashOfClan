@@ -1,8 +1,9 @@
 package fr.iut.montreuil.projetFinal.controleur;
 
-import fr.iut.montreuil.projetFinal.modele.Ennemi;
-import fr.iut.montreuil.projetFinal.modele.Environnement;
-import fr.iut.montreuil.projetFinal.modele.Projectile;
+import fr.iut.montreuil.projetFinal.modele.*;
+import fr.iut.montreuil.projetFinal.vue.VueBoulet;
+import fr.iut.montreuil.projetFinal.vue.VueFleche;
+import fr.iut.montreuil.projetFinal.vue.VueFlecheArcX;
 import fr.iut.montreuil.projetFinal.vue.VueProjectile;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -27,7 +28,15 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
         while (change.next()) {
             if (change.wasAdded()) {
                 for (Projectile p : change.getAddedSubList()) {
-                    new VueProjectile(pane, env, p);
+                    if (p instanceof Fleche) {
+                        new VueFleche(pane, env, p);
+                    }
+                    else if (p instanceof Boulet){
+                        new VueBoulet(pane, env, p);
+                    }
+                    else if (p instanceof FlecheArcX){
+                        new VueFlecheArcX(pane, env, p);
+                    }
                 }
             }
             if (change.wasRemoved()) {
