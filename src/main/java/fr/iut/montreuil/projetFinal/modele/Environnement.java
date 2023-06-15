@@ -88,6 +88,19 @@ public class Environnement {
         this.vague = new Vague(this);
     }
 
+
+
+    public void chercherTour(double x, double y) {
+        for (int i = 0; i < getListeTour().size(); i++) {
+            if (getListeTour().get(i).getX()-24 <= x && getListeTour().get(i).getY()-24 <= y && x < getListeTour().get(i).getX()+24 && y < getListeTour().get(i).getY()+24){
+                System.out.println("Id : " + getListeTour().get(i).getId());
+                System.out.println("rentré dans tour");
+                retirerTour(getListeTour().get(i));
+                System.out.println("Tour supprimée");
+            }
+        }
+    }
+
     public String getmessageProperty() {
         return messageProperty.get();
     }
