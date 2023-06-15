@@ -2,10 +2,14 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.Lancement;
+import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
+import fr.iut.montreuil.projetFinal.modele.*;
 
+import fr.iut.montreuil.projetFinal.vue.VueTerrain;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -84,16 +89,7 @@ public class Controleur implements Initializable {
         this.bfs = new Bfs(environnement, 21, 2);
         //this.hdv = new Hdv(environnement);
         this.vague = new Vague(environnement);
-        //System.out.println("hdv : " + hdv.getPv());
-
-        URL ImageTile = Lancement.class.getResource("tiles_12.png");
-        Image imTile = new Image(String.valueOf(ImageTile));
-        for (int i = 0; i < environnement.getTerrain().length; i++) {
-            for (int j = 0; j < environnement.getTerrain()[i].length; j++) {
-                trouverTile(environnement.getTerrain()[i][j], imTile);
-            }
-        }
-
+        new VueTerrain(tilePane,environnement);
         listObsEnnemi = new ListObsEnnemi(pane, environnement, NbVivant, NbMort);
         environnement.getEnnemis().addListener(listObsEnnemi);
 
@@ -116,19 +112,19 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
 
-    @FXML
-    private void trouverTile(int id, Image im){
-        ImageView imv = new ImageView(im);
-        int x,y;
-        int taille = 16;
-        int largeurMapX = 384;
-        int formuleX = taille + (taille * id);
-        x = formuleX - (largeurMapX * (formuleX/largeurMapX));
-        y = taille + taille * (formuleX/largeurMapX);
-        Rectangle2D imviewport = new Rectangle2D(x,y,taille,taille);
-        imv.setViewport(imviewport);
-        this.tilePane.getChildren().add(imv);
-    }
+//    @FXML
+//    private void trouverTile(int id, Image im){
+//        ImageView imv = new ImageView(im);
+//        int x,y;
+//        int taille = 16;
+//        int largeurMapX = 384;
+//        int formuleX = taille + (taille * id);
+//        x = formuleX - (largeurMapX * (formuleX/largeurMapX));
+//        y = taille + taille * (formuleX/largeurMapX);
+//        Rectangle2D imviewport = new Rectangle2D(x,y,taille,taille);
+//        imv.setViewport(imviewport);
+//        this.tilePane.getChildren().add(imv);
+//    }
 
     public void choixTour(MouseEvent event) {
         if (environnement.getTerrain()[(int) event.getY()/16][(int) event.getX()/16] == 63) {
