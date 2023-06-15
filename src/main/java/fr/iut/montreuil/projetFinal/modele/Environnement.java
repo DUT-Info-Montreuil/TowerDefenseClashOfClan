@@ -17,6 +17,8 @@ public class Environnement {
     private IntegerProperty orProperty;
     private StringProperty messageProperty;
 
+    private boolean tourVendue;
+
     public Environnement(int width, int height){
         this.width = width;
         this.height = height;

@@ -21,6 +21,8 @@ public class Tour {
 
     private int vente;
 
+    private boolean estVendue;
+
     public Tour(String nom, double x, double y, Environnement env, int prix, int portee, int degat , int vente) {
         this.nom = nom;
         this.id = "T" + compteur;
@@ -32,7 +34,12 @@ public class Tour {
         this.env = env;
         this.prix = prix;
         this.vente = vente;
+        this.estVendue = false;
     }
+
+    public boolean getEstVendue(){return estVendue;}
+
+    public void setEstVendue(boolean b){this.estVendue = b;}
 
     public String getId() {
         return this.id;
