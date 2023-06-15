@@ -55,6 +55,8 @@ public class Controleur implements Initializable {
     @FXML
     private RadioButton ajouterTourArchers;
     @FXML
+    private RadioButton ajouterArcX;
+    @FXML
     private Label compteurOr;
     @FXML
     private Label messageJoueur;
@@ -72,7 +74,6 @@ public class Controleur implements Initializable {
     private ProgressBar VieEnnemi;
     @FXML
     private RadioButton vendreTour;
-
     @FXML
     private ToggleGroup selectionDefense;
     @FXML
@@ -145,11 +146,32 @@ public class Controleur implements Initializable {
                 else {
                     environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
                 }
+            } else if (ajouterCanon.isSelected()) {
+                Canon tour = new Canon(event.getX(), event.getY(), environnement);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
+            } else if (ajouterArcX.isSelected()) {
+            ArcX tour = new ArcX(event.getX(), event.getY(), environnement);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
             }
             else if (vendreTour.isSelected()) {
                 chercherTour(event.getX(), event.getY());
                 /*environnement.setorProperty(environnement.getorProperty() + indiceTour.getVente());
                 environnement.setmessageProperty("+ " + indiceTour.getVente() + "Or pour vente de " + indiceTour.getNom());*/
+            }
+            else {
+                environnement.setmessageProperty("Selectionnez une tour pour la poser");
             }
         }
         else {
