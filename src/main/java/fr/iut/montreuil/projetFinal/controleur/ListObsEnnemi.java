@@ -57,7 +57,7 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
                     mort++;
                     pv--;
                     NbMort.setText("Mort : " + mort);
-                    env.setorProperty(env.getorProperty() + e.getOrTroupe());
+                    env.recupererOrTroupe(e);
                     URL url = Lancement.class.getResource("Clashofclans-tombe-1.png");
                     Image image = new Image(String.valueOf(url));
                     ImageView imageView = new ImageView(image);

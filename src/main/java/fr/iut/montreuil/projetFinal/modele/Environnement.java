@@ -120,6 +120,8 @@ public class Environnement {
 
     public void vendreLaTour(Tour t){setorProperty(getorProperty() + t.getVente());}
 
+    public void recupererOrTroupe(Ennemi e){setorProperty(getorProperty() + e.getOrTroupe());}
+
     public int getNbToursProperty() {
         return nbToursProperty.get();
     }
