@@ -165,7 +165,7 @@ public class Environnement {
         for (Projectile p : listeProjectile){
             //System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
             p.deplacementProjectile();
-            if (p.cibleTouchee()){
+            if (p.cibleTouche()){
                 enleverProjectile(p);
             }
         }

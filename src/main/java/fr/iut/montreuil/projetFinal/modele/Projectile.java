@@ -15,6 +15,7 @@ public class Projectile  {
     private String id;
     private int vitesse;
     public static int compteur;
+    private Ennemi ennemi;
     protected Environnement environnement;
 
     public Projectile(double x, double y, Ennemi e, Environnement env){
@@ -28,6 +29,7 @@ public class Projectile  {
         this.vitesse = 5;
         this.compteur++;
         this.environnement = env;
+        this.ennemi = e;
     }
 
     public String getId(){
@@ -66,9 +68,13 @@ public class Projectile  {
         return Math.sqrt(((xCible.getValue() - getX())) + ((yCible.getValue() - getY())));
     }
 
-    public boolean cibleTouchee(){
-        if (this.getX() == getxCible() && this.getY() == getyCible()){
-            return  true;
+    public boolean cibleTouche() {
+        double hitboxWidth = ennemi.getHitbox().getWidth();
+        double hitboxHeight = ennemi.getHitbox().getHeight();
+
+        if (this.getX() >= getxCible() && this.getX() <= getxCible() + hitboxWidth && this.getY() >= getyCible() && this.getY() <= getyCible() + hitboxHeight){
+            System.out.println("ennemi touché");
+            return true;
         }
         return false;
     }
@@ -77,7 +83,7 @@ public class Projectile  {
         double deltaX = dx * this.vitesse;
         double deltaY = dy * this.vitesse;
 
-        if (!(getX() == getxCible()) || (getY() == getyCible())){
+        if (!(getX() >= getxCible()) || (getY() >= getyCible())){
             x.setValue(getX() + deltaX);
             y.setValue(getY() + deltaY);
         }

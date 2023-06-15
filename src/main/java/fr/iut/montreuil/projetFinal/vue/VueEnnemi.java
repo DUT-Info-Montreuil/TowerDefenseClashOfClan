@@ -25,9 +25,6 @@ public class VueEnnemi {
         imageView.translateXProperty().bind(e.xProperty());
         imageView.translateYProperty().bind(e.yProperty());
         pane.getChildren().add(imageView);
-        e.getHitbox().xProperty().bind(e.xProperty());
-        e.getHitbox().yProperty().bind(e.yProperty());
-        pane.getChildren().add(e.getHitbox());
     }
 
 }
