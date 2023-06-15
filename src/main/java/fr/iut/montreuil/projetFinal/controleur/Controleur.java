@@ -212,11 +212,11 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(1),
+                Duration.seconds(0.5),
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    if (vague.getVagueProperty() == 6){
+                    if (vague.getVagueProperty() == 6 && environnement.getEnnemis().size() == 0){
                         gameLoop.stop();
                         afficherVictoire();
                     }

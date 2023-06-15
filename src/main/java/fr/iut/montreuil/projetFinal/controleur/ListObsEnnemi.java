@@ -2,10 +2,7 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.modele.*;
-import fr.iut.montreuil.projetFinal.vue.VueArcher;
-import fr.iut.montreuil.projetFinal.vue.VueBarbare;
-import fr.iut.montreuil.projetFinal.vue.VueGéant;
-import fr.iut.montreuil.projetFinal.vue.VuePekka;
+import fr.iut.montreuil.projetFinal.vue.*;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -45,6 +42,9 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
                 }
                 else if (e instanceof Géant){
                     new VueGéant(paneMap, e);
+                }
+                else if (e instanceof Golem){
+                    new VueGolem(paneMap,e);
                 }
                 else if (e instanceof Pekka){
                     new VuePekka(paneMap, e);
