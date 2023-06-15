@@ -71,11 +71,9 @@ public class Controleur implements Initializable {
     @FXML
     private ToggleGroup selectionDefense;
     @FXML
-    private ImageView imagePausereprendre;
-
-
-    private Tour tour;
-
+    private ImageView imageTda;
+    @FXML
+    private ImageView imageCanon;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,6 +83,14 @@ public class Controleur implements Initializable {
         this.vague = new Vague(environnement);
 
         new VueTerrain(tilePane,environnement);
+
+        URL urlArcher = Lancement.class.getResource("tda_Coc.png");
+        Image imgA = new Image(String.valueOf(urlArcher));
+        imageTda.setImage(imgA);
+
+        URL urlCanon = Lancement.class.getResource("canon_Coc.png");
+        Image imgC = new Image(String.valueOf(urlCanon));
+        imageCanon.setImage(imgC);
 
         listObsEnnemi = new ListObsEnnemi(pane, environnement, NbVivant, NbMort);
         environnement.getEnnemis().addListener(listObsEnnemi);
@@ -243,5 +249,29 @@ public class Controleur implements Initializable {
             gameLoop.setRate(1.0);
             compteurClick = 0;
         }
+    }
+
+    @FXML
+    public void mouseEnteredTourArcher(MouseEvent event){
+        imageTda.setFitHeight(40);
+        imageTda.setFitWidth(40);
+    }
+
+    @FXML
+    public void mouseExitTourArcher(MouseEvent event){
+        imageTda.setFitHeight(30);
+        imageTda.setFitWidth(30);
+    }
+
+    @FXML
+    public void mouseEnteredCanon(MouseEvent event){
+        imageCanon.setFitHeight(40);
+        imageCanon.setFitWidth(40);
+    }
+
+    @FXML
+    public void mouseExitCanon(MouseEvent event){
+        imageCanon.setFitHeight(30);
+        imageCanon.setFitWidth(30);
     }
 }

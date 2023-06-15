@@ -17,9 +17,7 @@ public class Tour {
     public static int compteur = 0;
     protected Environnement env;
     private int prix;
-
     private int vente;
-
     private boolean estVendue;
 
     public Tour(String nom, double x, double y, Environnement env, int prix, int portee, int degat , int vente) {
@@ -100,7 +98,7 @@ public class Tour {
         if (e != null){
             if (e.estVivant()) {
                 System.out.println("ennemi non nul");
-                Projectile p = new Projectile(this.getX(), this.getY(), e, env, getDegat());
+                Projectile p = new Projectile(this.getX(), this.getY(), e, env, 25);
                 env.ajouterProjectile(p);
                 System.out.println("pv ennemi : " + e.getPv());
             }
