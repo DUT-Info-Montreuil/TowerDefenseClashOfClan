@@ -37,8 +37,6 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
     private Bfs bfs;
-    private Ennemi ennemi ;
-    //private Hdv hdv;
     private ListChangeListener<Ennemi> listObsEnnemi;
     private ListChangeListener<Tour> listObsTour;
     private ListChangeListener<Projectile> listObsProjectile;

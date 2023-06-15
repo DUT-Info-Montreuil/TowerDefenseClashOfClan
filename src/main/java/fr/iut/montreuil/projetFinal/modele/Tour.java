@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
-public class Tour {
+public abstract class Tour {
 
     private String nom;
     private String id;
@@ -20,14 +20,13 @@ public class Tour {
     private int vente;
     private boolean estVendue;
 
-    public Tour(String nom, double x, double y, Environnement env, int prix, int portee, int degat , int vente) {
+    public Tour(String nom, double x, double y, Environnement env, int prix, int portee, int vente) {
         this.nom = nom;
         this.id = "T" + compteur;
         compteur++;
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
         this.portee = portee;
-        this.degat = degat;
         this.env = env;
         this.prix = prix;
         this.vente = vente;
@@ -52,10 +51,6 @@ public class Tour {
 
     public int getVente(){
         return vente;
-    }
-
-    public int getDegat() {
-        return degat;
     }
 
     public final double getX() {
@@ -92,16 +87,5 @@ public class Tour {
         return null;
     }
 
-    public void tir(){
-        Ennemi e = this.essaieTir();
-        System.out.println("action tir" );
-        if (e != null){
-            if (e.estVivant()) {
-                System.out.println("ennemi non nul");
-                Projectile p = new Projectile(this.getX(), this.getY(), e, env, 25);
-                env.ajouterProjectile(p);
-                System.out.println("pv ennemi : " + e.getPv());
-            }
-        }
-    }
+    public abstract void tir();
 }

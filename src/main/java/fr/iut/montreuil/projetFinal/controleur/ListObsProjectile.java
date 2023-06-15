@@ -1,6 +1,7 @@
 package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.modele.*;
+import fr.iut.montreuil.projetFinal.vue.VueBoulet;
 import fr.iut.montreuil.projetFinal.vue.VueFleche;
 import fr.iut.montreuil.projetFinal.vue.VueProjectile;
 import javafx.collections.ListChangeListener;
@@ -28,6 +29,9 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
                 for (Projectile p : change.getAddedSubList()) {
                     if (p instanceof Fleche) {
                         new VueFleche(pane, env, p);
+                    }
+                    else if (p instanceof Boulet){
+                        new VueBoulet(pane, env, p);
                     }
                 }
             }

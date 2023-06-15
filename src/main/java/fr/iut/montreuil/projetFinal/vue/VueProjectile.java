@@ -17,14 +17,15 @@ public class VueProjectile {
 
     private Environnement environnement;
     private Pane pane;
+    private Projectile projectile;
     private String urlImage;
 
-    public VueProjectile(Pane pane, Environnement e, Projectile p, String urlImg){
+    public VueProjectile(Pane pane, Environnement env, Projectile p, String urlImage){
         this.pane = pane;
-        this.environnement = e;
-        this.urlImage = urlImg;
-
-        URL url1 = Lancement.class.getResource(urlImg);
+        this.environnement = env;
+        this.urlImage = urlImage;
+        this.projectile = p;
+        URL url1 = Lancement.class.getResource(urlImage);
         Image image = new Image(String.valueOf(url1));
         ImageView imageView = new ImageView(image);
         imageView.setId(p.getId());
@@ -44,7 +45,7 @@ public class VueProjectile {
                     Ennemi ennemi = p.ennemiPresent();
                     if (ennemi != null){
                         ennemi.recoitDegat(p.getDegat());
-                        e.enleverProjectile(p);
+                        env.enleverProjectile(p);
                     }
                 }
 //                if (p.getX() > environnement.getHeight() && p.getY() > environnement.getWidth()){
