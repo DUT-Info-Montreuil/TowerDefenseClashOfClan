@@ -36,7 +36,6 @@ public class Tour {
         this.estVendue = false;
     }
 
-    public boolean getEstVendue(){return estVendue;}
 
     public void setEstVendue(boolean b){this.estVendue = b;}
 

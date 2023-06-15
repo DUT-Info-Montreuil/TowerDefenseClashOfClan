@@ -131,7 +131,7 @@ public class Controleur implements Initializable {
                 }
             }
             else if (vendreTour.isSelected()) {
-                chercherTour(event.getX(), event.getY());
+                environnement.chercherTour(event.getX(), event.getY());
             }
         }
         else {
@@ -139,16 +139,6 @@ public class Controleur implements Initializable {
         }
     }
 
-    public void chercherTour(double x, double y) {
-        for (int i = 0; i < environnement.getListeTour().size(); i++) {
-            if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
-                System.out.println("Id : " + environnement.getListeTour().get(i).getId());
-                System.out.println("rentré dans tour");
-                environnement.retirerTour(environnement.getListeTour().get(i));
-                System.out.println("Tour supprimée");
-            }
-        }
-    }
 
     public void afficherGameOverScene(){
             FXMLLoader fxmlLoader = new FXMLLoader();
