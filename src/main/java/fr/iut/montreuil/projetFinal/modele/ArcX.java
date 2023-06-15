@@ -1,10 +1,8 @@
 package fr.iut.montreuil.projetFinal.modele;
 
-public class Canon extends Tour {
-
-    public Canon (double x,double y, Environnement env){
-        super("Canon",x,y,env,75,50,45);
-
+public class ArcX extends Tour {
+    public ArcX (double x,double y, Environnement env){
+        super("ArcX",x,y,env,150,150,20);
     }
 
     @Override
@@ -13,12 +11,10 @@ public class Canon extends Tour {
         System.out.println("action tir" );
         if (e != null){
             if (e.estVivant()) {
-                Projectile p = new Boulet(this.getX(), this.getY(), e, env);
+                Projectile p = new FlecheArcX(this.getX(), this.getY(), e, env);
                 env.ajouterProjectile(p);
                 System.out.println("pv ennemi : " + e.getPvProperty());
             }
         }
     }
 }
-
-

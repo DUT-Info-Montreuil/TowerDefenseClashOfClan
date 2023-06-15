@@ -38,8 +38,6 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
     private Bfs bfs;
-    private Ennemi ennemi ;
-    //private Hdv hdv;
     private ListChangeListener<Ennemi> listObsEnnemi;
     private ListChangeListener<Tour> listObsTour;
     private ListChangeListener<Projectile> listObsProjectile;
@@ -51,15 +49,13 @@ public class Controleur implements Initializable {
     @FXML
     private Pane pane;
     @FXML
-    private RadioButton ajouterTour;
-    @FXML
     private RadioButton ajouterTourArchers;
+    @FXML
+    private RadioButton ajouterArcX;
     @FXML
     private Label compteurOr;
     @FXML
     private Label messageJoueur;
-    @FXML
-    private Button ajouter;
     @FXML
     private RadioButton ajouterCanon;
     @FXML
@@ -72,15 +68,12 @@ public class Controleur implements Initializable {
     private ProgressBar VieEnnemi;
     @FXML
     private RadioButton vendreTour;
-
     @FXML
     private ToggleGroup selectionDefense;
     @FXML
-    private ImageView imagePausereprendre;
-
-
-    private Tour tour;
-
+    private ImageView imageTda;
+    @FXML
+    private ImageView imageCanon;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,7 +81,17 @@ public class Controleur implements Initializable {
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement, 21, 2);
         this.vague = new Vague(environnement);
+
         new VueTerrain(tilePane,environnement);
+
+        URL urlArcher = Lancement.class.getResource("tda_Coc.png");
+        Image imgA = new Image(String.valueOf(urlArcher));
+        imageTda.setImage(imgA);
+
+        URL urlCanon = Lancement.class.getResource("canon_Coc.png");
+        Image imgC = new Image(String.valueOf(urlCanon));
+        imageCanon.setImage(imgC);
+
         listObsEnnemi = new ListObsEnnemi(pane, environnement, NbVivant, NbMort);
         environnement.getEnnemis().addListener(listObsEnnemi);
 
@@ -111,19 +114,6 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
 
-//    @FXML
-//    private void trouverTile(int id, Image im){
-//        ImageView imv = new ImageView(im);
-//        int x,y;
-//        int taille = 16;
-//        int largeurMapX = 384;
-//        int formuleX = taille + (taille * id);
-//        x = formuleX - (largeurMapX * (formuleX/largeurMapX));
-//        y = taille + taille * (formuleX/largeurMapX);
-//        Rectangle2D imviewport = new Rectangle2D(x,y,taille,taille);
-//        imv.setViewport(imviewport);
-//        this.tilePane.getChildren().add(imv);
-//    }
 
     public void choixTour(MouseEvent event) {
         if (environnement.getTerrain()[(int) event.getY()/16][(int) event.getX()/16] == 63) {
@@ -145,11 +135,30 @@ public class Controleur implements Initializable {
                 else {
                     environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
                 }
+            } else if (ajouterCanon.isSelected()) {
+                Canon tour = new Canon(event.getX(), event.getY(), environnement);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
+            } else if (ajouterArcX.isSelected()) {
+            ArcX tour = new ArcX(event.getX(), event.getY(), environnement);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
             }
             else if (vendreTour.isSelected()) {
                 chercherTour(event.getX(), event.getY());
-                /*environnement.setorProperty(environnement.getorProperty() + indiceTour.getVente());
-                environnement.setmessageProperty("+ " + indiceTour.getVente() + "Or pour vente de " + indiceTour.getNom());*/
+            }
+            else {
+                environnement.setmessageProperty("Selectionnez une tour pour la poser");
             }
         }
         else {
@@ -157,13 +166,9 @@ public class Controleur implements Initializable {
         }
     }
 
-
     public void chercherTour(double x, double y) {
         for (int i = 0; i < environnement.getListeTour().size(); i++) {
             if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
-                //if ((this.getX()-48 <= t.getX() && t.getX()<=this.getX()+48) && (this.getY()-48 <= t.getY() && t.getY()<=this.getY()+48)){
-           //if ((environnement.getListeTour().get(i).getX()-48 <= environnement.getListeTour().get(i).getX() && environnement.getListeTour().get(i).getX() <= environnement.getListeTour().get(i).getX()+48) && (environnement.getListeTour().get(i).getY()-48 <= environnement.getListeTour().get(i).getY() && environnement.getListeTour().get(i).getY() <= environnement.getListeTour().get(i).getY()+48)){
-            //if (environnement.getTerrain()[(int) x/16][(int) x/16] == 63){
                 System.out.println("Id : " + environnement.getListeTour().get(i).getId());
                 System.out.println("rentré dans tour");
                 environnement.retirerTour(environnement.getListeTour().get(i));
@@ -171,7 +176,6 @@ public class Controleur implements Initializable {
             }
         }
     }
-
 
     public void afficherGameOverScene(){
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -272,5 +276,29 @@ public class Controleur implements Initializable {
             gameLoop.setRate(1.0);
             compteurClick = 0;
         }
+    }
+
+    @FXML
+    public void mouseEnteredTourArcher(MouseEvent event){
+        imageTda.setFitHeight(40);
+        imageTda.setFitWidth(40);
+    }
+
+    @FXML
+    public void mouseExitTourArcher(MouseEvent event){
+        imageTda.setFitHeight(30);
+        imageTda.setFitWidth(30);
+    }
+
+    @FXML
+    public void mouseEnteredCanon(MouseEvent event){
+        imageCanon.setFitHeight(40);
+        imageCanon.setFitWidth(40);
+    }
+
+    @FXML
+    public void mouseExitCanon(MouseEvent event){
+        imageCanon.setFitHeight(30);
+        imageCanon.setFitWidth(30);
     }
 }
