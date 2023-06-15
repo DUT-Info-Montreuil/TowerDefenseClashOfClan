@@ -26,5 +26,4 @@ public class VueEnnemi {
         imageView.translateYProperty().bind(e.yProperty());
         pane.getChildren().add(imageView);
     }
-
 }
