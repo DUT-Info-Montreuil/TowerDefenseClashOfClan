@@ -5,6 +5,7 @@ import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
 import fr.iut.montreuil.projetFinal.modele.*;
 
+import fr.iut.montreuil.projetFinal.vue.VueTerrain;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -68,8 +69,6 @@ public class Controleur implements Initializable {
     @FXML
     private Label PvHdv;
     @FXML
-    private Vague vague;
-    @FXML
     private ProgressBar VieEnnemi;
     @FXML
     private RadioButton vendreTour;
@@ -78,10 +77,6 @@ public class Controleur implements Initializable {
     private ToggleGroup selectionDefense;
     @FXML
     private ImageView imagePausereprendre;
-
-    @FXML
-    private boolean pause = true;
-
     private Tour tour;
 
 
@@ -93,15 +88,7 @@ public class Controleur implements Initializable {
         this.hdv = new Hdv(environnement, VieEnnemi);
         this.vague = new Vague(environnement);
         System.out.println("hdv : " + hdv.getPv());
-
-        URL ImageTile = Lancement.class.getResource("tiles_12.png");
-        Image imTile = new Image(String.valueOf(ImageTile));
-        for (int i = 0; i < environnement.getTerrain().length; i++) {
-            for (int j = 0; j < environnement.getTerrain()[i].length; j++) {
-                trouverTile(environnement.getTerrain()[i][j], imTile);
-            }
-        }
-
+        new VueTerrain(tilePane,environnement);
         listObsEnnemi = new ListObsEnnemi(pane, environnement, NbVivant, NbMort);
         environnement.getEnnemis().addListener(listObsEnnemi);
 
@@ -123,19 +110,19 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
 
-    @FXML
-    private void trouverTile(int id, Image im){
-        ImageView imv = new ImageView(im);
-        int x,y;
-        int taille = 16;
-        int largeurMapX = 384;
-        int formuleX = taille + (taille * id);
-        x = formuleX - (largeurMapX * (formuleX/largeurMapX));
-        y = taille + taille * (formuleX/largeurMapX);
-        Rectangle2D imviewport = new Rectangle2D(x,y,taille,taille);
-        imv.setViewport(imviewport);
-        this.tilePane.getChildren().add(imv);
-    }
+//    @FXML
+//    private void trouverTile(int id, Image im){
+//        ImageView imv = new ImageView(im);
+//        int x,y;
+//        int taille = 16;
+//        int largeurMapX = 384;
+//        int formuleX = taille + (taille * id);
+//        x = formuleX - (largeurMapX * (formuleX/largeurMapX));
+//        y = taille + taille * (formuleX/largeurMapX);
+//        Rectangle2D imviewport = new Rectangle2D(x,y,taille,taille);
+//        imv.setViewport(imviewport);
+//        this.tilePane.getChildren().add(imv);
+//    }
 
     public void choixTour(MouseEvent event) {
         if (environnement.getTerrain()[(int) event.getY()/16][(int) event.getX()/16] == 63) {
@@ -160,10 +147,11 @@ public class Controleur implements Initializable {
 
     public void chercherTour(double x, double y) {
         for (int i = 0; i < environnement.getListeTour().size(); i++) {
-            //if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
+            if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
                 //if ((this.getX()-48 <= t.getX() && t.getX()<=this.getX()+48) && (this.getY()-48 <= t.getY() && t.getY()<=this.getY()+48)){
-           if ((environnement.getListeTour().get(i).getX()-48 <= environnement.getListeTour().get(i).getX() && environnement.getListeTour().get(i).getX() <= environnement.getListeTour().get(i).getX()+48) && (environnement.getListeTour().get(i).getY()-48 <= environnement.getListeTour().get(i).getY() && environnement.getListeTour().get(i).getY() <= environnement.getListeTour().get(i).getY()+48)){
+           //if ((environnement.getListeTour().get(i).getX()-48 <= environnement.getListeTour().get(i).getX() && environnement.getListeTour().get(i).getX() <= environnement.getListeTour().get(i).getX()+48) && (environnement.getListeTour().get(i).getY()-48 <= environnement.getListeTour().get(i).getY() && environnement.getListeTour().get(i).getY() <= environnement.getListeTour().get(i).getY()+48)){
             //if (environnement.getTerrain()[(int) x/16][(int) x/16] == 63){
+            //if ((int)x == environnement.getListeTour().get(i).getX() && (int)y == environnement.getListeTour().get(i).getX()){
                 System.out.println("Id : " + environnement.getListeTour().get(i).getId());
                 System.out.println("rentré dans tour");
                 environnement.retirerTour(environnement.getListeTour().get(i));
