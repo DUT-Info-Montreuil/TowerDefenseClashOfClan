@@ -15,9 +15,13 @@ public class Projectile  {
     private String id;
     private int vitesse;
     public static int compteur;
+    private Ennemi ennemi;
     protected Environnement environnement;
+    private boolean estTouche = false;
+    private int portee;
+    private int degat;
 
-    public Projectile(double x, double y, Ennemi e, Environnement env){
+    public Projectile(double x, double y, Ennemi e, Environnement env, int degat){
         this.id = "P"+compteur;
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
@@ -25,9 +29,12 @@ public class Projectile  {
         this.yCible = new SimpleDoubleProperty(e.getY());
         this.dx = (e.getX() - this.getX()) / distanceTir();
         this.dy = (e.getY() - this.getY()) / distanceTir();
-        this.vitesse = 5;
+        this.vitesse = 10;
         this.compteur++;
         this.environnement = env;
+        this.ennemi = e;
+        this.portee = 10;
+        this.degat = degat;
     }
 
     public String getId(){
@@ -66,18 +73,28 @@ public class Projectile  {
         return Math.sqrt(((xCible.getValue() - getX())) + ((yCible.getValue() - getY())));
     }
 
-    public boolean cibleTouchee(){
-        if (this.getX() == getxCible() && this.getY() == getyCible()){
-            return  true;
-        }
-        return false;
+    public int getDegat() {
+        return degat;
     }
 
-    public void deplacementProjectile() {
-        double deltaX = dx * this.vitesse;
-        double deltaY = dy * this.vitesse;
+    public Environnement getEnvironnement() {
+        return environnement;
+    }
 
-        if (!(getX() == getxCible()) || (getY() == getyCible())){
+    public Ennemi ennemiPresent(){
+        for (Ennemi e : this.environnement.getEnnemis()){
+            while ((this.getX()-this.portee <= e.getX() && e.getX()<=this.getX()+this.portee) && (this.getY()-this.portee <= e.getY() && e.getY()<=this.getY()+this.portee)){
+                return e;
+            }
+        }
+        return null;
+    }
+
+    public void deplacementProjectile(double elapsedTime) {
+        double deltaX = dx * this.vitesse * elapsedTime;
+        double deltaY = dy * this.vitesse * elapsedTime;
+
+        if (!(getX() >= getxCible()) || (getY() >= getyCible())){
             x.setValue(getX() + deltaX);
             y.setValue(getY() + deltaY);
         }

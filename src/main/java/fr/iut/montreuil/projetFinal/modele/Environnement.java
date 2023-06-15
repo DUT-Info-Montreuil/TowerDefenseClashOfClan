@@ -23,9 +23,6 @@ public class Environnement {
     private Hdv hdv;
     //private ProgressBar VieEnnemi;
 
-
-    private boolean tourVendue;
-
     public Environnement(int width, int height){
         this.width = width;
         this.height = height;
@@ -180,7 +177,9 @@ public class Environnement {
         }
 
         for (Ennemi e : this.getEnnemis()) {
-            e.seDeplacer();
+            if (getTour()%2==0) {
+                e.seDeplacer();
+            }
         }
 
         for (int i = ennemi.size()-1; i>=0; i--){
@@ -193,16 +192,6 @@ public class Environnement {
         for (Tour t: listeTour) {
             if (t.getX() > 0 && t.getY() > 0){
                 t.tir();
-            } else {
-                System.out.println("MM");
-            }
-
-        }
-        for (Projectile p : listeProjectile){
-            //System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
-            p.deplacementProjectile();
-            if (p.cibleTouchee()){
-                enleverProjectile(p);
             }
         }
         this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);

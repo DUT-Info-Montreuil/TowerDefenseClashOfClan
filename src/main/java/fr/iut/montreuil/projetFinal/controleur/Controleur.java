@@ -51,15 +51,11 @@ public class Controleur implements Initializable {
     @FXML
     private Pane pane;
     @FXML
-    private RadioButton ajouterTour;
-    @FXML
     private RadioButton ajouterTourArchers;
     @FXML
     private Label compteurOr;
     @FXML
     private Label messageJoueur;
-    @FXML
-    private Button ajouter;
     @FXML
     private RadioButton ajouterCanon;
     @FXML
@@ -72,7 +68,6 @@ public class Controleur implements Initializable {
     private ProgressBar VieEnnemi;
     @FXML
     private RadioButton vendreTour;
-
     @FXML
     private ToggleGroup selectionDefense;
     @FXML
@@ -87,9 +82,10 @@ public class Controleur implements Initializable {
 
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement, 21, 2);
-        //this.hdv = new Hdv(environnement);
         this.vague = new Vague(environnement);
+
         new VueTerrain(tilePane,environnement);
+
         listObsEnnemi = new ListObsEnnemi(pane, environnement, NbVivant, NbMort);
         environnement.getEnnemis().addListener(listObsEnnemi);
 
@@ -143,7 +139,6 @@ public class Controleur implements Initializable {
         }
     }
 
-
     public void chercherTour(double x, double y) {
         for (int i = 0; i < environnement.getListeTour().size(); i++) {
             if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
@@ -154,7 +149,6 @@ public class Controleur implements Initializable {
             }
         }
     }
-
 
     public void afficherGameOverScene(){
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -201,7 +195,6 @@ public class Controleur implements Initializable {
                         pause = true;
                         System.out.println("dans la methode  pout changer pause " + pause);
                     }
-
                     System.out.println("tour");
                     temps++;
                 })
