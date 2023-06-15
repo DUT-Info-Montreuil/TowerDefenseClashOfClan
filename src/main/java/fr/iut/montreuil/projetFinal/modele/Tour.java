@@ -97,7 +97,6 @@ public class Tour {
     public Ennemi essaieTir(){
         for (Ennemi e : this.env.getEnnemis()){
             while ((this.getX()-this.portee <= e.getX() && e.getX()<=this.getX()+this.portee) && (this.getY()-this.portee <= e.getY() && e.getY()<=this.getY()+this.portee)){
-                System.out.println("Portée : " + portee);
                 return e;
             }
         }
@@ -106,16 +105,12 @@ public class Tour {
 
     public void tir(){
         Ennemi e = this.essaieTir();
-        System.out.println("action tir" );
         if (e != null){
             if (e.estVivant()) {
-                System.out.println("ennemi non nul");
                 Projectile p = new Projectile(this.getX(), this.getY(), e, env);
                 env.ajouterProjectile(p);
 
-                System.out.println("ennemi touché");
                 e.recoitDegat(degat);
-                System.out.println("pv ennemi : " + e.getPvProperty());
             }
         }
 

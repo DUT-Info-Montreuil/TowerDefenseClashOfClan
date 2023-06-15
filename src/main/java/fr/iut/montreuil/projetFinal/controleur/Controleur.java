@@ -5,6 +5,7 @@ import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
 import fr.iut.montreuil.projetFinal.modele.*;
 
+import fr.iut.montreuil.projetFinal.vue.VueEnnemi;
 import fr.iut.montreuil.projetFinal.vue.VueTerrain;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -44,7 +45,7 @@ public class Controleur implements Initializable {
     private ListChangeListener<Projectile> listObsProjectile;
     private boolean isPaused = false;
     private Vague vague;
-    private boolean pause = true;
+    //private boolean pause = true;
     private int compteurClick = 0;
     @FXML
     private TilePane tilePane;
@@ -77,6 +78,8 @@ public class Controleur implements Initializable {
     private ToggleGroup selectionDefense;
     @FXML
     private ImageView imagePausereprendre;
+    @FXML
+    private VueEnnemi vueEnnemi;
 
 
     private Tour tour;
@@ -108,6 +111,7 @@ public class Controleur implements Initializable {
             VieEnnemi.setProgress(nb);
             System.out.println("progresbar: " + VieEnnemi);
         });
+
         initAnimation();
         gameLoop.play();
     }
@@ -185,7 +189,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.5),
+                Duration.seconds(1),
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
@@ -193,15 +197,7 @@ public class Controleur implements Initializable {
                         gameLoop.stop();
                         afficherGameOverScene();
                     }
-
-                    if (environnement.getNbToursProperty()%100 == 0 && environnement.getNbToursProperty()!=0){
-                        vague.augmenterVague();
-                    }
                     environnement.unTour();
-
-                    if (environnement.getNbToursProperty()%50 == 0 && pause == false){
-                        pause = true;
-                    }
                     temps++;
                 })
         );

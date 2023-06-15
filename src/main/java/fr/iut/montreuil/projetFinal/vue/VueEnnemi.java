@@ -18,23 +18,13 @@ public class VueEnnemi {
         this.pane = pane;
         this.ennemi = e;
         this.progressBarEnnemi = new ProgressBar();
-        progressBarEnnemi.translateYProperty().bind(ennemi.yProperty());
-        progressBarEnnemi.translateXProperty().bind(ennemi.xProperty());
+        progressBarEnnemi.translateYProperty().bind(ennemi.yProperty().subtract(10));
+        progressBarEnnemi.translateXProperty().bind(ennemi.xProperty().subtract(8));
         progressBarEnnemi.setPrefWidth(30);
         progressBarEnnemi.setPrefHeight(10);
 
-        if (ennemi.getPvProperty() > 20) {
-            progressBarEnnemi.progressProperty().bind(ennemi.pvProperty().divide(80.0));
-            String barColor = "-fx-accent: red;";
-            String trackColor = "-fx-control-inner-background: white;";
-            progressBarEnnemi.setStyle(barColor + trackColor);
-        } else {
-            progressBarEnnemi.setStyle("-fx-accent: red;");
-        }
-
-
+        progressBarEnnemi.progressProperty().bind(ennemi.pvProperty().divide((double) ennemi.getPvProperty()));
         progressBarEnnemi.setId(ennemi.getId() + 1);
-
 
         URL url1 = Lancement.class.getResource(urlImage);
         Image image = new Image(String.valueOf(url1));
