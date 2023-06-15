@@ -3,6 +3,7 @@ package fr.iut.montreuil.projetFinal.controleur;
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.vue.VueBoulet;
 import fr.iut.montreuil.projetFinal.vue.VueFleche;
+import fr.iut.montreuil.projetFinal.vue.VueFlecheArcX;
 import fr.iut.montreuil.projetFinal.vue.VueProjectile;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -32,6 +33,9 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
                     }
                     else if (p instanceof Boulet){
                         new VueBoulet(pane, env, p);
+                    }
+                    else if (p instanceof FlecheArcX){
+                        new VueFlecheArcX(pane, env, p);
                     }
                 }
             }
