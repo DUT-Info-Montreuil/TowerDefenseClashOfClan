@@ -108,7 +108,7 @@ public class Tour {
         Ennemi e = this.essaieTir();
         if (e != null){
             if (e.estVivant()) {
-                Projectile p = new Projectile(this.getX(), this.getY(), e, env);
+                Projectile p = new Projectile(this.getX(), this.getY(), e, env,this.getDegat());
                 env.ajouterProjectile(p);
 
                 e.recoitDegat(degat);

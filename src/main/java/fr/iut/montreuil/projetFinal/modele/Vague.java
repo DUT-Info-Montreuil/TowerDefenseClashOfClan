@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Vague {
     private Environnement env;
-    private IntegerProperty vagueProperty;
+    private static IntegerProperty vagueProperty;
     private double vagueAugmenteDegat = 1;
     private double vagueAugmentePv = 1;
     private int vagueAugmenteOr = 1;

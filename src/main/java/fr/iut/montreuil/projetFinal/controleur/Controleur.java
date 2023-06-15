@@ -189,6 +189,22 @@ public class Controleur implements Initializable {
             primaryStage.show();
     }
 
+    public void afficherVictoire(){
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        URL resource = getClass().getResource("/fr/iut/montreuil/projetFinal/victoire.fxml");
+        Parent root = null;
+        try {
+            root = fxmlLoader.load(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return; // Arrêter la méthode si une exception se produit Lors du chargement, du fichier. FxML
+        }
+        Scene scene = new Scene(root);
+        Stage primaryStage = (Stage) ((Node) pane).getScene().getWindow();
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
     private void initAnimation() {
         gameLoop = new Timeline();
         temps=0;
@@ -200,6 +216,10 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
+                    if (vague.getVagueProperty() == 6){
+                        gameLoop.stop();
+                        afficherVictoire();
+                    }
                     if (environnement.getHdv().hdvGameOver()){
                         gameLoop.stop();
                         afficherGameOverScene();

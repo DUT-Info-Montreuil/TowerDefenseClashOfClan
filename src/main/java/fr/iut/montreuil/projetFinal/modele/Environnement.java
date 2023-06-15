@@ -196,6 +196,7 @@ public class Environnement {
         if (this.getNbToursProperty()%100 == 0 && this.getNbToursProperty()!=0){
             pause = false;
             vague.augmenterVague();
+            System.out.println("vague nb : " + vague.getVagueProperty());
         }
 
 
