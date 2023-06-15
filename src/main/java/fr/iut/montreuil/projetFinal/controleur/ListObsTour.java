@@ -2,6 +2,7 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.modele.*;
+import fr.iut.montreuil.projetFinal.vue.VueTourAigleArtilleur;
 import fr.iut.montreuil.projetFinal.vue.VueTourArcX;
 import fr.iut.montreuil.projetFinal.vue.VueTourArcher;
 import fr.iut.montreuil.projetFinal.vue.VueTourCanon;
@@ -41,6 +42,9 @@ public class ListObsTour implements ListChangeListener<Tour> {
                     }
                     else if (tour instanceof ArcX) {
                         new VueTourArcX(pane, tour);
+                    }
+                    else if (tour instanceof AigleArtilleur) {
+                        new VueTourAigleArtilleur(pane, tour);
                     }
                     env.setmessageProperty("La défense: " + tour.getNom() + " a été placée");
                 }

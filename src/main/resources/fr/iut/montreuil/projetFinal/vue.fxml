@@ -95,6 +95,16 @@
                      </Label>
                   </children>
                </HBox>
+                <HBox prefHeight="57.0" prefWidth="200.0">
+                   <children>
+                      <RadioButton fx:id="ajouterAigleArtilleur" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense" />
+                      <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="55.0" text="AigleArtilleur">
+                         <font>
+                            <Font name="Caladea" size="20.0" />
+                         </font>
+                      </Label>
+                   </children>
+                </HBox>
                </children>
             </VBox>
 
