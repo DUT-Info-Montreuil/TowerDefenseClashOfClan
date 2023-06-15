@@ -157,24 +157,39 @@ public class Environnement {
     }
 
     public void unTour(){
-        if (this.getNbToursProperty()%2 == 0 && pause == true ) {
-            Ennemi archer = new Archer(45,45,this,hdv,vague);
-            this.ajouterEnnemi(archer);
-        }
-        else if (this.getNbToursProperty() % 3 == 0 && pause == true && vague.getVagueProperty() >= 2){
-            Ennemi barbare = new Barbare(50, 50, this,hdv, vague);
-            this.ajouterEnnemi(barbare);
-        }
-        else if (this.getNbToursProperty()%5 == 0 && pause == true && vague.getVagueProperty() >= 3) {
-            Ennemi géant = new Géant(50,50,this,hdv,vague);
-            this.ajouterEnnemi(géant);
-        }
-        else {
-            if (pause == true && vague.getVagueProperty() >= 4){
-                Ennemi pekka = new Pekka(50, 50, this,hdv, vague);
-                this.ajouterEnnemi(pekka);
+
+        if (pause == true){
+            if (this.getNbToursProperty()%2 == 0) {
+                Ennemi archer = new Archer(45,45,this,hdv,vague);
+                this.ajouterEnnemi(archer);
+            }
+            else if (this.getNbToursProperty() % 3 == 0 && vague.getVagueProperty() >= 2){
+                Ennemi barbare = new Barbare(50, 50, this,hdv, vague);
+                this.ajouterEnnemi(barbare);
+            }
+            else if (this.getNbToursProperty()%5 == 0 && vague.getVagueProperty() >= 3) {
+                Ennemi géant = new Géant(50,50,this,hdv,vague);
+                this.ajouterEnnemi(géant);
+            }
+            else {
+                if (vague.getVagueProperty() >= 4){
+                    Ennemi pekka = new Pekka(50, 50, this,hdv, vague);
+                    this.ajouterEnnemi(pekka);
+                }
             }
         }
+
+
+        if (this.getNbToursProperty()%100 == 0 && this.getNbToursProperty()!=0){
+            pause = false;
+            vague.augmenterVague();
+        }
+
+
+        if (this.getNbToursProperty()%75 == 0 && pause == false){
+            pause = true;
+        }
+
 
         for (Ennemi e : this.getEnnemis()) {
             if (getTour()%2==0) {

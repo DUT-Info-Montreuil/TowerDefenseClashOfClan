@@ -7,4 +7,6 @@ public class Géant extends Ennemi{
         System.out.println("pv archer " + getDegat());
     }
 
+
+
 }
