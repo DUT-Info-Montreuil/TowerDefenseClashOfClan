@@ -47,7 +47,6 @@ public class Controleur implements Initializable {
     private Pane pane;
     @FXML
     private RadioButton ajouterTour;
-
     @FXML
     private RadioButton ajouterTourArchers;
     @FXML
@@ -199,25 +198,6 @@ public class Controleur implements Initializable {
                         afficherGameOverScene();
                     }
 
-//                    if (environnement.getNbToursProperty()%2 == 0 && pause == true ) {
-//                        Ennemi archer = new Archer(45,45,environnement,hdv,vague);
-//                        environnement.ajouterEnnemi(archer);
-//                    }
-//                    else if (environnement.getNbToursProperty() % 3 == 0 && pause == true && vague.getVagueProperty() >= 2){
-//                        Ennemi barbare = new Barbare(50, 50, environnement, hdv, vague);
-//                        environnement.ajouterEnnemi(barbare);
-//                    }
-//                    else if (environnement.getNbToursProperty()%5 == 0 && pause == true && vague.getVagueProperty() >= 3) {
-//                        Ennemi géant = new Géant(50,50,environnement,hdv,vague);
-//                        environnement.ajouterEnnemi(géant);
-//                    }
-//                    else {
-//                        if (pause == true && vague.getVagueProperty() >= 4){
-//                            Ennemi pekka = new Pekka(50, 50, environnement, hdv, vague);
-//                            environnement.ajouterEnnemi(pekka);
-//                        }
-//                    }
-
                     if (environnement.getNbToursProperty()%100 == 0 && environnement.getNbToursProperty()!=0){
                         System.out.println("getNbTour : " + environnement.getNbToursProperty());
                         System.out.println("dans tours vague");
@@ -274,11 +254,11 @@ public class Controleur implements Initializable {
             gameLoop.setRate(currentRate * 0.5);
         }
         else if (compteurClick == 2) {
-            gameLoop.setRate(0.25); // double la vitesse
+            gameLoop.setRate(0.25);
         }
         else {
-            gameLoop.setRate(1.0); // Remettre la vitesse initiale
-            compteurClick = 0; // Réinitialiser le compteur
+            gameLoop.setRate(1.0);
+            compteurClick = 0;
         }
     }
 }
