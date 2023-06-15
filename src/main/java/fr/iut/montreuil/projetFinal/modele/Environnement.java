@@ -1,11 +1,13 @@
 package fr.iut.montreuil.projetFinal.modele;
 
+import fr.iut.montreuil.projetFinal.controleur.Controleur;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ProgressBar;
 
 public class Environnement {
     private int width, height;
@@ -16,6 +18,10 @@ public class Environnement {
     private ObservableList<Tour> listeTour;
     private IntegerProperty orProperty;
     private StringProperty messageProperty;
+    private Vague vague;
+    private boolean pause = true;
+    private Hdv hdv;
+    //private ProgressBar VieEnnemi;
 
     public Environnement(int width, int height){
         this.width = width;
@@ -78,6 +84,8 @@ public class Environnement {
         this.listeTour =FXCollections.observableArrayList();
         this.orProperty = new SimpleIntegerProperty(550);
         this.messageProperty = new SimpleStringProperty("Bienvenue sur le Tower Defense Clash of Clans");
+        this.hdv = new Hdv(this );
+        this.vague = new Vague(this);
     }
 
     public String getmessageProperty() {
@@ -142,9 +150,29 @@ public class Environnement {
     }
 
     public void unTour(){
+        if (this.getNbToursProperty()%2 == 0 && pause == true ) {
+            Ennemi archer = new Archer(45,45,this,hdv,vague);
+            this.ajouterEnnemi(archer);
+        }
+        else if (this.getNbToursProperty() % 3 == 0 && pause == true && vague.getVagueProperty() >= 2){
+            Ennemi barbare = new Barbare(50, 50, this,hdv, vague);
+            this.ajouterEnnemi(barbare);
+        }
+        else if (this.getNbToursProperty()%5 == 0 && pause == true && vague.getVagueProperty() >= 3) {
+            Ennemi géant = new Géant(50,50,this,hdv,vague);
+            this.ajouterEnnemi(géant);
+        }
+        else {
+            if (pause == true && vague.getVagueProperty() >= 4){
+                Ennemi pekka = new Pekka(50, 50, this,hdv, vague);
+                this.ajouterEnnemi(pekka);
+            }
+        }
 
         for (Ennemi e : this.getEnnemis()) {
-            e.seDeplacer();
+            if (getTour()%2==0) {
+                e.seDeplacer();
+            }
         }
 
         for (int i = ennemi.size()-1; i>=0; i--){
@@ -157,18 +185,7 @@ public class Environnement {
         for (Tour t: listeTour) {
             if (t.getX() > 0 && t.getY() > 0){
                 t.tir();
-            } else {
-                System.out.println("MM");
             }
-
-        }
-        for (Projectile p : listeProjectile){
-            //System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
-            p.deplacementProjectile();
-
-            /*if (p.cibleTouchee()){
-                enleverProjectile(p);
-            }*/
         }
         this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
     }
@@ -205,5 +222,9 @@ public class Environnement {
 
     public int getTour() {
         return getNbToursProperty();
+    }
+
+    public Hdv getHdv() {
+        return hdv;
     }
 }

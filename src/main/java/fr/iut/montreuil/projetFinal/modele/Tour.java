@@ -4,8 +4,9 @@ package fr.iut.montreuil.projetFinal.modele;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
-public class Tour{
+public class Tour {
 
     private String nom;
     private String id;
@@ -15,28 +16,45 @@ public class Tour{
     private int portee;
     public static int compteur = 0;
     protected Environnement env;
-    private Projectile projectile;
     private int prix;
 
-    public Tour(String nom, double x,double y, Environnement env , int prix , int portee ,int degat){
+    private int vente;
+
+    private boolean estVendue;
+
+    public Tour(String nom, double x, double y, Environnement env, int prix, int portee, int degat , int vente) {
         this.nom = nom;
         this.id = "T" + compteur;
+        compteur++;
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
         this.portee = portee;
         this.degat = degat;
         this.env = env;
-        this.compteur++;
         this.prix = prix;
+        this.vente = vente;
+        this.estVendue = false;
     }
 
-    public String getId(){
+    public boolean getEstVendue(){return estVendue;}
+
+    public void setEstVendue(boolean b){this.estVendue = b;}
+
+    public String getId() {
         return this.id;
     }
 
-    public String getNom(){return nom;}
+    public String getNom() {
+        return nom;
+    }
 
-    public  int getPrix(){return prix;}
+    public int getPrix() {
+        return prix;
+    }
+
+    public int getVente(){
+        return vente;
+    }
 
     public int getDegat() {
         return degat;
@@ -54,13 +72,17 @@ public class Tour{
         this.y.set(y);
     }
 
-    public final DoubleProperty getXProperty(){return x;}
+    public final DoubleProperty getXProperty() {
+        return x;
+    }
 
     public final double getY() {
         return y.getValue();
     }
 
-    public final DoubleProperty getYProperty(){return y;}
+    public final DoubleProperty getYProperty() {
+        return y;
+    }
 
     public Ennemi essaieTir(){
         for (Ennemi e : this.env.getEnnemis()){
@@ -78,18 +100,10 @@ public class Tour{
         if (e != null){
             if (e.estVivant()) {
                 System.out.println("ennemi non nul");
-                Projectile p = new Projectile(this.getX(), this.getY(), e, env);
+                Projectile p = new Projectile(this.getX(), this.getY(), e, env, getDegat());
                 env.ajouterProjectile(p);
-
-                System.out.println("ennemi touché");
-                e.recoitDegat(degat);
                 System.out.println("pv ennemi : " + e.getPv());
             }
-
-            /*if (p.cibleTouchee()) {
-                   env.enleverProjectile(p);
-            }*/
         }
     }
-
 }

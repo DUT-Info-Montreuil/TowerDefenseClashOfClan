@@ -10,7 +10,14 @@ import java.net.URL;
 
 public class VueEnnemi {
 
+    private Pane pane;
+    private Ennemi ennemi;
+    private String urlImage;
+
     public VueEnnemi(Pane pane, Ennemi e, String urlImage){
+        this.pane = pane;
+        this.ennemi = e;
+        this.urlImage = urlImage;
         URL url1 = Lancement.class.getResource(urlImage);
         Image image = new Image(String.valueOf(url1));
         ImageView imageView = new ImageView(image);

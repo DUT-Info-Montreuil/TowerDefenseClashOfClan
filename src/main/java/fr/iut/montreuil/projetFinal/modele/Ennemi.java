@@ -3,6 +3,7 @@ package fr.iut.montreuil.projetFinal.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.shape.Rectangle;
 
 public class Ennemi {
 
@@ -21,9 +22,10 @@ public class Ennemi {
     private Hdv hdv;
     private Vague vague;
     private double degat;
+    private Rectangle hitbox;
 
 
-    public Ennemi(int y, int x, Environnement env, int pv, int v, int orTroupe, Hdv hdv, Vague vague, double degat) {
+    public Ennemi(int y, int x, Environnement env, int pv, int v, int orTroupe,Hdv hdv, Vague vague, double degat) {
         this.vitesse = v;
         this.degat = degat;
         this.id = "A" + compteur;
@@ -38,6 +40,7 @@ public class Ennemi {
         this.orTroupe = orTroupe;
         this.hdv = hdv;
         this.vague = vague;
+        this.hitbox = new Rectangle(x, y, 16,16);
     }
 
     public void seDeplacer () {
@@ -125,6 +128,10 @@ public class Ennemi {
 
     public int getVitesse () {
         return vitesse;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
     }
 
     @Override

@@ -72,17 +72,4 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
             }
         }
     }
-
-    public void creerSprite(Ennemi ennemie) {
-        if (ennemie instanceof Barbare){
-            new VueBarbare(paneMap, ennemie);
-        }
-        else if (ennemie instanceof Archer){
-            new VueArcher(paneMap, ennemie);
-        }
-        else if (ennemie instanceof Géant){
-            new VueGeant(paneMap, ennemie);
-        }
-
-    }
 }

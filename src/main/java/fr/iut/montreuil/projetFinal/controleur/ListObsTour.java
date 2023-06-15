@@ -7,6 +7,7 @@ import fr.iut.montreuil.projetFinal.vue.VueTourCanon;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -46,12 +47,12 @@ public class ListObsTour implements ListChangeListener<Tour> {
                     env.retirerTour(tour);
                 }
             }
-
-            if (change.wasRemoved()) {
-                for (Tour tour : change.getRemoved()) {
-                    Node n = pane.lookup("#" + tour.getId());
-                    pane.getChildren().remove(n);
-                }
+            for (Tour tour : change.getRemoved()) {
+                System.out.println("les suppressions : " + change.getRemoved());
+                env.setorProperty(env.getorProperty() + tour.getVente());
+                Node tourSprite = pane.lookup("#" + tour.getId());
+                System.out.println("Id : " + tour.getId());
+                pane.getChildren().remove(tourSprite);
             }
         }
     }
