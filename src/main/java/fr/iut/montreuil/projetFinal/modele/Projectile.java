@@ -73,10 +73,9 @@ public class Projectile  {
         return false;
     }
 
-    public void deplacementProjectile(/*double elapsedTime*/) {
-
-        double deltaX = dx * this.vitesse; //* elapsedTime;
-        double deltaY = dy * this.vitesse; //* elapsedTime;
+    public void deplacementProjectile() {
+        double deltaX = dx * this.vitesse;
+        double deltaY = dy * this.vitesse;
 
         if (!(getX() == getxCible()) || (getY() == getyCible())){
             x.setValue(getX() + deltaX);

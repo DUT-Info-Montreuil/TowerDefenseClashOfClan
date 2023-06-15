@@ -78,7 +78,7 @@ public class Environnement {
         this.nbToursProperty = new SimpleIntegerProperty(0);
         this.listeProjectile = FXCollections.observableArrayList();
         this.listeTour =FXCollections.observableArrayList();
-        this.orProperty = new SimpleIntegerProperty(150);
+        this.orProperty = new SimpleIntegerProperty(550);
         this.messageProperty = new SimpleStringProperty("Bienvenue sur le Tower Defense Clash of Clans");
     }
 
@@ -167,10 +167,9 @@ public class Environnement {
         for (Projectile p : listeProjectile){
             //System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
             p.deplacementProjectile();
-
-            /*if (p.cibleTouchee()){
+            if (p.cibleTouchee()){
                 enleverProjectile(p);
-            }*/
+            }
         }
         this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
     }
