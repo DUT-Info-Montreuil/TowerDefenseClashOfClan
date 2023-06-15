@@ -2,39 +2,52 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.Lancement;
+import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
+import fr.iut.montreuil.projetFinal.modele.*;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
 
     private Environnement environnement;
-    @FXML
-    private TilePane tilePane;
-    @FXML
-    private Pane pane;
-    @FXML
-    private RadioButton ajouterTour;
     private Timeline gameLoop;
     private int temps;
     private Bfs bfs;
     private Ennemi ennemi ;
+    private Hdv hdv;
+    private ListChangeListener<Ennemi> listObsEnnemi;
+    private ListChangeListener<Tour> listObsTour;
+    private ListChangeListener<Projectile> listObsProjectile;
+    private boolean isPaused = false;
+    private Vague vague;
+    private boolean pause = true;
+    @FXML
+    private TilePane tilePane;
+    @FXML
+    private Pane pane;
     @FXML
     private RadioButton ajouterTourArchers;
     @FXML
@@ -42,72 +55,57 @@ public class Controleur implements Initializable {
     @FXML
     private Label messageJoueur;
     @FXML
-    private Button ajouter;
-    @FXML
     private RadioButton ajouterCanon;
-    @FXML
-    private Hdv hdv;
-
-    private ListChangeListener<Ennemi> listObsEnnemi;
-    private ListChangeListener<Tour> listObsTour;
-    private ListChangeListener<Projectile> listObsProjectile;
     @FXML
     private Label NbMort;
     @FXML
     private Label NbVivant;
     @FXML
     private Label PvHdv;
+    @FXML
+    private ProgressBar VieEnnemi;
+    @FXML
+    private ToggleGroup selectionDefense;
+    @FXML
+    private ImageView imagePausereprendre;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         this.environnement = new Environnement(75, 50);
-        this.bfs = new Bfs(environnement,21,2);
-        this.hdv = new Hdv(environnement);
+        this.bfs = new Bfs(environnement, 21, 2);
+        this.hdv = new Hdv(environnement, VieEnnemi);
+        this.vague = new Vague(environnement);
         System.out.println("hdv : " + hdv.getPv());
 
         URL ImageTile = Lancement.class.getResource("tiles_12.png");
         Image imTile = new Image(String.valueOf(ImageTile));
-        for (int i = 0; i <  environnement.getTerrain().length; i++){
-            for (int j =0; j < environnement.getTerrain()[i].length; j++){
+        for (int i = 0; i < environnement.getTerrain().length; i++) {
+            for (int j = 0; j < environnement.getTerrain()[i].length; j++) {
                 trouverTile(environnement.getTerrain()[i][j], imTile);
             }
         }
-        listObsEnnemi = new ListObsEnnemi(pane, environnement,NbVivant,NbMort);
+
+        listObsEnnemi = new ListObsEnnemi(pane, environnement, NbVivant, NbMort);
         environnement.getEnnemis().addListener(listObsEnnemi);
 
         listObsTour = new ListObsTour(pane, environnement);
         environnement.getListeTour().addListener(listObsTour);
 
-        listObsProjectile = new ListObsProjectile(pane);
+        listObsProjectile = new ListObsProjectile(pane, environnement);
         environnement.getListeProjectile().addListener(listObsProjectile);
 
         compteurOr.textProperty().bind(environnement.orProperty().asString());
         messageJoueur.textProperty().bind(environnement.messageProperty());
         PvHdv.textProperty().bind(hdv.pv().asString());
+
+        hdv.pvProperty().addListener((observableValue, number, t1) -> {
+            double nb = Double.valueOf(t1.toString()) / 100;
+            VieEnnemi.setProgress(nb);
+        });
         initAnimation();
         gameLoop.play();
     }
-
-    @FXML
-    void ajouter(ActionEvent event) {
-
-        if (environnement.getNbToursProperty() % 2 == 0){
-            Ennemi archer = new Archer(45,45,environnement,hdv);
-            environnement.ajouterEnnemi(archer);
-        }
-        else {
-            Ennemi barbare = new Barbare(50,50,environnement,hdv);
-            environnement.ajouterEnnemi(barbare);
-        }
-
-    }
-
-    @FXML
-    void fairTour(ActionEvent event) {
-        environnement.unTour();
-    }
-
 
     @FXML
     private void trouverTile(int id, Image im){
@@ -123,43 +121,35 @@ public class Controleur implements Initializable {
         this.tilePane.getChildren().add(imv);
     }
 
-    @FXML
-    void creerTour(Tour tour, URL url){
-        Image image = new Image(String.valueOf(url));
-        ImageView imageView = new ImageView(image);
-        imageView.setTranslateX(tour.getX()-24);
-        imageView.setTranslateY(tour.getY()-24);
-        pane.getChildren().add(imageView);
-    }
-
-
     public void choixTour(MouseEvent event) {
-        if (ajouterTourArchers.isSelected()) {
-            TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
-            placerTour(tour);
-        } else if (ajouterCanon.isSelected()) {
-            Canon tour = new Canon(event.getX(), event.getY(), environnement);
-            placerTour(tour);
-        }
-    }
-
-    public void placerTour (Tour tour){
-        if ((environnement.getorProperty() - tour.getPrix()) >= 0) {
-            environnement.setorProperty((environnement.getorProperty() - tour.getPrix()));
-            environnement.ajouterTour(tour);
-            if (tour instanceof TourArchers) {
-                URL url = Lancement.class.getResource("tda_Coc.png");
-                creerTour(tour,url);
+        if (environnement.getTerrain()[(int) event.getY() / 16][(int) event.getX() / 16] == 63) {
+            if (ajouterTourArchers.isSelected()) {
+                TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
+                environnement.ajouterTour(tour);
+            } else if (ajouterCanon.isSelected()) {
+                Canon tour = new Canon(event.getX(), event.getY(), environnement);
+                environnement.ajouterTour(tour);
             }
-            else if (tour instanceof Canon) {
-                URL url = Lancement.class.getResource("canon_Coc.png");
-                creerTour(tour,url);
-            }
-            environnement.setmessageProperty("La défense: " + tour.getNom() + " a été placée");
         }
         else {
-            environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+            environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
         }
+    }
+
+    public void afficherGameOverScene(){
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL resource = getClass().getResource("/fr/iut/montreuil/projetFinal/f.fxml");
+            Parent root = null;
+            try {
+                    root = fxmlLoader.load(resource);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return; // Arrêter la méthode si une exception se produit Lors du chargement, du fichier. FxML
+            }
+            Scene scene = new Scene(root);
+            Stage primaryStage = (Stage) ((Node) pane).getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
     }
 
     private void initAnimation() {
@@ -169,26 +159,63 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(1),
+                Duration.seconds(0.5),
+                // on définit ce qui se passe à chaque frame
+                // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    if(temps==10000){
-                        System.out.println("fini");
+                    if (hdv.hdvGameOver()){
                         gameLoop.stop();
+                        afficherGameOverScene();
                     }
 
-                    if (environnement.getNbToursProperty() % 10 == 0){
-                        Ennemi archer = new Archer(45,45,environnement,hdv);
+                    if (environnement.getNbToursProperty()%2 == 0 && pause == true ) {
+                        Ennemi archer = new Archer(45,45,environnement,hdv,vague);
                         environnement.ajouterEnnemi(archer);
                     }
-                    else {
-                        Ennemi barbare = new Barbare(50,50,environnement,hdv);
+                    else if (environnement.getNbToursProperty() % 3 == 0 && pause == true && vague.getVagueProperty() >= 2){
+                        Ennemi barbare = new Barbare(50, 50, environnement, hdv, vague);
                         environnement.ajouterEnnemi(barbare);
                     }
+                    else if (environnement.getNbToursProperty()%5 == 0 && pause == true && vague.getVagueProperty() >= 3) {
+                        Ennemi géant = new Géant(50,50,environnement,hdv,vague);
+                        environnement.ajouterEnnemi(géant);
+                    }
+                    else {
+                        if (pause == true && vague.getVagueProperty() >= 4){
+                            Ennemi pekka = new Pekka(50, 50, environnement, hdv, vague);
+                            environnement.ajouterEnnemi(pekka);
+                        }
+                    }
+
+                    if (environnement.getNbToursProperty()%100 == 0 && environnement.getNbToursProperty()!=0){
+                        System.out.println("getNbTour : " + environnement.getNbToursProperty());
+                        System.out.println("dans tours vague");
+                        vague.augmenterVague();
+                        pause = false;
+                        System.out.println("pause dans vagueeeeeeeeeeeeee  " + pause);
+                    }
                     environnement.unTour();
+
+                    if (environnement.getNbToursProperty()%50 == 0 && pause == false){
+                        pause = true;
+                        System.out.println("dans la methode  pout changer pause " + pause);
+                    }
+
+                    System.out.println("tour");
                     temps++;
                 })
         );
         gameLoop.getKeyFrames().add(kf);
     }
 
+    @FXML
+    void mettrePause(){
+        if (isPaused) {
+            this.gameLoop.play();
+            isPaused = false;
+        } else {
+            this.gameLoop.pause();
+            isPaused = true;
+        }
+    }
 }

@@ -5,9 +5,10 @@ import fr.iut.montreuil.projetFinal.modele.Environnement;
 
 public class Barbare extends Ennemi {
 
-    public Barbare(int y, int x, Environnement env, Hdv hdv) {
+    public Barbare(int y, int x, Environnement env, Hdv hdv,Vague vague) {
 
-        super( y, x,env,100,1,1, hdv);
+        super( y, x,env,(int) (100* vague.getVagueAugmentePv()),2,(int)(2* vague.getVagueAugmenteOr()), hdv,vague,2* vague.getVagueAugmenteDegat());
+
 
     }
 

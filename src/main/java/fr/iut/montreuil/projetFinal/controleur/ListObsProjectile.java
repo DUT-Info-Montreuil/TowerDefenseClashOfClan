@@ -11,52 +11,31 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import java.util.ArrayList;
-
 public class ListObsProjectile implements ListChangeListener<Projectile> {
 
+    private Environnement env;
+    @FXML
     private Pane pane;
-    private ArrayList<VueProjectile> vuesProjectile;
 
-    public ListObsProjectile(Pane panneauDeJeu) {
-        this.pane = panneauDeJeu;
-        this.vuesProjectile = new ArrayList<>();
+    public ListObsProjectile(Pane pane, Environnement env){
+        this.pane = pane;
+        this.env = env;
     }
 
     @Override
     public void onChanged(Change<? extends Projectile> change) {
         while (change.next()) {
             if (change.wasAdded()) {
-                for (int i = 0; i < change.getAddedSubList().size(); i++) {
-                    Projectile projectile = (Projectile) change.getAddedSubList().get(i);
-                    new VueProjectile(pane, projectile);
+                for (Projectile p : change.getAddedSubList()) {
+                    new VueProjectile(pane, p);
                 }
             }
             if (change.wasRemoved()) {
-                for (int i = change.getRemoved().size() - 1; i >= 0; i--) {
-                    Projectile projectile = (Projectile) change.getRemoved().get(i);
-                    Node n = pane.lookup("#" + projectile.getId());
-                    pane.getChildren().remove(n);
+                for (Projectile p : change.getRemoved()) {
+                    Node pro = (Node) pane.lookup("#" + p.getId());
+                    pane.getChildren().remove(pro);
                 }
             }
         }
-
     }
-
-//    private void enleverProjectile (Projectile proj){
-//        this.panneauDeJeu.getChildren().remove(this.panneauDeJeu.lookup("#"+ p.getId()));
-//        VueProjectile vueProjectileToRemove = null;
-//        for (VueProjectile vueProjectile : vuesProjectile) {
-//            if (vueProjectile.getProjectile() == proj) { // Recherche la vue correspondant à l'acteur ennemi supprimé
-//                vueProjectileToRemove = vueProjectile; // Stocke la vue à supprimer
-//                break;
-//            }
-//        }
-//
-//        if (vueProjectileToRemove != null) {
-//            vueProjectileToRemove.retirerCercle(proj); // Retire l'image de l'acteur ennemi dans la vue
-//            vuesProjectile.remove(vueProjectileToRemove); // Supprime la vue des ennemis
-//        }
-//    }
 }
-

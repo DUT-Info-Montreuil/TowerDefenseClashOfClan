@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.iut.montreuil.projetFinal.controleur.ControleurDebut">
+
+    <VBox alignment="CENTER" layoutX="406.0" layoutY="324.0" prefHeight="199.0" prefWidth="591.0" spacing="50.0" />
+    <Button layoutX="674.0" layoutY="642.0" onAction="#lancerLeJeux" style="-fx-font-size: 20px; -fx-text-fill: white; -fx-background-color: red;" text="jouer">
+    </Button>
+</Pane>

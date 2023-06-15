@@ -46,6 +46,14 @@ public class Tour{
         return x.getValue();
     }
 
+    public void setX(double x) {
+        this.x.set(x);
+    }
+
+    public void setY(double y) {
+        this.y.set(y);
+    }
+
     public final DoubleProperty getXProperty(){return x;}
 
     public final double getY() {
@@ -77,10 +85,6 @@ public class Tour{
                 }
                 System.out.println("pv ennemi : " + e.getPv());
             }
-
-            /*if (p.cibleTouchee()) {
-                   env.enleverProjectile(p);
-               }*/
         }
     }
 

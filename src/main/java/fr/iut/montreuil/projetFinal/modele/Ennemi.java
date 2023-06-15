@@ -1,17 +1,14 @@
 package fr.iut.montreuil.projetFinal.modele;
 
 
-import fr.iut.montreuil.projetFinal.controleur.Controleur;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class Ennemi {
 
     protected Environnement env;
     private String id;
-    private double vitesse;
+    private int vitesse;
     private IntegerProperty xProperty, yProperty;
     private int orTroupe;
 
@@ -22,12 +19,13 @@ public class Ennemi {
     private CaseDebut caseDebut;
     private int dd = (int) (Math.random() * 10);
     private Hdv hdv;
-    private Rectangle hitbox;
+    private Vague vague;
+    private double degat;
 
 
-    public Ennemi(int y, int x, Environnement env, int pv, double v, int orTroupe, Hdv hdv) {
+    public Ennemi(int y, int x, Environnement env, int pv, int v, int orTroupe, Hdv hdv, Vague vague, double degat) {
         this.vitesse = v;
-
+        this.degat = degat;
         this.id = "A" + compteur;
         compteur++;
         this.xProperty = new SimpleIntegerProperty(x);
@@ -39,27 +37,27 @@ public class Ennemi {
         this.suivant = 0;
         this.orTroupe = orTroupe;
         this.hdv = hdv;
-        this.hitbox = new Rectangle(x,y,16,16);
-        hitbox.setFill(Color.BLACK);
+        this.vague = vague;
     }
 
     public void seDeplacer () {
         this.bfs = new Bfs(env, caseDebut.getcaseDebut().get(dd).getY(), caseDebut.getcaseDebut().get(dd).getX());
 
-
         if (suivant < bfs.vraiChemin.size() - 1) {
-            suivant = suivant + (int) this.vitesse;
+            suivant = suivant + this.vitesse;
             setY(bfs.vraiChemin.get(getSuivant()).getY() * 16);
             setX(bfs.vraiChemin.get(getSuivant()).getX() * 16);
         }
 
         if (suivant == bfs.vraiChemin.size() - 1 || suivant + 1 == bfs.vraiChemin.size() - 1) {
-            hdv.setPv(hdv.getPv()-1);
+            hdv.setPv(hdv.getPv()- (int)(degat * vague.getVagueAugmenteDegat() ));
             System.out.println(hdv.getPv());
             this.setPv(0);
         }
-        System.out.println("--------------------------------------------------------------------------------");
+    }
 
+    public double getDegat() {
+        return degat;
     }
 
     public int getOrTroupe () {
@@ -125,12 +123,8 @@ public class Ennemi {
         return bfs.vraiChemin.size() - 1;
     }
 
-    public double getVitesse () {
+    public int getVitesse () {
         return vitesse;
-    }
-
-    public Rectangle getHitbox() {
-        return hitbox;
     }
 
     @Override

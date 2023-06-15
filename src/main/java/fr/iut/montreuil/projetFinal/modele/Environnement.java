@@ -16,6 +16,7 @@ public class Environnement {
     private ObservableList<Tour> listeTour;
     private IntegerProperty orProperty;
     private StringProperty messageProperty;
+
     public Environnement(int width, int height){
         this.width = width;
         this.height = height;
@@ -75,7 +76,7 @@ public class Environnement {
         this.nbToursProperty = new SimpleIntegerProperty(0);
         this.listeProjectile = FXCollections.observableArrayList();
         this.listeTour =FXCollections.observableArrayList();
-        this.orProperty = new SimpleIntegerProperty(150);
+        this.orProperty = new SimpleIntegerProperty(550);
         this.messageProperty = new SimpleStringProperty("Bienvenue sur le Tower Defense Clash of Clans");
     }
 
@@ -144,29 +145,28 @@ public class Environnement {
 
         for (Ennemi e : this.getEnnemis()) {
             e.seDeplacer();
-            System.out.println("dans un tour : id : " + e.getId() + " suivant : "+ e.getSuivant());
-            System.out.println("x ennemi : " +e.getX() + ", y ennemi : " + e.getY());
         }
 
         for (int i = ennemi.size()-1; i>=0; i--){
             Ennemi e = ennemi.get(i);
             if (!e.estVivant()){
-                System.out.println("mort de : " + e.toString());
                 ennemi.remove(i);
             }
         }
 
         for (Tour t: listeTour) {
-            if (t.getX() > 0 && t.getY() > 0) {
+            if (t.getX() > 0 && t.getY() > 0){
                 t.tir();
+            } else {
+                System.out.println("MM");
             }
-        }
 
+        }
         for (Projectile p : listeProjectile){
-            System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
-            if (p.cibleTouche()){
+            //System.out.println("x projectile : "+ (int)p.getX()+ " , y projectile : " + (int)p.getY());
+            p.deplacementProjectile();
+            if (p.cibleTouchee()){
                 enleverProjectile(p);
-                System.out.println("projectile supprimer");
             }
         }
         this.nbToursProperty.setValue(this.nbToursProperty.getValue()+1);
@@ -196,6 +196,10 @@ public class Environnement {
 
     public void ajouterTour(Tour t){
         listeTour.add(t);
+    }
+
+    public void retirerTour(Tour t){
+        listeTour.remove(t);
     }
 
     public int getTour() {

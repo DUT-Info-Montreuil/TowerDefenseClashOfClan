@@ -1,9 +1,11 @@
 package fr.iut.montreuil.projetFinal.modele;
 
-import fr.iut.montreuil.projetFinal.vue.VueProjectile;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.util.Duration;
 
 public class Projectile  {
 
@@ -14,8 +16,6 @@ public class Projectile  {
     private int vitesse;
     public static int compteur;
     protected Environnement environnement;
-    private Ennemi ennemi;
-    private VueProjectile vueProjectile;
 
     public Projectile(double x, double y, Ennemi e, Environnement env){
         this.id = "P"+compteur;
@@ -25,10 +25,9 @@ public class Projectile  {
         this.yCible = new SimpleDoubleProperty(e.getY());
         this.dx = (e.getX() - this.getX()) / distanceTir();
         this.dy = (e.getY() - this.getY()) / distanceTir();
-        this.vitesse = 15;
+        this.vitesse = 5;
         this.compteur++;
         this.environnement = env;
-        this.ennemi = e;
     }
 
     public String getId(){
@@ -41,10 +40,6 @@ public class Projectile  {
 
     public double getY() {
         return y.getValue();
-    }
-
-    public void setVueProjectile(VueProjectile vueProjectile) {
-        this.vueProjectile = vueProjectile;
     }
 
     public double getxCible() {
@@ -67,35 +62,24 @@ public class Projectile  {
         return vitesse;
     }
 
-
-    public Ennemi getCible() {
-        return ennemi;
-    }
-
-
     public double distanceTir(){
         return Math.sqrt(((xCible.getValue() - getX())) + ((yCible.getValue() - getY())));
     }
 
-    public boolean cibleTouche() {
-        double hitboxWidth = ennemi.getHitbox().getWidth();
-        double hitboxHeight = ennemi.getHitbox().getHeight();
-
-        if (this.getX() >= getxCible() && this.getX() <= getxCible() + hitboxWidth && this.getY() >= getyCible() && this.getY() <= getyCible() + hitboxHeight){
-            System.out.println("ennemi touché");
-            return true;
+    public boolean cibleTouchee(){
+        if (this.getX() == getxCible() && this.getY() == getyCible()){
+            return  true;
         }
         return false;
     }
 
-    public void deplacementProjectile(double elapsedTime) {
-        double deltaX = (dx * this.vitesse) * elapsedTime;
-        double deltaY = (dy * this.vitesse) * elapsedTime;
+    public void deplacementProjectile() {
+        double deltaX = dx * this.vitesse;
+        double deltaY = dy * this.vitesse;
 
         if (!(getX() == getxCible()) || (getY() == getyCible())){
             x.setValue(getX() + deltaX);
             y.setValue(getY() + deltaY);
         }
     }
-
 }
