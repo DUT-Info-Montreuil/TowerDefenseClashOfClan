@@ -112,6 +112,13 @@ public class Environnement {
         return orProperty;
     }
 
+    public boolean peutPayerTour(Tour t){return (getorProperty() - t.getPrix()) >= 0;}
+    public void payerTour(Tour t){ setorProperty((getorProperty() - t.getPrix()));}
+
+    public void vendreLaTour(Tour t){setorProperty(getorProperty() + t.getVente());}
+
+    public void recupererOrTroupe(Ennemi e){setorProperty(getorProperty() + e.getOrTroupe());}
+
     public int getNbToursProperty() {
         return nbToursProperty.get();
     }

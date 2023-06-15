@@ -37,6 +37,8 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
     private Bfs bfs;
+    private Ennemi ennemi ;
+    //private Hdv hdv;
     private ListChangeListener<Ennemi> listObsEnnemi;
     private ListChangeListener<Tour> listObsTour;
     private ListChangeListener<Projectile> listObsProjectile;
@@ -71,6 +73,10 @@ public class Controleur implements Initializable {
     @FXML
     private ImageView imagePausereprendre;
 
+
+    private Tour tour;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -102,14 +108,27 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
 
+
     public void choixTour(MouseEvent event) {
         if (environnement.getTerrain()[(int) event.getY()/16][(int) event.getX()/16] == 63) {
             if (ajouterTourArchers.isSelected()) {
                 TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
-                environnement.ajouterTour(tour);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
             } else if (ajouterCanon.isSelected()) {
                 Canon tour = new Canon(event.getX(), event.getY(), environnement);
-                environnement.ajouterTour(tour);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
             }
             else if (vendreTour.isSelected()) {
                 chercherTour(event.getX(), event.getY());
