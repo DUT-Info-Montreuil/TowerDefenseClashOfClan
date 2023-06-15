@@ -12,7 +12,7 @@ public class Ennemi {
     private IntegerProperty xProperty, yProperty;
     private int orTroupe;
 
-    private IntegerProperty pv;
+    private IntegerProperty pvProperty;
     public static int compteur = 0;
     private Bfs bfs;
     private int suivant = 0;
@@ -31,7 +31,7 @@ public class Ennemi {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.env = env;
-        this.pv = new SimpleIntegerProperty(pv);
+        this.pvProperty = new SimpleIntegerProperty(pv);
         this.bfs = new Bfs(this.env, 21, 2);
         caseDebut = new CaseDebut(env);
         this.suivant = 0;
@@ -52,7 +52,7 @@ public class Ennemi {
         if (suivant == bfs.vraiChemin.size() - 1 || suivant + 1 == bfs.vraiChemin.size() - 1) {
             hdv.setPv(hdv.getPv()- (int)(degat * vague.getVagueAugmenteDegat() ));
             System.out.println(hdv.getPv());
-            this.setPv(0);
+            this.setPvProperty(0);
         }
     }
 
@@ -68,12 +68,12 @@ public class Ennemi {
         return suivant;
     }
 
-    public final int getPv () {
-        return pv.getValue();
+    public final int getPvProperty() {
+        return pvProperty.getValue();
     }
 
-    private void setPv ( int pv){
-        this.pv.setValue(pv);
+    private void setPvProperty(int pvProperty){
+        this.pvProperty.setValue(pvProperty);
     }
 
     public int getX () {
@@ -105,14 +105,18 @@ public class Ennemi {
     }
 
     public boolean estVivant () {
-        return getPv() > 0;
+        return getPvProperty() > 0;
     }
 
     public void recoitDegat ( int degatInflige){
-        if ((this.pv.getValue() - degatInflige) < 0) {
-            this.pv.setValue(0);
+        if ((this.pvProperty.getValue() - degatInflige) < 0) {
+            this.pvProperty.setValue(0);
         }
-        this.pv.setValue(pv.getValue() - degatInflige);
+        this.pvProperty.setValue(pvProperty.getValue() - degatInflige);
+    }
+
+    public final IntegerProperty pvProperty(){
+        return this.pvProperty;
     }
 
     public boolean estArriver () {

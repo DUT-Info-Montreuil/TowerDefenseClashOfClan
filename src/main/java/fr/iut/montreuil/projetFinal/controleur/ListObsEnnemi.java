@@ -4,16 +4,12 @@ import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.vue.VueArcher;
 import fr.iut.montreuil.projetFinal.vue.VueBarbare;
-import fr.iut.montreuil.projetFinal.vue.VueGeant;
-import fr.iut.montreuil.projetFinal.vue.VueArcher;
-import fr.iut.montreuil.projetFinal.vue.VueBarbare;
 import fr.iut.montreuil.projetFinal.vue.VueGéant;
 import fr.iut.montreuil.projetFinal.vue.VuePekka;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -57,6 +53,11 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
             for (Ennemi e : change.getRemoved()) {
                 Node n = paneMap.lookup("#" + e.getId());
                 paneMap.getChildren().remove(n);
+                Node n1 = paneMap.lookup("#"+e.getId()+1);
+                paneMap.getChildren().remove(n1);
+
+
+
                 if (e.getSuivant() + 1 != e.getBfs() && e.getSuivant() != e.getBfs()) {
                     mort++;
                     pv--;

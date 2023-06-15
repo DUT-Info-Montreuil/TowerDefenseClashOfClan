@@ -3,8 +3,6 @@ package fr.iut.montreuil.projetFinal.modele;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 
 public class Tour {
 
@@ -117,7 +115,7 @@ public class Tour {
 
                 System.out.println("ennemi touché");
                 e.recoitDegat(degat);
-                System.out.println("pv ennemi : " + e.getPv());
+                System.out.println("pv ennemi : " + e.getPvProperty());
             }
         }
 

@@ -195,20 +195,13 @@ public class Controleur implements Initializable {
                     }
 
                     if (environnement.getNbToursProperty()%100 == 0 && environnement.getNbToursProperty()!=0){
-                        System.out.println("getNbTour : " + environnement.getNbToursProperty());
-                        System.out.println("dans tours vague");
                         vague.augmenterVague();
-                        pause = false;
-                        System.out.println("pause dans vagueeeeeeeeeeeeee  " + pause);
                     }
                     environnement.unTour();
 
                     if (environnement.getNbToursProperty()%50 == 0 && pause == false){
                         pause = true;
-                        System.out.println("dans la methode  pout changer pause " + pause);
                     }
-
-                    System.out.println("tour");
                     temps++;
                 })
         );
