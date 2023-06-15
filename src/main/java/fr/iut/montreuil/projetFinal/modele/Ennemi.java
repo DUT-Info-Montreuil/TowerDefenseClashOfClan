@@ -23,7 +23,7 @@ public class Ennemi {
     private double degat;
 
 
-    public Ennemi(int y, int x, Environnement env, int pv, int v, int orTroupe, Hdv hdv, Vague vague, double degat) {
+    public Ennemi(int y, int x, Environnement env, int pv, int v, int orTroupe,Hdv hdv, Vague vague, double degat) {
         this.vitesse = v;
         this.degat = degat;
         this.id = "A" + compteur;

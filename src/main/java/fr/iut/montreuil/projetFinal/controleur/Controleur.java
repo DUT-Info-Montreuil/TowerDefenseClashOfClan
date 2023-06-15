@@ -37,7 +37,7 @@ public class Controleur implements Initializable {
     private int temps;
     private Bfs bfs;
     private Ennemi ennemi ;
-    private Hdv hdv;
+    //private Hdv hdv;
     private ListChangeListener<Ennemi> listObsEnnemi;
     private ListChangeListener<Tour> listObsTour;
     private ListChangeListener<Projectile> listObsProjectile;
@@ -68,8 +68,6 @@ public class Controleur implements Initializable {
     @FXML
     private Label PvHdv;
     @FXML
-    private Vague vague;
-    @FXML
     private ProgressBar VieEnnemi;
     @FXML
     private RadioButton vendreTour;
@@ -79,8 +77,6 @@ public class Controleur implements Initializable {
     @FXML
     private ImageView imagePausereprendre;
 
-    @FXML
-    private boolean pause = true;
 
     private Tour tour;
 
@@ -90,9 +86,9 @@ public class Controleur implements Initializable {
 
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement, 21, 2);
-        this.hdv = new Hdv(environnement, VieEnnemi);
+        //this.hdv = new Hdv(environnement);
         this.vague = new Vague(environnement);
-        System.out.println("hdv : " + hdv.getPv());
+        //System.out.println("hdv : " + hdv.getPv());
 
         URL ImageTile = Lancement.class.getResource("tiles_12.png");
         Image imTile = new Image(String.valueOf(ImageTile));
@@ -113,11 +109,12 @@ public class Controleur implements Initializable {
 
         compteurOr.textProperty().bind(environnement.orProperty().asString());
         messageJoueur.textProperty().bind(environnement.messageProperty());
-        PvHdv.textProperty().bind(hdv.pv().asString());
+        PvHdv.textProperty().bind(environnement.getHdv().pv().asString());
 
-        hdv.pvProperty().addListener((observableValue, number, t1) -> {
+        this.environnement.getHdv().pvProperty().addListener((observableValue, number, t1) -> {
             double nb = Double.valueOf(t1.toString()) / 100;
             VieEnnemi.setProgress(nb);
+            System.out.println("progresbar: " + VieEnnemi);
         });
         initAnimation();
         gameLoop.play();
@@ -160,9 +157,9 @@ public class Controleur implements Initializable {
 
     public void chercherTour(double x, double y) {
         for (int i = 0; i < environnement.getListeTour().size(); i++) {
-            //if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
+            if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
                 //if ((this.getX()-48 <= t.getX() && t.getX()<=this.getX()+48) && (this.getY()-48 <= t.getY() && t.getY()<=this.getY()+48)){
-           if ((environnement.getListeTour().get(i).getX()-48 <= environnement.getListeTour().get(i).getX() && environnement.getListeTour().get(i).getX() <= environnement.getListeTour().get(i).getX()+48) && (environnement.getListeTour().get(i).getY()-48 <= environnement.getListeTour().get(i).getY() && environnement.getListeTour().get(i).getY() <= environnement.getListeTour().get(i).getY()+48)){
+           //if ((environnement.getListeTour().get(i).getX()-48 <= environnement.getListeTour().get(i).getX() && environnement.getListeTour().get(i).getX() <= environnement.getListeTour().get(i).getX()+48) && (environnement.getListeTour().get(i).getY()-48 <= environnement.getListeTour().get(i).getY() && environnement.getListeTour().get(i).getY() <= environnement.getListeTour().get(i).getY()+48)){
             //if (environnement.getTerrain()[(int) x/16][(int) x/16] == 63){
                 System.out.println("Id : " + environnement.getListeTour().get(i).getId());
                 System.out.println("rentré dans tour");
@@ -200,29 +197,29 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    if (hdv.hdvGameOver()){
+                    if (environnement.getHdv().hdvGameOver()){
                         gameLoop.stop();
                         afficherGameOverScene();
                     }
 
-                    if (environnement.getNbToursProperty()%2 == 0 && pause == true ) {
-                        Ennemi archer = new Archer(45,45,environnement,hdv,vague);
-                        environnement.ajouterEnnemi(archer);
-                    }
-                    else if (environnement.getNbToursProperty() % 3 == 0 && pause == true && vague.getVagueProperty() >= 2){
-                        Ennemi barbare = new Barbare(50, 50, environnement, hdv, vague);
-                        environnement.ajouterEnnemi(barbare);
-                    }
-                    else if (environnement.getNbToursProperty()%5 == 0 && pause == true && vague.getVagueProperty() >= 3) {
-                        Ennemi géant = new Géant(50,50,environnement,hdv,vague);
-                        environnement.ajouterEnnemi(géant);
-                    }
-                    else {
-                        if (pause == true && vague.getVagueProperty() >= 4){
-                            Ennemi pekka = new Pekka(50, 50, environnement, hdv, vague);
-                            environnement.ajouterEnnemi(pekka);
-                        }
-                    }
+//                    if (environnement.getNbToursProperty()%2 == 0 && pause == true ) {
+//                        Ennemi archer = new Archer(45,45,environnement,hdv,vague);
+//                        environnement.ajouterEnnemi(archer);
+//                    }
+//                    else if (environnement.getNbToursProperty() % 3 == 0 && pause == true && vague.getVagueProperty() >= 2){
+//                        Ennemi barbare = new Barbare(50, 50, environnement, hdv, vague);
+//                        environnement.ajouterEnnemi(barbare);
+//                    }
+//                    else if (environnement.getNbToursProperty()%5 == 0 && pause == true && vague.getVagueProperty() >= 3) {
+//                        Ennemi géant = new Géant(50,50,environnement,hdv,vague);
+//                        environnement.ajouterEnnemi(géant);
+//                    }
+//                    else {
+//                        if (pause == true && vague.getVagueProperty() >= 4){
+//                            Ennemi pekka = new Pekka(50, 50, environnement, hdv, vague);
+//                            environnement.ajouterEnnemi(pekka);
+//                        }
+//                    }
 
                     if (environnement.getNbToursProperty()%100 == 0 && environnement.getNbToursProperty()!=0){
                         System.out.println("getNbTour : " + environnement.getNbToursProperty());

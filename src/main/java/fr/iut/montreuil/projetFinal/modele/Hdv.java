@@ -7,11 +7,10 @@ import javafx.scene.control.ProgressBar;
 public class Hdv {
     protected Environnement env;
     private IntegerProperty pv;
-    private ProgressBar progressBar;
-    public Hdv(Environnement env, ProgressBar p){
+    //private ProgressBar progressBar;
+    public Hdv(Environnement env){
         pv= new SimpleIntegerProperty(100);
         this.env = env;
-        this.progressBar = p;
     }
 
     public final int getPv(){
@@ -19,6 +18,7 @@ public class Hdv {
     }
 
     public final void setPv(int n){
+        System.out.println("pv hdv " + pv);
         pv.setValue(n);
     }
     public final IntegerProperty pv(){
@@ -37,15 +37,15 @@ public class Hdv {
         return pv;
     }
 
-    public ProgressBar getProgressBar() {
-        return progressBar;
-    }
+//    public ProgressBar getProgressBar() {
+//        return progressBar;
+//    }
 
     public void setEnv(Environnement env) {
         this.env = env;
     }
 
-    public void setProgressBar(ProgressBar progressBar) {
-        this.progressBar = progressBar;
-    }
+//   // public void setProgressBar(ProgressBar progressBar) {
+//        this.progressBar = progressBar;
+//    }
 }
