@@ -53,6 +53,11 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
             for (Ennemi e : change.getRemoved()) {
                 Node n = paneMap.lookup("#" + e.getId());
                 paneMap.getChildren().remove(n);
+                Node n1 = paneMap.lookup("#"+e.getId()+1);
+                paneMap.getChildren().remove(n1);
+
+
+
                 if (e.getSuivant() + 1 != e.getBfs() && e.getSuivant() != e.getBfs()) {
                     mort++;
                     pv--;

@@ -16,6 +16,7 @@ public class Tour {
     private int portee;
     public static int compteur = 0;
     protected Environnement env;
+    private Projectile projectile;
     private int prix;
 
     private int vente;
@@ -33,12 +34,9 @@ public class Tour {
         this.env = env;
         this.prix = prix;
         this.vente = vente;
-        this.estVendue = false;
     }
 
-    public boolean getEstVendue(){return estVendue;}
 
-    public void setEstVendue(boolean b){this.estVendue = b;}
 
     public String getId() {
         return this.id;
@@ -72,10 +70,6 @@ public class Tour {
         this.y.set(y);
     }
 
-    public final DoubleProperty getXProperty() {
-        return x;
-    }
-
     public final double getY() {
         return y.getValue();
     }
@@ -84,10 +78,20 @@ public class Tour {
         return y;
     }
 
+//    public Tour chercherTour(double x, double y) {
+//        for (Tour t : env.getListeTour()) {
+//            if (t.getX() <= x && t.getY() <= y && x < t.getX()+48 && y < t.getY()+48){
+//            //if ((this.getX()-48 <= t.getX() && t.getX()<=this.getX()+48) && (this.getY()-48 <= t.getY() && t.getY()<=this.getY()+48)){
+//                System.out.println("rentré dans tour");
+//                return t;
+//            }
+//        }
+//        return null;
+//    }
+
     public Ennemi essaieTir(){
         for (Ennemi e : this.env.getEnnemis()){
             while ((this.getX()-this.portee <= e.getX() && e.getX()<=this.getX()+this.portee) && (this.getY()-this.portee <= e.getY() && e.getY()<=this.getY()+this.portee)){
-                System.out.println("Portée : " + portee);
                 return e;
             }
         }
@@ -96,14 +100,15 @@ public class Tour {
 
     public void tir(){
         Ennemi e = this.essaieTir();
-        System.out.println("action tir" );
         if (e != null){
             if (e.estVivant()) {
-                System.out.println("ennemi non nul");
-                Projectile p = new Projectile(this.getX(), this.getY(), e, env, getDegat());
+                Projectile p = new Projectile(this.getX(), this.getY(), e, env,this.getDegat());
                 env.ajouterProjectile(p);
-                System.out.println("pv ennemi : " + e.getPv());
+
+                e.recoitDegat(degat);
             }
         }
+
     }
+
 }

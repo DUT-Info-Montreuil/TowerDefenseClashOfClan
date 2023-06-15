@@ -18,12 +18,12 @@ public class VueTerrain {
     Image imTile = new Image(String.valueOf(ImageTile));
         for (int i = 0; i < environnement.getTerrain().length; i++) {
             for (int j = 0; j < environnement.getTerrain()[i].length; j++) {
-            trouverTile(environnement.getTerrain()[i][j], imTile,tilePane);
+            mettreTile(environnement.getTerrain()[i][j], imTile,tilePane);
             }
         }
     }
 
-    private void trouverTile(int id, Image im , TilePane tilePane){
+    private void mettreTile(int id, Image im , TilePane tilePane){
         ImageView imv = new ImageView(im);
         int x,y;
         int taille = 16;
