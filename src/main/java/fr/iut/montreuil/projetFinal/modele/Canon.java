@@ -15,7 +15,7 @@ public class Canon extends Tour {
             if (e.estVivant()) {
                 Projectile p = new Boulet(this.getX(), this.getY(), e, env);
                 env.ajouterProjectile(p);
-                System.out.println("pv ennemi : " + e.getPv());
+                System.out.println("pv ennemi : " + e.getPvProperty());
             }
         }
     }

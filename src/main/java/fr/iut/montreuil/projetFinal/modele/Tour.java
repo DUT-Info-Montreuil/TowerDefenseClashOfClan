@@ -18,7 +18,6 @@ public abstract class Tour {
     protected Environnement env;
     private int prix;
     private int vente;
-    private boolean estVendue;
 
     public Tour(String nom, double x, double y, Environnement env, int prix, int portee, int vente) {
         this.nom = nom;
@@ -31,8 +30,6 @@ public abstract class Tour {
         this.prix = prix;
         this.vente = vente;
     }
-
-
 
     public String getId() {
         return this.id;

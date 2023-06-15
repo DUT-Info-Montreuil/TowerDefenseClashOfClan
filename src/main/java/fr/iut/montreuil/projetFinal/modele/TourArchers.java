@@ -14,7 +14,7 @@ public class TourArchers extends Tour {
             if (e.estVivant()) {
                 Projectile p = new Fleche(this.getX(), this.getY(), e, env);
                 env.ajouterProjectile(p);
-                System.out.println("pv ennemi : " + e.getPv());
+                System.out.println("pv ennemi : " + e.getPvProperty());
             }
         }
     }

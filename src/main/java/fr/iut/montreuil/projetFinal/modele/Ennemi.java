@@ -12,7 +12,6 @@ public class Ennemi {
     private int vitesse;
     private IntegerProperty xProperty, yProperty;
     private int orTroupe;
-
     private IntegerProperty pvProperty;
     public static int compteur = 0;
     private Bfs bfs;
