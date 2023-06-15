@@ -53,6 +53,8 @@ public class Controleur implements Initializable {
     @FXML
     private RadioButton ajouterArcX;
     @FXML
+    private RadioButton ajouterAigleArtilleur;
+    @FXML
     private Label compteurOr;
     @FXML
     private Label messageJoueur;
@@ -153,7 +155,17 @@ public class Controleur implements Initializable {
                 else {
                     environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
                 }
+            } else if (ajouterAigleArtilleur.isSelected()) {
+                AigleArtilleur tour = new AigleArtilleur(event.getX(), event.getY(), environnement);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
             }
+
             else if (vendreTour.isSelected()) {
                 chercherTour(event.getX(), event.getY());
             }
