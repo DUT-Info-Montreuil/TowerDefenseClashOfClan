@@ -42,6 +42,8 @@ public class Controleur implements Initializable {
     private ListChangeListener<Tour> listObsTour;
     private ListChangeListener<Projectile> listObsProjectile;
     private boolean isPaused = false;
+    private Vague vague;
+    private boolean pause = true;
     @FXML
     private TilePane tilePane;
     @FXML
@@ -61,11 +63,7 @@ public class Controleur implements Initializable {
     @FXML
     private Label PvHdv;
     @FXML
-    private Vague vague;
-    @FXML
     private ProgressBar VieEnnemi;
-    @FXML
-    private boolean pause = true;
     @FXML
     private ToggleGroup selectionDefense;
     @FXML
@@ -77,12 +75,8 @@ public class Controleur implements Initializable {
         this.environnement = new Environnement(75, 50);
         this.bfs = new Bfs(environnement, 21, 2);
         this.hdv = new Hdv(environnement, VieEnnemi);
-        System.out.println("hdv : " + hdv.getPv());
-        //VieEnnemi.setProgress(56);
         this.vague = new Vague(environnement);
-
-
-
+        System.out.println("hdv : " + hdv.getPv());
 
         URL ImageTile = Lancement.class.getResource("tiles_12.png");
         Image imTile = new Image(String.valueOf(ImageTile));

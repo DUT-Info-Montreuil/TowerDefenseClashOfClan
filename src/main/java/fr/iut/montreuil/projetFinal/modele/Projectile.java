@@ -74,7 +74,6 @@ public class Projectile  {
     }
 
     public void deplacementProjectile() {
-
         double deltaX = dx * this.vitesse;
         double deltaY = dy * this.vitesse;
 
