@@ -49,9 +49,10 @@ public class ListObsTour implements ListChangeListener<Tour> {
             }
             for (Tour tour : change.getRemoved()) {
                 System.out.println("les suppressions : " + change.getRemoved());
-                Node n = pane.lookup("#" + tour.getId());
+                env.setorProperty(env.getorProperty() + tour.getVente());
+                Node tourSprite = pane.lookup("#" + tour.getId());
                 System.out.println("Id : " + tour.getId());
-                pane.getChildren().remove(n);
+                pane.getChildren().remove(tourSprite);
             }
         }
     }

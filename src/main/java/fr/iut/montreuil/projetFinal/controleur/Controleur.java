@@ -164,14 +164,15 @@ public class Controleur implements Initializable {
     }
 
     public void chercherTour(double x, double y) {
-        for (Tour t : environnement.getListeTour()) {
-            if (t.getX() <= x && t.getY() <= y && x < t.getX()+48 && y < t.getY()+48){
+        for (int i = 0; i < environnement.getListeTour().size(); i++) {
+            //if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
                 //if ((this.getX()-48 <= t.getX() && t.getX()<=this.getX()+48) && (this.getY()-48 <= t.getY() && t.getY()<=this.getY()+48)){
+           if ((environnement.getListeTour().get(i).getX()-48 <= environnement.getListeTour().get(i).getX() && environnement.getListeTour().get(i).getX() <= environnement.getListeTour().get(i).getX()+48) && (environnement.getListeTour().get(i).getY()-48 <= environnement.getListeTour().get(i).getY() && environnement.getListeTour().get(i).getY() <= environnement.getListeTour().get(i).getY()+48)){
+            //if (environnement.getTerrain()[(int) x/16][(int) x/16] == 63){
+                System.out.println("Id : " + environnement.getListeTour().get(i).getId());
                 System.out.println("rentré dans tour");
-                environnement.retirerTour(t);
+                environnement.retirerTour(environnement.getListeTour().get(i));
                 System.out.println("Tour supprimée");
-                System.out.println("Id : " + t.getId());
-
             }
         }
     }
