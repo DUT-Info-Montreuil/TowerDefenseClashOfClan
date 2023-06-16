@@ -11,4 +11,10 @@ module com.application.projetfinal {
     opens fr.iut.montreuil.projetFinal;
     exports fr.iut.montreuil.projetFinal.controleur;
     opens fr.iut.montreuil.projetFinal.controleur;
+    exports fr.iut.montreuil.projetFinal.modele.ennemi;
+    opens fr.iut.montreuil.projetFinal.modele.ennemi;
+    exports fr.iut.montreuil.projetFinal.modele.tour;
+    opens fr.iut.montreuil.projetFinal.modele.tour;
+    exports fr.iut.montreuil.projetFinal.modele.projectile;
+    opens fr.iut.montreuil.projetFinal.modele.projectile;
 }

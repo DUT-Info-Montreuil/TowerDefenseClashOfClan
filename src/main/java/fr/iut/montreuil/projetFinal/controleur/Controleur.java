@@ -2,10 +2,9 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.Lancement;
-import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
-import fr.iut.montreuil.projetFinal.modele.*;
 
-import fr.iut.montreuil.projetFinal.vue.VueEnnemi;
+import fr.iut.montreuil.projetFinal.modele.projectile.Projectile;
+import fr.iut.montreuil.projetFinal.modele.tour.*;
 import fr.iut.montreuil.projetFinal.vue.VueTerrain;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,7 +22,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -49,17 +46,9 @@ public class Controleur implements Initializable {
     @FXML
     private Pane pane;
     @FXML
-    private RadioButton ajouterTourArchers;
-    @FXML
-    private RadioButton ajouterArcX;
-    @FXML
-    private RadioButton ajouterAigleArtilleur;
-    @FXML
     private Label compteurOr;
     @FXML
     private Label messageJoueur;
-    @FXML
-    private RadioButton ajouterCanon;
     @FXML
     private Label NbMort;
     @FXML
@@ -71,11 +60,13 @@ public class Controleur implements Initializable {
     @FXML
     private RadioButton vendreTour;
     @FXML
-    private ToggleGroup selectionDefense;
+    private Label labelTourArcher;
     @FXML
-    private ImageView imageTda;
+    private Label labelCanon;
     @FXML
-    private ImageView imageCanon;
+    private Label labelArcX;
+    @FXML
+    private Label labelArtilleur;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,14 +76,6 @@ public class Controleur implements Initializable {
         this.vague = new Vague(environnement);
 
         new VueTerrain(tilePane,environnement);
-
-        URL urlArcher = Lancement.class.getResource("tda_Coc.png");
-        Image imgA = new Image(String.valueOf(urlArcher));
-        imageTda.setImage(imgA);
-
-        URL urlCanon = Lancement.class.getResource("canon_Coc.png");
-        Image imgC = new Image(String.valueOf(urlCanon));
-        imageCanon.setImage(imgC);
 
         listObsEnnemi = new ListObsEnnemi(pane, environnement, NbVivant, NbMort);
         environnement.getEnnemis().addListener(listObsEnnemi);
@@ -107,6 +90,8 @@ public class Controleur implements Initializable {
         messageJoueur.textProperty().bind(environnement.messageProperty());
         PvHdv.textProperty().bind(environnement.getHdv().pv().asString());
 
+        mettreAJourPrix();
+
         this.environnement.getHdv().pvProperty().addListener((observableValue, number, t1) -> {
             double nb = Double.valueOf(t1.toString()) / 100;
             VieEnnemi.setProgress(nb);
@@ -116,11 +101,11 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
 
-
-    public void choixTour(MouseEvent event) {
-        if (environnement.getTerrain()[(int) event.getY()/16][(int) event.getX()/16] == 63) {
-            if (ajouterTourArchers.isSelected()) {
-                TourArchers tour = new TourArchers(event.getX(), event.getY(), environnement);
+    @FXML
+    public void ajouterTourArcher(ActionEvent event) {
+        pane.setOnMouseClicked(mouseEvent -> {
+            if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
+                Tour tour = new TourArchers(mouseEvent.getX(), mouseEvent.getY(), environnement);
                 if (environnement.peutPayerTour(tour)) {
                     environnement.ajouterTour(tour);
                     environnement.payerTour(tour);
@@ -128,54 +113,96 @@ public class Controleur implements Initializable {
                 else {
                     environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
                 }
-            } else if (ajouterCanon.isSelected()) {
-                Canon tour = new Canon(event.getX(), event.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
+                if (vendreTour.isSelected()) {
+                    chercherTour(mouseEvent.getX(), mouseEvent.getX());
                 }
                 else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                    environnement.setmessageProperty("Selectionnez une tour pour la poser");
                 }
-            } else if (ajouterCanon.isSelected()) {
-                Canon tour = new Canon(event.getX(), event.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
-            } else if (ajouterArcX.isSelected()) {
-            ArcX tour = new ArcX(event.getX(), event.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
-            } else if (ajouterAigleArtilleur.isSelected()) {
-                AigleArtilleur tour = new AigleArtilleur(event.getX(), event.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
-            }
-
-            else if (vendreTour.isSelected()) {
-                chercherTour(event.getX(), event.getY());
             }
             else {
-                environnement.setmessageProperty("Selectionnez une tour pour la poser");
+                environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
             }
-        }
-        else {
-            environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
-        }
+            this.pane.setOnMouseClicked(null);
+            });
+    }
+
+    @FXML
+    public void ajouterCanon(ActionEvent event) {
+        pane.setOnMouseClicked(mouseEvent -> {
+            if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
+                Tour tour = new Canon(mouseEvent.getX(), mouseEvent.getY(), environnement);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
+                if (vendreTour.isSelected()) {
+                    chercherTour(mouseEvent.getX(), mouseEvent.getX());
+                }
+                else {
+                    environnement.setmessageProperty("Selectionnez une tour pour la poser");
+                }
+            }
+            else {
+                environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
+            }
+            this.pane.setOnMouseClicked(null);
+        });
+    }
+
+    @FXML
+    public void ajouterArcX(ActionEvent event) {
+        pane.setOnMouseClicked(mouseEvent -> {
+            if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
+                Tour tour = new ArcX(mouseEvent.getX(), mouseEvent.getY(), environnement);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
+                if (vendreTour.isSelected()) {
+                    chercherTour(mouseEvent.getX(), mouseEvent.getX());
+                }
+                else {
+                    environnement.setmessageProperty("Selectionnez une tour pour la poser");
+                }
+            }
+            else {
+                environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
+            }
+            this.pane.setOnMouseClicked(null);
+        });
+    }
+
+    @FXML
+    public void ajouterAigleArtilleur(ActionEvent event) {
+        pane.setOnMouseClicked(mouseEvent -> {
+            if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
+                Tour tour = new AigleArtilleur(mouseEvent.getX(), mouseEvent.getY(), environnement);
+                if (environnement.peutPayerTour(tour)) {
+                    environnement.ajouterTour(tour);
+                    environnement.payerTour(tour);
+                }
+                else {
+                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
+                }
+                if (vendreTour.isSelected()) {
+                    chercherTour(mouseEvent.getX(), mouseEvent.getX());
+                }
+                else {
+                    environnement.setmessageProperty("Selectionnez une tour pour la poser");
+                }
+            }
+            else {
+                environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
+            }
+            this.pane.setOnMouseClicked(null);
+        });
     }
 
     public void chercherTour(double x, double y) {
@@ -191,7 +218,7 @@ public class Controleur implements Initializable {
 
     public void afficherGameOverScene(){
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL resource = getClass().getResource("/fr/iut/montreuil/projetFinal/f.fxml");
+            URL resource = getClass().getResource("vueGameOver.fxml");
             Parent root = null;
             try {
                     root = fxmlLoader.load(resource);
@@ -207,7 +234,7 @@ public class Controleur implements Initializable {
 
     public void afficherVictoire(){
         FXMLLoader fxmlLoader = new FXMLLoader();
-        URL resource = getClass().getResource("/fr/iut/montreuil/projetFinal/victoire.fxml");
+        URL resource = getClass().getResource("vueVictoire.fxml");
         Parent root = null;
         try {
             root = fxmlLoader.load(resource);
@@ -290,27 +317,17 @@ public class Controleur implements Initializable {
         }
     }
 
-    @FXML
-    public void mouseEnteredTourArcher(MouseEvent event){
-        imageTda.setFitHeight(40);
-        imageTda.setFitWidth(40);
-    }
+    public void mettreAJourPrix(){
+        Tour tda = new TourArchers(0,0,environnement);
+        labelTourArcher.textProperty().bind(tda.getPrixProperty().asString());
 
-    @FXML
-    public void mouseExitTourArcher(MouseEvent event){
-        imageTda.setFitHeight(30);
-        imageTda.setFitWidth(30);
-    }
+        Tour canon = new Canon(0,0,environnement);
+        labelCanon.textProperty().bind(canon.getPrixProperty().asString());
 
-    @FXML
-    public void mouseEnteredCanon(MouseEvent event){
-        imageCanon.setFitHeight(40);
-        imageCanon.setFitWidth(40);
-    }
+        Tour arcX = new ArcX(0,0,environnement);
+        labelArcX.textProperty().bind(arcX.getPrixProperty().asString());
 
-    @FXML
-    public void mouseExitCanon(MouseEvent event){
-        imageCanon.setFitHeight(30);
-        imageCanon.setFitWidth(30);
+        Tour aigleArtilleur = new AigleArtilleur(0,0,environnement);
+        labelArtilleur.textProperty().bind(aigleArtilleur.getPrixProperty().asString());
     }
 }

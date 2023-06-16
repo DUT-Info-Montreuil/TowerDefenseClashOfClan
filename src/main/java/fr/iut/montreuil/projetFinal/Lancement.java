@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Lancement extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Lancement.class.getResource("debut.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Lancement.class.getResource("vueDebut.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1550, 850);
         stage.setTitle("Clash of Clans Tower Defense");
         stage.setScene(scene);

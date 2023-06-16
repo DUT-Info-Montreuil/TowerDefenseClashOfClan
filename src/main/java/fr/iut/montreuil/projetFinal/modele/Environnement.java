@@ -1,13 +1,14 @@
 package fr.iut.montreuil.projetFinal.modele;
 
-import fr.iut.montreuil.projetFinal.controleur.Controleur;
+import fr.iut.montreuil.projetFinal.modele.ennemi.*;
+import fr.iut.montreuil.projetFinal.modele.projectile.Projectile;
+import fr.iut.montreuil.projetFinal.modele.tour.Tour;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ProgressBar;
 
 public class Environnement {
     private int width, height;
@@ -82,23 +83,10 @@ public class Environnement {
         this.nbToursProperty = new SimpleIntegerProperty(0);
         this.listeProjectile = FXCollections.observableArrayList();
         this.listeTour =FXCollections.observableArrayList();
-        this.orProperty = new SimpleIntegerProperty(550);
+        this.orProperty = new SimpleIntegerProperty(1000);
         this.messageProperty = new SimpleStringProperty("Bienvenue sur le Tower Defense Clash of Clans");
         this.hdv = new Hdv(this );
         this.vague = new Vague(this);
-    }
-
-
-
-    public void chercherTour(double x, double y) {
-        for (int i = 0; i < getListeTour().size(); i++) {
-            if (getListeTour().get(i).getX()-24 <= x && getListeTour().get(i).getY()-24 <= y && x < getListeTour().get(i).getX()+24 && y < getListeTour().get(i).getY()+24){
-                System.out.println("Id : " + getListeTour().get(i).getId());
-                System.out.println("rentré dans tour");
-                retirerTour(getListeTour().get(i));
-                System.out.println("Tour supprimée");
-            }
-        }
     }
 
     public String getmessageProperty() {

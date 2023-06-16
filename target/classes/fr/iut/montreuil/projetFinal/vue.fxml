@@ -21,7 +21,7 @@
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.iut.montreuil.projetFinal.controleur.Controleur">
     <center>
         <Pane fx:id="pane">
-            <TilePane fx:id="tilePane" maxHeight="800.0" maxWidth="1200.0" prefColumns="75" onMouseClicked="#choixTour">
+            <TilePane fx:id="tilePane" maxHeight="800.0" maxWidth="1200.0" prefColumns="75">
             </TilePane>
         </Pane>
     </center>
@@ -33,78 +33,144 @@
                <children>
                   <HBox prefHeight="26.0" prefWidth="143.0">
                      <children>
-                        <RadioButton fx:id="ajouterTourArchers" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="selectionDefense" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <ImageView fx:id="imageTda" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"  onMouseEntered="#mouseEnteredTourArcher"  onMouseExited="#mouseExitTourArcher">
-                           <image>
-                              <Image url="@tda_Coc.png" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="50.0" text="50">
-                           <font>
-                              <Font name="Caladea" size="20.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@imgPiece.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="57.0" prefWidth="200.0">
-                     <children>
-                        <RadioButton fx:id="ajouterCanon" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense"  />
-                        <ImageView fx:id="imageCanon" fitHeight="39.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#mouseEnteredCanon"  onMouseExited="#mouseExitCanon">
-                           <image>
-                              <Image url="@canon_Coc.png" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="55.0" text="75">
-                           <font>
-                              <Font name="Caladea" size="20.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@imgPiece.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="57.0" prefWidth="200.0">
-                     <children>
-                        <RadioButton fx:id="vendreTour" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense" />
-                        <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="55.0" text="Vendre une Tour">
-                           <font>
-                              <Font name="Caladea" size="20.0" />
-                           </font>
-                        </Label>
+                        <HBox prefHeight="104.0" prefWidth="295.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="105.0" onAction="#ajouterTourArcher">
+                                       <graphic>
+                                          <ImageView fx:id="imageTda" fitHeight="54.0" fitWidth="57.0"  pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@tda_Coc.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <HBox prefHeight="40.0" prefWidth="81.0">
+                                       <children>
+                                          <Label fx:id="labelTourArcher" alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="56.0">
+                                             <font>
+                                                <Font name="Caladea" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@imgPiece.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Label prefHeight="16.0" prefWidth="75.0" />
+                              <VBox prefHeight="104.0" prefWidth="100.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="105.0" onAction="#ajouterCanon">
+                                       <graphic>
+                                          <ImageView fx:id="imageCanon" fitHeight="51.0" fitWidth="80.0"  pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@canon_Coc.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label fx:id="labelCanon" alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="58.0">
+                                             <font>
+                                                <Font name="Caladea" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@imgPiece.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                <HBox prefHeight="57.0" prefWidth="200.0">
                   <children>
-                     <RadioButton fx:id="ajouterArcX" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense" />
-                     <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="55.0" text="ArcX">
-                        <font>
-                           <Font name="Caladea" size="20.0" />
-                        </font>
-                     </Label>
+                        <HBox prefHeight="89.0" prefWidth="313.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="114.0" onAction="#ajouterArcX">
+                                       <graphic>
+                                          <ImageView fx:id="imageArcX" fitHeight="57.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@arcX_Coc.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label fx:id="labelArcX" alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="56.0">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@imgPiece.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Label alignment="CENTER_RIGHT" prefHeight="57.0" prefWidth="75.0">
+                                 <font>
+                                    <Font name="Caladea" size="20.0" />
+                                 </font>
+                              </Label>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="111.0" onAction="#ajouterAigleArtilleur">
+                                       <graphic>
+                                          <ImageView fx:id="imageArtilleur" fitHeight="60.0" fitWidth="55.0"  pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@aigleartilleur_Coc.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label fx:id="labelArtilleur" alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="56.0">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@imgPiece.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
                   </children>
                </HBox>
-                <HBox prefHeight="57.0" prefWidth="200.0">
-                   <children>
-                      <RadioButton fx:id="ajouterAigleArtilleur" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" toggleGroup="$selectionDefense" />
-                      <Label alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="55.0" text="AigleArtilleur">
-                         <font>
-                            <Font name="Caladea" size="20.0" />
-                         </font>
-                      </Label>
-                   </children>
-                </HBox>
+                  <HBox prefHeight="57.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="vendreTour" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0"/>
+                        <Label alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="171.0" text="Vendre une Tour">
+                           <font>
+                              <Font name="Caladea" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
 
@@ -115,7 +181,7 @@
                         <Label text="or disponible : " />
                         <HBox prefHeight="25.0" prefWidth="214.0">
                            <children>
-                              <Label fx:id="compteurOr" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="49.0" text="0">
+                              <Label fx:id="compteurOr" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="57.0" text="0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -177,7 +243,7 @@
                   <HBox prefHeight="35.0" prefWidth="20.0" />
                   <ImageView fitHeight="42.0" fitWidth="37.0" onMouseClicked="#accelererJeu" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@31085.png" />
+                        <Image url="@bouttonAccelerer.png" />
                      </image>
                   </ImageView>
                </children>

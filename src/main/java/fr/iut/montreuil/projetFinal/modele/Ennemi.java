@@ -14,7 +14,7 @@ public class Ennemi {
     private int orTroupe;
     private IntegerProperty pvProperty;
     public static int compteur = 0;
-    private Bfs bfs;
+    protected Bfs bfs;
     private int suivant = 0;
     private CaseDebut caseDebut;
     private int dd = (int) (Math.random() * 10);
@@ -74,7 +74,7 @@ public class Ennemi {
         return pvProperty.getValue();
     }
 
-    private void setPvProperty(int pvProperty){
+    public void setPvProperty(int pvProperty){
         this.pvProperty.setValue(pvProperty);
     }
 
