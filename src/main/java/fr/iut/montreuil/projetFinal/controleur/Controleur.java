@@ -81,7 +81,7 @@ public class Controleur implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         this.environnement = new Environnement(75, 50);
-        this.bfs = new Bfs(environnement, 21, 2);
+        this.bfs = new Bfs(environnement, 21, 2); // Il commence à la case [21;2] par default
         this.vague = new Vague(environnement);
 
         new VueTerrain(tilePane,environnement);
@@ -130,47 +130,16 @@ public class Controleur implements Initializable {
                 }
             } else if (ajouterCanon.isSelected()) {
                 Canon tour = new Canon(event.getX(), event.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
+                environnement.essaiDébiterOr(tour);
             } else if (ajouterCanon.isSelected()) {
                 Canon tour = new Canon(event.getX(), event.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
+                environnement.essaiDébiterOr(tour);
             } else if (ajouterArcX.isSelected()) {
             ArcX tour = new ArcX(event.getX(), event.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
+                environnement.essaiDébiterOr(tour);
             } else if (ajouterAigleArtilleur.isSelected()) {
                 AigleArtilleur tour = new AigleArtilleur(event.getX(), event.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
-            }
-
-            else if (vendreTour.isSelected()) {
-                chercherTour(event.getX(), event.getY());
-            }
-            else {
-                environnement.setmessageProperty("Selectionnez une tour pour la poser");
+                environnement.essaiDébiterOr(tour);
             }
         }
         else {
@@ -178,16 +147,13 @@ public class Controleur implements Initializable {
         }
     }
 
-    public void chercherTour(double x, double y) {
-        for (int i = 0; i < environnement.getListeTour().size(); i++) {
-            if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
-                System.out.println("Id : " + environnement.getListeTour().get(i).getId());
-                System.out.println("rentré dans tour");
-                environnement.retirerTour(environnement.getListeTour().get(i));
-                System.out.println("Tour supprimée");
-            }
+    @FXML
+    public void selectionTour(MouseEvent event){
+        if (vendreTour.isSelected()) {
+            environnement.chercherTour(event.getX(), event.getY());
         }
     }
+
 
     public void afficherGameOverScene(){
             FXMLLoader fxmlLoader = new FXMLLoader();

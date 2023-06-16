@@ -22,6 +22,7 @@ public class Environnement {
     private boolean pause = true;
     private Hdv hdv;
     //private ProgressBar VieEnnemi;
+    private Tour t;
 
     public Environnement(int width, int height){
         this.width = width;
@@ -92,13 +93,21 @@ public class Environnement {
 
     public void chercherTour(double x, double y) {
         for (int i = 0; i < getListeTour().size(); i++) {
-            if (getListeTour().get(i).getX()-24 <= x && getListeTour().get(i).getY()-24 <= y && x < getListeTour().get(i).getX()+24 && y < getListeTour().get(i).getY()+24){
+            if (clickSurTour(x,y, getListeTour().get(i))){
                 System.out.println("Id : " + getListeTour().get(i).getId());
                 System.out.println("rentré dans tour");
                 retirerTour(getListeTour().get(i));
                 System.out.println("Tour supprimée");
             }
         }
+    }
+
+    public boolean clickSurTour(double x, double y,Tour t) {
+        double x1 =t.getX();
+        double x2 = t.getX() +48;
+        double y1 = t.getY();
+        double y2 = t.getY() +48;
+        return x >= x1 && x <= x2 && y >= y1 && y <= y2;
     }
 
     public String getmessageProperty() {
@@ -129,6 +138,16 @@ public class Environnement {
     public void payerTour(Tour t){ setorProperty((getorProperty() - t.getPrix()));}
 
     public void vendreLaTour(Tour t){setorProperty(getorProperty() + t.getVente());}
+
+    public void essaiDébiterOr(Tour t){
+        if (peutPayerTour(t)) {
+            ajouterTour(t);
+            payerTour(t);
+        }
+        else {
+            setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + t.getNom());
+        }
+    }
 
     public void recupererOrTroupe(Ennemi e){setorProperty(getorProperty() + e.getOrTroupe());}
 
