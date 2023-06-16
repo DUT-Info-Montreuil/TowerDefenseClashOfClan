@@ -21,7 +21,7 @@
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.iut.montreuil.projetFinal.controleur.Controleur">
     <center>
         <Pane fx:id="pane">
-            <TilePane fx:id="tilePane" maxHeight="800.0" maxWidth="1200.0" prefColumns="75" onMouseClicked="#choixTour">
+            <TilePane fx:id="tilePane" maxHeight="800.0" maxWidth="1200.0" prefColumns="75" onMouseClicked="#selectionTour">
             </TilePane>
         </Pane>
     </center>
