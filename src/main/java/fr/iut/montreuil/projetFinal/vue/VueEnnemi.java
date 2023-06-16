@@ -23,7 +23,8 @@ public class VueEnnemi {
         progressBarEnnemi.setPrefWidth(30);
         progressBarEnnemi.setPrefHeight(10);
 
-        progressBarEnnemi.progressProperty().bind(ennemi.pvProperty().divide((double) ennemi.getPvProperty()));
+
+        progressBarEnnemi.progressProperty().bind(ennemi.pvProperty().divide((double) e.getPvProperty()));
         progressBarEnnemi.setId(ennemi.getId() + 1);
 
         URL url1 = Lancement.class.getResource(urlImage);

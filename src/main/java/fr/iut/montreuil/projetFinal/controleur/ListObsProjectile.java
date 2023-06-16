@@ -1,9 +1,8 @@
 package fr.iut.montreuil.projetFinal.controleur;
 
-import fr.iut.montreuil.projetFinal.modele.*;
-import fr.iut.montreuil.projetFinal.vue.VueBoulet;
-import fr.iut.montreuil.projetFinal.vue.VueFleche;
-import fr.iut.montreuil.projetFinal.vue.VueFlecheArcX;
+import fr.iut.montreuil.projetFinal.modele.Ennemi;
+import fr.iut.montreuil.projetFinal.modele.Environnement;
+import fr.iut.montreuil.projetFinal.modele.Projectile;
 import fr.iut.montreuil.projetFinal.vue.VueProjectile;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -28,23 +27,17 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
         while (change.next()) {
             if (change.wasAdded()) {
                 for (Projectile p : change.getAddedSubList()) {
-                    if (p instanceof Fleche) {
-                        new VueFleche(pane, env, p);
-                    }
-                    else if (p instanceof Boulet){
-                        new VueBoulet(pane, env, p);
-                    }
-                    else if (p instanceof FlecheArcX){
-                        new VueFlecheArcX(pane, env, p);
-                    }
+                    new VueProjectile(pane, p);
                 }
             }
             if (change.wasRemoved()) {
                 for (Projectile p : change.getRemoved()) {
-                    Node pro = (Node) pane.lookup("#" + p.getId());
-                    pane.getChildren().remove(pro);
+                    pane.lookup("#" + p.getId());
+                    pane.getChildren().remove(p.getId());
                 }
             }
         }
+
     }
+
 }
