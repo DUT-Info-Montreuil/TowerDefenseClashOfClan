@@ -187,6 +187,8 @@
                   </VBox>
                </children>
             </VBox>
+            <Label text="NbVague : " ></Label>
+            <Label fx:id="labelVague" ></Label>
             <VBox prefHeight="203.0" prefWidth="214.0">
                <children>
                   <Label fx:id="messageJoueur" />

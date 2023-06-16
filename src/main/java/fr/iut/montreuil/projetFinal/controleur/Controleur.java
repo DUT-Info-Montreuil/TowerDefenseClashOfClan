@@ -71,6 +71,8 @@ public class Controleur implements Initializable {
     private Label labelArcX;
     @FXML
     private Label labelArtilleur;
+    @FXML
+    private Label labelVague;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -93,6 +95,7 @@ public class Controleur implements Initializable {
         compteurOr.textProperty().bind(environnement.orProperty().asString());
         messageJoueur.textProperty().bind(environnement.messageProperty());
         PvHdv.textProperty().bind(environnement.getHdv().pv().asString());
+        labelVague.textProperty().bind(vague.VagueProperty().asString());
 
         mettreAJourPrix();
 
