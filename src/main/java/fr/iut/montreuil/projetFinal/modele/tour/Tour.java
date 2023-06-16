@@ -36,6 +36,14 @@ public abstract class Tour {
         this.vente = vente;
     }
 
+    public int getPortee() {
+        return portee;
+    }
+
+    public void retiréTour(){
+        env.getListeTour().remove(this);
+    }
+
     public String getId() {
         return this.id;
     }

@@ -163,13 +163,6 @@ public class Controleur implements Initializable {
     }
 
 
-    public void selectionTour(MouseEvent event){
-        System.out.println("est séléctionnéééééééééééééééééééééééé");
-        if (vendreTour.isSelected()) {
-            System.out.println("vendre tourrrrrrrrrrrrrrrrrrrrrrrr");
-            environnement.chercherTour(event.getX(), event.getY());
-        }
-    }
 
     public void afficherGameOverScene(){
             FXMLLoader fxmlLoader = new FXMLLoader();
