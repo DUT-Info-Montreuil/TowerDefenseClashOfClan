@@ -111,12 +111,7 @@ public class Controleur implements Initializable {
             if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
                 Tour tour = new TourArchers(mouseEvent.getX(), mouseEvent.getY(), environnement);
                 environnement.essaiDébiterOr(tour);
-                if (vendreTour.isSelected()) {
-                    environnement.chercherTour(mouseEvent.getX(), mouseEvent.getX());
-                }
-                else {
-                    environnement.setmessageProperty("Selectionnez une tour pour la poser");
-                }
+
             }
             else {
                 environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
@@ -131,12 +126,6 @@ public class Controleur implements Initializable {
             if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
                 Tour tour = new Canon(mouseEvent.getX(), mouseEvent.getY(), environnement);
                 environnement.essaiDébiterOr(tour);
-                if (vendreTour.isSelected()) {
-                    environnement.chercherTour(mouseEvent.getX(), mouseEvent.getX());
-                }
-                else {
-                    environnement.setmessageProperty("Selectionnez une tour pour la poser");
-                }
             }
             else {
                 environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
@@ -151,12 +140,6 @@ public class Controleur implements Initializable {
             if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
                 Tour tour = new ArcX(mouseEvent.getX(), mouseEvent.getY(), environnement);
                 environnement.essaiDébiterOr(tour);
-                if (vendreTour.isSelected()) {
-                    environnement.chercherTour(mouseEvent.getX(), mouseEvent.getX());
-                }
-                else {
-                    environnement.setmessageProperty("Selectionnez une tour pour la poser");
-                }
             }
             else {
                 environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
@@ -171,12 +154,6 @@ public class Controleur implements Initializable {
             if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
                 Tour tour = new AigleArtilleur(mouseEvent.getX(), mouseEvent.getY(), environnement);
                 environnement.essaiDébiterOr(tour);
-                if (vendreTour.isSelected()) {
-                    environnement.chercherTour(mouseEvent.getX(), mouseEvent.getX());
-                }
-                else {
-                    environnement.setmessageProperty("Selectionnez une tour pour la poser");
-                }
             }
             else {
                 environnement.setmessageProperty("Vous ne pouvez pas placer votre tour ici");
@@ -185,9 +162,11 @@ public class Controleur implements Initializable {
         });
     }
 
-    @FXML
+
     public void selectionTour(MouseEvent event){
+        System.out.println("est séléctionnéééééééééééééééééééééééé");
         if (vendreTour.isSelected()) {
+            System.out.println("vendre tourrrrrrrrrrrrrrrrrrrrrrrr");
             environnement.chercherTour(event.getX(), event.getY());
         }
     }
