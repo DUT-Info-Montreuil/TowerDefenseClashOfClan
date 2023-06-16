@@ -110,15 +110,9 @@ public class Controleur implements Initializable {
         pane.setOnMouseClicked(mouseEvent -> {
             if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
                 Tour tour = new TourArchers(mouseEvent.getX(), mouseEvent.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
+                environnement.essaiDébiterOr(tour);
                 if (vendreTour.isSelected()) {
-                    chercherTour(mouseEvent.getX(), mouseEvent.getX());
+                    environnement.chercherTour(mouseEvent.getX(), mouseEvent.getX());
                 }
                 else {
                     environnement.setmessageProperty("Selectionnez une tour pour la poser");
@@ -136,15 +130,9 @@ public class Controleur implements Initializable {
         pane.setOnMouseClicked(mouseEvent -> {
             if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
                 Tour tour = new Canon(mouseEvent.getX(), mouseEvent.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
+                environnement.essaiDébiterOr(tour);
                 if (vendreTour.isSelected()) {
-                    chercherTour(mouseEvent.getX(), mouseEvent.getX());
+                    environnement.chercherTour(mouseEvent.getX(), mouseEvent.getX());
                 }
                 else {
                     environnement.setmessageProperty("Selectionnez une tour pour la poser");
@@ -162,15 +150,9 @@ public class Controleur implements Initializable {
         pane.setOnMouseClicked(mouseEvent -> {
             if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
                 Tour tour = new ArcX(mouseEvent.getX(), mouseEvent.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
+                environnement.essaiDébiterOr(tour);
                 if (vendreTour.isSelected()) {
-                    chercherTour(mouseEvent.getX(), mouseEvent.getX());
+                    environnement.chercherTour(mouseEvent.getX(), mouseEvent.getX());
                 }
                 else {
                     environnement.setmessageProperty("Selectionnez une tour pour la poser");
@@ -188,15 +170,9 @@ public class Controleur implements Initializable {
         pane.setOnMouseClicked(mouseEvent -> {
             if (environnement.getTerrain()[(int)mouseEvent.getY()/16][(int) mouseEvent.getX()/16] == 63) {
                 Tour tour = new AigleArtilleur(mouseEvent.getX(), mouseEvent.getY(), environnement);
-                if (environnement.peutPayerTour(tour)) {
-                    environnement.ajouterTour(tour);
-                    environnement.payerTour(tour);
-                }
-                else {
-                    environnement.setmessageProperty("Vous n'avez pas assez d'argent pour placer votre " + tour.getNom());
-                }
+                environnement.essaiDébiterOr(tour);
                 if (vendreTour.isSelected()) {
-                    chercherTour(mouseEvent.getX(), mouseEvent.getX());
+                    environnement.chercherTour(mouseEvent.getX(), mouseEvent.getX());
                 }
                 else {
                     environnement.setmessageProperty("Selectionnez une tour pour la poser");
