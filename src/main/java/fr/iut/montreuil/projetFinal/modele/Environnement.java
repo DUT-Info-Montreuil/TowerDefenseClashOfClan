@@ -85,32 +85,13 @@ public class Environnement {
         this.nbToursProperty = new SimpleIntegerProperty(0);
         this.listeProjectile = FXCollections.observableArrayList();
         this.listeTour =FXCollections.observableArrayList();
-        this.orProperty = new SimpleIntegerProperty(1000);
+        this.orProperty = new SimpleIntegerProperty(200);
         this.messageProperty = new SimpleStringProperty("Bienvenue sur le Tower Defense Clash of Clans");
         this.hdv = new Hdv(this );
         this.vague = new Vague(this);
     }
 
 
-
-    public void chercherTour(double x, double y) {
-        for (int i = 0; i < getListeTour().size(); i++) {
-            if (clickSurTour(x,y, getListeTour().get(i))){
-                System.out.println("Id : " + getListeTour().get(i).getId());
-                System.out.println("rentré dans tour");
-                retirerTour(getListeTour().get(i));
-                System.out.println("Tour supprimée");
-            }
-        }
-    }
-
-    public boolean clickSurTour(double x, double y,Tour t) {
-        double x1 =t.getX();
-        double x2 = t.getX() +48;
-        double y1 = t.getY();
-        double y2 = t.getY() +48;
-        return x >= x1 && x <= x2 && y >= y1 && y <= y2;
-    }
 
     public String getmessageProperty() {
         return messageProperty.get();
@@ -191,34 +172,30 @@ public class Environnement {
     }
 
     public void unTour(){
-            if (this.getNbToursProperty() == 1 ){
+        if (pause == true && vague.getVagueProperty() !=6){
+            if (this.getNbToursProperty()%4 == 0 && vague.getVagueProperty() >= 3) {
+                Ennemi géant = new Géant(50,50,this,hdv,vague);
+                this.ajouterEnnemi(géant);
+            }
+            else if (this.getNbToursProperty()%20 == 0) {
                 Ennemi archer = new Archer(45,45,this,hdv,vague);
                 this.ajouterEnnemi(archer);
             }
-//        if (pause == true && vague.getVagueProperty() !=6){
-//            if (this.getNbToursProperty()%4 == 0 && vague.getVagueProperty() >= 3) {
-//                Ennemi géant = new Géant(50,50,this,hdv,vague);
-//                this.ajouterEnnemi(géant);
-//            }
-//            else if (this.getNbToursProperty()%20 == 0) {
-//                Ennemi archer = new Archer(45,45,this,hdv,vague);
-//                this.ajouterEnnemi(archer);
-//            }
-//            else if (this.getNbToursProperty() % 3 == 0 && vague.getVagueProperty() >= 2){
-//                Ennemi barbare = new Barbare(50, 50, this,hdv, vague);
-//                this.ajouterEnnemi(barbare);
-//            }
-//            else if (this.getNbToursProperty()%5 == 0 && vague.getVagueProperty()>=4) {
-//                Ennemi golem = new Golem(50,50,this,hdv,vague);
-//                this.ajouterEnnemi(golem);
-//            }
-//            else {
-//                if (vague.getVagueProperty() >= 5){
-//                    Ennemi pekka = new Pekka(50, 50, this,hdv, vague);
-//                    this.ajouterEnnemi(pekka);
-//                }
-//            }
-//        }
+            else if (this.getNbToursProperty() % 3 == 0 && vague.getVagueProperty() >= 2){
+                Ennemi barbare = new Barbare(50, 50, this,hdv, vague);
+                this.ajouterEnnemi(barbare);
+            }
+            else if (this.getNbToursProperty()%5 == 0 && vague.getVagueProperty()>=4) {
+                Ennemi golem = new Golem(50,50,this,hdv,vague);
+                this.ajouterEnnemi(golem);
+            }
+            else {
+                if (vague.getVagueProperty() >= 5){
+                    Ennemi pekka = new Pekka(50, 50, this,hdv, vague);
+                    this.ajouterEnnemi(pekka);
+                }
+            }
+        }
 
         if (this.getNbToursProperty()%100 == 0 && this.getNbToursProperty()!=0){
             pause = false;

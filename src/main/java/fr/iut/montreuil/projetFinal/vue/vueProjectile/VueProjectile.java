@@ -22,6 +22,8 @@ public class VueProjectile {
     private Pane pane;
     private Projectile projectile;
 
+    private int estrentré = 0;
+
     public VueProjectile(Pane pane, Environnement env, Projectile p){
         this.pane = pane;
         this.environnement = env;
@@ -54,11 +56,13 @@ public class VueProjectile {
                     double elapsedTime = (l - lastUpdate) / 1000000000.0;
 
                     p.deplacementProjectile(elapsedTime);
-                    Ennemi ennemi = p.ennemiPresent();
-                    if (ennemi != null){
-                        ennemi.recoitDegat(p.getDegat());
-                        env.enleverProjectile(p);
-                    }
+
+                }
+                Ennemi ennemi = p.ennemiPresent();
+                if (ennemi != null && estrentré < 1){
+                    ennemi.recoitDegat(p.getDegat());
+                    env.enleverProjectile(p);
+                    estrentré++;
                 }
 //                if (p.getX() > environnement.getHeight() && p.getY() > environnement.getWidth()){
 //                    environnement.enleverProjectile(p);
