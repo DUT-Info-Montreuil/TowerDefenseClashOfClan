@@ -2,7 +2,8 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.modele.*;
-import fr.iut.montreuil.projetFinal.vue.*;
+import fr.iut.montreuil.projetFinal.modele.ennemi.*;
+import fr.iut.montreuil.projetFinal.vue.vueEnnemi.*;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

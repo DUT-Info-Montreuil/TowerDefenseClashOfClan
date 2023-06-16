@@ -1,23 +1,15 @@
 package fr.iut.montreuil.projetFinal.controleur;
 
-import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.modele.*;
-import fr.iut.montreuil.projetFinal.vue.VueTourAigleArtilleur;
-import fr.iut.montreuil.projetFinal.vue.VueTourArcX;
-import fr.iut.montreuil.projetFinal.vue.VueTourArcher;
-import fr.iut.montreuil.projetFinal.vue.VueTourCanon;
+import fr.iut.montreuil.projetFinal.modele.tour.*;
+import fr.iut.montreuil.projetFinal.vue.vueTour.VueTourAigleArtilleur;
+import fr.iut.montreuil.projetFinal.vue.vueTour.VueTourArcX;
+import fr.iut.montreuil.projetFinal.vue.vueTour.VueTourArcher;
+import fr.iut.montreuil.projetFinal.vue.vueTour.VueTourCanon;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.RadioButton;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
-import java.net.URL;
 
 public class ListObsTour implements ListChangeListener<Tour> {
 

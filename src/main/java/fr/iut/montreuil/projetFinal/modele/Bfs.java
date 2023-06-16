@@ -44,6 +44,7 @@ public class Bfs {
     public void remplirGrilleBFS() {
         voisin(terrain, c,0);
         chemin();
+        System.out.println("taillllllllllllllllllllllllllllllllllle chemin:" + chemin.size());
     }
 
 
@@ -163,6 +164,10 @@ public class Bfs {
         }
     }
 
+    public int[][] getBFS() {
+        return BFS;
+    }
+
     public ArrayList<Case> chemin() {
         chemin = new ArrayList<>();
         vraiChemin = new ArrayList<>();
@@ -259,5 +264,7 @@ public class Bfs {
         cible = c;
         return cible;
     }
+
+
 
 }
