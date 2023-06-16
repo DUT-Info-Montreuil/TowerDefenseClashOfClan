@@ -13,7 +13,7 @@ public class TourArchers extends Tour {
     @Override
     public void tir() {
         Ennemi e = this.essaieTir();
-        System.out.println("action tir" );
+        System.out.println("action tir" + e);
         if (e != null){
             if (e.estVivant()) {
                 Projectile p = new Fleche(this.getX(), this.getY(), e, env);

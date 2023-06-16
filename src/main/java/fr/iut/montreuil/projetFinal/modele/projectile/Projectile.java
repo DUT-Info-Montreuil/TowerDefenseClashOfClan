@@ -13,9 +13,9 @@ public class Projectile  {
 
     private DoubleProperty x,y;
     private DoubleProperty xCible, yCible;
-    private double dx, dy;
     private String id;
     private int vitesse;
+    private double dX, dY;
     public static int compteur;
     private Ennemi ennemi;
     protected Environnement environnement;
@@ -29,8 +29,6 @@ public class Projectile  {
         this.y = new SimpleDoubleProperty(y);
         this.xCible = new SimpleDoubleProperty(e.getX());
         this.yCible = new SimpleDoubleProperty(e.getY());
-        this.dx = (e.getX() - this.getX()) / distanceTir();
-        this.dy = (e.getY() - this.getY()) / distanceTir();
         this.vitesse = vitesse;
         this.compteur++;
         this.environnement = env;
@@ -93,12 +91,15 @@ public class Projectile  {
     }
 
     public void deplacementProjectile(double elapsedTime) {
-        double deltaX = dx * this.vitesse * elapsedTime;
-        double deltaY = dy * this.vitesse * elapsedTime;
+        double distance = Math.sqrt(Math.pow(ennemi.getX() - getX(),2) + Math.pow(ennemi.getY() - getY(),2));
+        this.dX = (ennemi.getX() - this.getX()) / distance;
+        this.dY = (ennemi.getY() - this.getY()) / distance;
 
-        if (!(getX() >= getxCible()) || (getY() >= getyCible())){
-            x.setValue(getX() + deltaX);
-            y.setValue(getY() + deltaY);
-        }
+        double deltaX = dX * this.vitesse * elapsedTime;
+        double deltaY = dY * this.vitesse * elapsedTime;
+
+        x.setValue(getX() + deltaX);
+        y.setValue(getY() + deltaY);
+
     }
 }

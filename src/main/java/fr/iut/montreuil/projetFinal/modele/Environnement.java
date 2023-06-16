@@ -191,31 +191,34 @@ public class Environnement {
     }
 
     public void unTour(){
-
-        if (pause == true && vague.getVagueProperty() !=6){
-            if (this.getNbToursProperty()%4 == 0 && vague.getVagueProperty() >= 3) {
-                Ennemi géant = new Géant(50,50,this,hdv,vague);
-                this.ajouterEnnemi(géant);
-            }
-            else if (this.getNbToursProperty()%2 == 0) {
+            if (this.getNbToursProperty() == 1 ){
                 Ennemi archer = new Archer(45,45,this,hdv,vague);
                 this.ajouterEnnemi(archer);
             }
-            else if (this.getNbToursProperty() % 3 == 0 && vague.getVagueProperty() >= 2){
-                Ennemi barbare = new Barbare(50, 50, this,hdv, vague);
-                this.ajouterEnnemi(barbare);
-            }
-            else if (this.getNbToursProperty()%5 == 0 && vague.getVagueProperty()>=4) {
-                Ennemi golem = new Golem(50,50,this,hdv,vague);
-                this.ajouterEnnemi(golem);
-            }
-            else {
-                if (vague.getVagueProperty() >= 5){
-                    Ennemi pekka = new Pekka(50, 50, this,hdv, vague);
-                    this.ajouterEnnemi(pekka);
-                }
-            }
-        }
+//        if (pause == true && vague.getVagueProperty() !=6){
+//            if (this.getNbToursProperty()%4 == 0 && vague.getVagueProperty() >= 3) {
+//                Ennemi géant = new Géant(50,50,this,hdv,vague);
+//                this.ajouterEnnemi(géant);
+//            }
+//            else if (this.getNbToursProperty()%20 == 0) {
+//                Ennemi archer = new Archer(45,45,this,hdv,vague);
+//                this.ajouterEnnemi(archer);
+//            }
+//            else if (this.getNbToursProperty() % 3 == 0 && vague.getVagueProperty() >= 2){
+//                Ennemi barbare = new Barbare(50, 50, this,hdv, vague);
+//                this.ajouterEnnemi(barbare);
+//            }
+//            else if (this.getNbToursProperty()%5 == 0 && vague.getVagueProperty()>=4) {
+//                Ennemi golem = new Golem(50,50,this,hdv,vague);
+//                this.ajouterEnnemi(golem);
+//            }
+//            else {
+//                if (vague.getVagueProperty() >= 5){
+//                    Ennemi pekka = new Pekka(50, 50, this,hdv, vague);
+//                    this.ajouterEnnemi(pekka);
+//                }
+//            }
+//        }
 
         if (this.getNbToursProperty()%100 == 0 && this.getNbToursProperty()!=0){
             pause = false;

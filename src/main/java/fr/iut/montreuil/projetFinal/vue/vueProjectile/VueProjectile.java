@@ -3,11 +3,16 @@ package fr.iut.montreuil.projetFinal.vue.vueProjectile;
 import fr.iut.montreuil.projetFinal.Lancement;
 import fr.iut.montreuil.projetFinal.modele.Ennemi;
 import fr.iut.montreuil.projetFinal.modele.Environnement;
+import fr.iut.montreuil.projetFinal.modele.projectile.Boulet;
+import fr.iut.montreuil.projetFinal.modele.projectile.Fleche;
 import fr.iut.montreuil.projetFinal.modele.projectile.Projectile;
+import fr.iut.montreuil.projetFinal.modele.projectile.ProjectileAigleA;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
 
@@ -16,20 +21,29 @@ public class VueProjectile {
     private Environnement environnement;
     private Pane pane;
     private Projectile projectile;
-    private String urlImage;
 
-    public VueProjectile(Pane pane, Environnement env, Projectile p, String urlImage){
+    public VueProjectile(Pane pane, Environnement env, Projectile p){
         this.pane = pane;
         this.environnement = env;
-        this.urlImage = urlImage;
         this.projectile = p;
-        URL url1 = Lancement.class.getResource(urlImage);
-        Image image = new Image(String.valueOf(url1));
-        ImageView imageView = new ImageView(image);
-        imageView.setId(p.getId());
-        imageView.translateXProperty().bind(p.getxProperty());
-        imageView.translateYProperty().bind(p.getyProperty());
-        pane.getChildren().add(imageView);
+        Circle projectile = new Circle();
+
+        if (p instanceof Boulet) {
+                projectile.setRadius(5);
+                projectile.setFill(Color.BLACK);
+        } else if (p instanceof ProjectileAigleA) {
+            projectile.setRadius(5);
+            projectile.setFill(Color.ORANGERED);
+        }
+        else {
+            projectile.setRadius(3);
+            projectile.setFill(Color.GRAY);
+        }
+        projectile.setId(p.getId());
+        projectile.translateXProperty().bind(p.getxProperty());
+        projectile.translateYProperty().bind(p.getyProperty());
+
+        pane.getChildren().add(projectile);
 
         AnimationTimer timer = new AnimationTimer() {
             private long lastUpdate = 0;

@@ -7,6 +7,6 @@ import javafx.scene.layout.Pane;
 public class VueFleche extends VueProjectile {
 
     public VueFleche(Pane pane, Environnement e, Projectile p) {
-        super(pane, e, p, "fleche.png");
+        super(pane, e, p);
     }
 }
