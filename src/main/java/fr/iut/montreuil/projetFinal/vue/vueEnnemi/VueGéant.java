@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 public class VueGéant extends VueEnnemi {
     private ImageView imageView;
     public VueGéant(Pane pane, Ennemi e) {
-        super(pane, e, "géant.png");
+        super(pane, e, "geant_Coc.png");
 
     }
 }

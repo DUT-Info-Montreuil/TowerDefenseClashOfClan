@@ -5,6 +5,6 @@ import javafx.scene.layout.Pane;
 
 public class VuePekka extends VueEnnemi {
     public VuePekka(Pane pane, Ennemi e) {
-        super(pane, e, "pekka.png");
+        super(pane, e, "pekka_Coc.png");
     }
 }

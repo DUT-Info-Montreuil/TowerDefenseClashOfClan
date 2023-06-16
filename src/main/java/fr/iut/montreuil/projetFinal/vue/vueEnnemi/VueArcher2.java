@@ -3,8 +3,8 @@ package fr.iut.montreuil.projetFinal.vue.vueEnnemi;
 import fr.iut.montreuil.projetFinal.modele.Ennemi;
 import javafx.scene.layout.Pane;
 
-public class VueBarbare extends VueEnnemi {
-    public VueBarbare(Pane pane, Ennemi e) {
-        super(pane, e, "barbareV.jpeg");
+public class VueArcher2 extends VueEnnemi{
+    public VueArcher2(Pane pane, Ennemi e) {
+        super(pane, e, "archerLvl2.png");
     }
 }

@@ -173,7 +173,7 @@ public class Controleur implements Initializable {
 
     public void afficherGameOverScene(){
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL resource = getClass().getResource("vueGameOver.fxml");
+            URL resource = Lancement.class.getResource("vueGameOver.fxml");
             Parent root = null;
             try {
                     root = fxmlLoader.load(resource);
@@ -189,7 +189,7 @@ public class Controleur implements Initializable {
 
     public void afficherVictoire(){
         FXMLLoader fxmlLoader = new FXMLLoader();
-        URL resource = getClass().getResource("vueVictoire.fxml");
+        URL resource = Lancement.class.getResource("vueVictoire.fxml");
         Parent root = null;
         try {
             root = fxmlLoader.load(resource);

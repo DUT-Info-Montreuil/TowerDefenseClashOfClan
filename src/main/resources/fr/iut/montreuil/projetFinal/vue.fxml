@@ -25,6 +25,7 @@
             </TilePane>
         </Pane>
     </center>
+
    <right>
       <VBox prefHeight="400.0" prefWidth="280.0" BorderPane.alignment="CENTER">
          <children>

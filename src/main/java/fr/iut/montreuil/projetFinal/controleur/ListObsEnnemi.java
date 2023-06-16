@@ -22,6 +22,7 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
     private Label NbMort;
     private static int pv = 100;
     private static int mort = 0;
+    private Vague vague;
 
 
     public ListObsEnnemi(Pane paneMap, Environnement env,Label nbVivant,Label nbMort) {
@@ -29,6 +30,7 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
         this.env = env;
         NbVivant = nbVivant;
         NbMort = nbMort;
+        vague = new Vague(env);
     }
     @Override
     public void onChanged(Change<?extends Ennemi> change) {
@@ -36,20 +38,45 @@ public class ListObsEnnemi implements ListChangeListener<Ennemi> {
 
             NbVivant.setText("Ennemi restant : " + env.getEnnemis().size());
             for (Ennemi e: change.getAddedSubList()) {
-                if (e instanceof Barbare){
-                    new VueBarbare(paneMap,e);
-                } else if (e instanceof Archer) {
-                    new VueArcher(paneMap,e);
+
+                //Archer
+                if (e instanceof Archer) {
+                    if (vague.getVagueProperty() == 1){
+                        new VueArcher(paneMap,e);
+                    }
+                    else if (vague.getVagueProperty() == 2){
+                        new VueArcher2(paneMap,e);
+                    }
+                    else if (vague.getVagueProperty() == 3){
+                        new VueArcher3(paneMap,e);
+                    }
                 }
+
+                //Barbare
+                else if (e instanceof Barbare){
+                    new VueBarbare(paneMap,e);
+                }
+
+                //Géant
                 else if (e instanceof Géant){
                     new VueGéant(paneMap, e);
                 }
+
+                //Golem
                 else if (e instanceof Golem){
-                    new VueGolem(paneMap,e);
+                    if (vague.getVagueProperty() == 4){
+                        new VueGolem(paneMap,e);
+                    }
+                    else {
+                        new VueGolem2(paneMap,e);
+                    }
                 }
+
+                //Pekka
                 else if (e instanceof Pekka){
                     new VuePekka(paneMap, e);
                 }
+
             }
             for (Ennemi e : change.getRemoved()) {
                 Node n = paneMap.lookup("#" + e.getId());

@@ -5,6 +5,6 @@ import javafx.scene.layout.Pane;
 
 public class VueArcher extends VueEnnemi {
     public VueArcher(Pane pane, Ennemi e) {
-        super(pane, e, "archerV.png");
+        super(pane, e, "archerCoc.png");
     }
 }

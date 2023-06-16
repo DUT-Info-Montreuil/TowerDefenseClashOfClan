@@ -7,6 +7,6 @@ import javafx.scene.layout.Pane;
 public class VueProjectileAigle extends VueProjectile {
 
     public VueProjectileAigle(Pane pane, Environnement env, Projectile p) {
-        super(pane, env, p, "bouleDeFeu.gif");
+        super(pane, env, p);
     }
 }
