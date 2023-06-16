@@ -2,6 +2,8 @@ package fr.iut.montreuil.projetFinal.controleur;
 
 import fr.iut.montreuil.projetFinal.modele.*;
 import fr.iut.montreuil.projetFinal.Lancement;
+import fr.iut.montreuil.projetFinal.controleur.ListObsEnnemi;
+import fr.iut.montreuil.projetFinal.modele.*;
 
 import fr.iut.montreuil.projetFinal.modele.projectile.Projectile;
 import fr.iut.montreuil.projetFinal.modele.tour.*;
@@ -13,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -72,7 +76,7 @@ public class Controleur implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         this.environnement = new Environnement(75, 50);
-        this.bfs = new Bfs(environnement, 21, 2);
+        this.bfs = new Bfs(environnement, 21, 2); // Il commence à la case [21;2] par default
         this.vague = new Vague(environnement);
 
         new VueTerrain(tilePane,environnement);
@@ -205,14 +209,10 @@ public class Controleur implements Initializable {
         });
     }
 
-    public void chercherTour(double x, double y) {
-        for (int i = 0; i < environnement.getListeTour().size(); i++) {
-            if (environnement.getListeTour().get(i).getX() <= x && environnement.getListeTour().get(i).getY() <= y && x < environnement.getListeTour().get(i).getX()+48 && y < environnement.getListeTour().get(i).getY()+48){
-                System.out.println("Id : " + environnement.getListeTour().get(i).getId());
-                System.out.println("rentré dans tour");
-                environnement.retirerTour(environnement.getListeTour().get(i));
-                System.out.println("Tour supprimée");
-            }
+    @FXML
+    public void selectionTour(MouseEvent event){
+        if (vendreTour.isSelected()) {
+            environnement.chercherTour(event.getX(), event.getY());
         }
     }
 

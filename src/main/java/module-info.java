@@ -3,6 +3,7 @@ module com.application.projetfinal {
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
+    //requires org.junit.jupiter.api;
 
 
     exports fr.iut.montreuil.projetFinal;
