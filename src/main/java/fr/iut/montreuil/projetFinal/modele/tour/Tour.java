@@ -80,9 +80,12 @@ public abstract class Tour {
 
     public Ennemi essaieTir(){
         for (Ennemi e : this.env.getEnnemis()){
-            while ((this.getX()-this.portee <= e.getX() && e.getX()<=this.getX()+this.portee) && (this.getY()-this.portee <= e.getY() && e.getY()<=this.getY()+this.portee)){
-                return e;
-            }
+            double distance = Math.sqrt(Math.pow(e.getX() - this.getX(),2) + Math.pow(e.getY() - this.getY(),2));
+
+           if (distance <= this.portee){
+               System.out.println("distance : "+ distance );
+               return e;
+           }
         }
         return null;
     }

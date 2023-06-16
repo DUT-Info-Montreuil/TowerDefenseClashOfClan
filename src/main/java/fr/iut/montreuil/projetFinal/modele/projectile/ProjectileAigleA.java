@@ -6,6 +6,6 @@ import fr.iut.montreuil.projetFinal.modele.Environnement;
 public class ProjectileAigleA extends Projectile {
 
     public ProjectileAigleA(double x, double y, Ennemi e, Environnement env) {
-        super(x, y, e, env, 50, 7);
+        super(x, y, e, env, 50, 175);
     }
 }
