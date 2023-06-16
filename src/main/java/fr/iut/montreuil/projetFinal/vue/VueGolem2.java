@@ -3,8 +3,8 @@ package fr.iut.montreuil.projetFinal.vue;
 import fr.iut.montreuil.projetFinal.modele.Ennemi;
 import javafx.scene.layout.Pane;
 
-public class VuePekka extends VueEnnemi{
-    public VuePekka(Pane pane, Ennemi e) {
-        super(pane, e, "pekka_Coc.png");
+public class VueGolem2 extends VueEnnemi{
+    public VueGolem2(Pane pane, Ennemi e) {
+        super(pane, e, "golem_Coc.png");
     }
 }
