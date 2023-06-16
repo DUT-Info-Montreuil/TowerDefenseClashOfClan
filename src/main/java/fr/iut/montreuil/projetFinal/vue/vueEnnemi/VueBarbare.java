@@ -5,6 +5,6 @@ import javafx.scene.layout.Pane;
 
 public class VueBarbare extends VueEnnemi {
     public VueBarbare(Pane pane, Ennemi e) {
-        super(pane, e, "barbareV.png");
+        super(pane, e, "barbareV.jpeg");
     }
 }
